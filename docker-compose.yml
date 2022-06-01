@@ -25,14 +25,14 @@ services:
         - ujere_net  
   web:
     build: ./web
-    container_name: 'react app'
+    container_name: 'reactapp'
     ports:
         - 80:8080
     networks:
         - ujere_net   
   server:
     build: ./server
-    container_name: 'server app'
+    container_name: 'serverapp'
     ports:
         - 9000:9000
     networks:
