@@ -1,0 +1,42 @@
+version: "3.3"
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    hostname: rabmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=ujere
+      - RABBITMQ_DEFAULT_PASS=123456
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - "/var/lib/rabbitmq/mnesia/" 
+    networks:
+        - ujere_net      
+  database:
+    image: mongo:latest
+    container_name: 'mongodb'
+    ports:
+        - 27017:27017
+    volumes:
+        - "/data/db"
+    networks:
+        - ujere_net  
+  web:
+    build: ./web
+    container_name: 'react app'
+    ports:
+        - 80:80
+    networks:
+        - ujere_net   
+  server:
+    build: ./server
+    container_name: 'server app'
+    ports:
+        - 9000:9000
+    networks:
+        - ujere_net                        
+networks:
+  ujere_net:
+    driver: bridge          

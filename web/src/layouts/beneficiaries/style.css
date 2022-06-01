@@ -1,0 +1,14 @@
+@keyframes flickr {
+    0%   {background-color: #d6d6d6;}
+    100%  {background-color: #24c005;}
+   
+  }
+
+  .flickr {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    animation-name: flickr;
+    animation-duration: 2000ms;
+    animation-iteration-count: infinite;
+  }
