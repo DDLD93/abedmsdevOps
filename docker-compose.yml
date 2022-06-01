@@ -23,13 +23,13 @@ services:
         - "/data/db"
     networks:
         - ujere_net  
-  web:
-    build: ./web
-    container_name: 'reactapp'
-    ports:
-        - 80:8080
-    networks:
-        - ujere_net   
+  # # web:
+  #   build: ./web
+  #   container_name: 'reactapp'
+  #   ports:
+  #       - 80:8080
+  #   networks:
+  #       - ujere_net   
   server:
     build: ./server
     depends_on:
@@ -37,7 +37,7 @@ services:
       - rabbitmq
     container_name: 'serverapp'
     ports:
-        - 9000:9000
+        - 80:9000
     networks:
         - ujere_net                        
 networks:
