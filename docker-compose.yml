@@ -32,6 +32,9 @@ services:
         - ujere_net   
   server:
     build: ./server
+    depends_on:
+      - database
+      - rabbitmq
     container_name: 'serverapp'
     ports:
         - 9000:9000
