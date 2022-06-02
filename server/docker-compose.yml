@@ -23,13 +23,13 @@ services:
         - "/data/db"
     networks:
         - ujere_net  
-  # web:
-  #   image: mongo:4.1.8-xenial
-  #   container_name: 'mongodb'
-  #   ports:
-  #       - 80:80
-  #   networks:
-  #       - ujere_net                    
+  web:
+    build: .
+    container_name: 'webServer'
+    ports:
+        - 80:9000
+    networks:
+        - ujere_net                    
 networks:
   ujere_net:
     driver: bridge          

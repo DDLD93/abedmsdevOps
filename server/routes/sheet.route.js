@@ -76,7 +76,7 @@ module.exports = (express, UPLOADS) => {
           res.status(500).json(status.error);
         }
       });
-      api.post("/approve",Staff, async (req, res) => {
+      api.post("/approve",Qa, async (req, res) => {
         let {sheetId,status}= req.body
         let user = req.user
         let resp = await sheetCtrl.updateSheet(sheetId,{status:status,approvedBy:{

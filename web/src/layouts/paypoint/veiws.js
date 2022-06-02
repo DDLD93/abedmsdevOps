@@ -27,9 +27,9 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    minHeight:400,
+    minHeight: 400,
     maxWidth: 400,
-    width:600,
+    width: 600,
     bgcolor: 'background.paper',
     boxShadow: 24,
     pt: 1,
@@ -72,7 +72,7 @@ export default function ViewsBox(prop) {
   const [ward, setWard] = React.useState(null)
   const [state, setState] = React.useState("");
   const [button, setButton] = React.useState(false)
-  const {user} = React.useContext(StateContext)
+  const { user } = React.useContext(StateContext)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -100,24 +100,25 @@ export default function ViewsBox(prop) {
   };
   function getLGAs() {
     fetch(`${config.EndPionts}/beneficiaries/lga/${state}`).
-    then(res=>(res.json())).
-    then(list =>{
-      setLgaList(list)
-    }) 
+      then(res => (res.json())).
+      then(list => {
+        setLgaList(list)
+      })
   }
   function getWards() {
     fetch(`${config.EndPionts}/beneficiaries/ward/${lga}`).
-    then(res=>(res.json())).
-    then(list =>{
-      setWardList(list)
-    }) 
+      then(res => (res.json())).
+      then(list => {
+        console.log("warddddds>>> ", list)
+        setWardList(list)
+      })
   }
   function add() {
-  
-    }
+
+  }
 
   React.useEffect(() => {
-    if ( !phone ) {
+    if (!phone) {
       setButton(true)
     } else {
       setButton(false)
@@ -127,6 +128,9 @@ export default function ViewsBox(prop) {
   React.useLayoutEffect(() => {
     getLGAs()
   }, [state])
+  React.useLayoutEffect(() => {
+    getWards()
+  }, [lga])
 
 
   return (
@@ -147,40 +151,43 @@ export default function ViewsBox(prop) {
         <Fade in={open}>
           <Box container sx={style.modal}>
             <Typography sx={{ mb: 1 }} fontSize="15px" textAlign="start" variant="p" component="p">
-              Basic Info
+              {prop.terminal}
             </Typography>
-            <Grid  gap={2.4} container>
+            <Typography sx={{ mb: 1 }} fontSize="15px" textAlign="start" variant="p" component="p">
+              {prop.location}
+            </Typography>
+            <Grid gap={2.4} container>
               <Grid flexWrap="nowrap" container gap={2} >
-              <TextField label="Total beneficiaries" type="number" size='small' />
-              <TextField label="Total wards" type="number" size='small' />
+                <TextField label="Total beneficiaries" type="number" size='small' />
+                <TextField label="Total wards" type="number" size='small' />
 
               </Grid>
               <Grid flexWrap="nowrap" alignItems="center" container gap={1} item sm={12} >
 
                 <TextField
                   select
-                  sx={{minWidth:100}}
+                  sx={{ minWidth: 100 }}
                   label="State"
                   value={state}
-                  onChange={(e) => {setState(e.target.value)}}
+                  onChange={(e) => { setState(e.target.value) }}
                   size='small'
                   defaultValue={""}
                   SelectProps={{
                     native: true,
                   }}
                 >
-                  {user.states.map((option) => (
-                    <option key={option.value} value={option}>
+                  {user.pspInfo.states && user.pspInfo.states.map((option, index) => (
+                    <option key={index} value={option}>
                       {option}
                     </option>
                   ))}
                 </TextField>
                 <TextField
                   select
-                  sx={{minWidth:100}}
+                  sx={{ minWidth: 100 }}
                   label="LGA"
                   value={lga}
-                  onChange={(e) => setState(e.target.value)}
+                  onChange={(e) => setLga(e.target.value)}
                   size='small'
                   SelectProps={{
                     native: true,
@@ -194,10 +201,10 @@ export default function ViewsBox(prop) {
                 </TextField>
                 <TextField
                   select
-                  sx={{minWidth:100}}
+                  sx={{ minWidth: 100 }}
                   label="Ward"
                   value={ward}
-                  onChange={(e) => setState(e.target.value)}
+                  onChange={(e) => setWard(e.target.value)}
                   size='small'
                   SelectProps={{
                     native: true,
@@ -211,9 +218,16 @@ export default function ViewsBox(prop) {
                 </TextField>
                 <AddCircleIcon
                   color='primary'
+                  sx={{ cursor: "pointer" }}
                   onClick={add} />
               </Grid>
             </Grid>
+            <div style={{ display: "flex", gap: "2px" }} >
+              <div style={{ height: "30px", width: "60px", backgroundColor: "lightgreen", fontSize: "14px", padding: "2px" }}>kabala 2</div>
+              <div style={{ height: "30px", width: "60px", backgroundColor: "lightgreen", fontSize: "14px", padding: "2px" }}>kabala 2</div>
+              <div style={{ height: "30px", width: "60px", backgroundColor: "lightgreen", fontSize: "14px", padding: "2px" }}>kabala 2</div>
+              <div style={{ height: "30px", width: "60px", backgroundColor: "lightgreen", fontSize: "14px", padding: "2px" }}>kabala 2</div>
+            </div>
             <MDButton disabled={button} onClick={submit} sx={{ mt: 4 }} size="small" fullWidth={true} variant="gradient" color="primary" >Assign</MDButton>
           </Box>
         </Fade>

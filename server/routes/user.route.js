@@ -36,6 +36,15 @@ module.exports = (express, UPLOADS) => {
       res.status(500).json(status.error);
     }
   });
+  api.get("/psp", async (req, res) => {
+    let status = await userCtrl.getPspUsers();
+    if (status.ok) {
+      if (status.users) return res.status(200).json(status.users);
+      res.status(200).json([]);
+    } else {
+      res.status(500).json(status.error);
+    }
+  });
 
   api.get("/bypsp", async (req, res) => {
     let company = req.user.company
@@ -64,6 +73,7 @@ module.exports = (express, UPLOADS) => {
     let data = req.body
     // bcrypt.hash(data)
     // await bcrypt.hash(data.password, 10,)
+    console.log(data)
     try {
       const status = await userCtrl.registerUser(data)
       if (status.ok) {
@@ -120,6 +130,17 @@ module.exports = (express, UPLOADS) => {
     let status = await userCtrl.updateUser(id, body)
     if (status.ok) {
       res.status(200).json(status.user);
+    } else {
+      res.status(500).json(status.error);
+    }
+  });
+  api.patch("/funds/:id", async (req, res) => {
+    let {id} = req.params
+    let {amount} = req.body
+    console.log(req.body)
+    let status = await userCtrl.addFunds(id,amount)
+    if (status.ok) {
+      res.status(201).json(status.psp);
     } else {
       res.status(500).json(status.error);
     }

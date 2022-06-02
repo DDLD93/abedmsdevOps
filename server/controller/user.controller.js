@@ -12,6 +12,14 @@ class UserController{
       return {ok:false,error:err};
     }
   }
+  async getPspUsers(){
+    try {
+      const users = await User.find({userType:"psp"});
+      return {ok:true, users};
+    } catch (err) {
+      return {ok:false,error:err};
+    }
+  }
   async getUsersByCompany(cpy){
     try {
       const users = await User.find({company:cpy});
@@ -54,6 +62,21 @@ class UserController{
     try {
       const updatedUser = await User.findByIdAndUpdate(id, newData, {multi:false, new:true});
       return {ok:true, user:updatedUser};
+    } catch (err) {
+      return {ok:false,error:err};
+    }
+  }
+  async addFunds(id,amount){
+    try {
+    let psp = await User.findByIdAndUpdate(id,{
+      $inc:{
+        pspInfo:{
+          disbursment: amount
+        }
+      }
+  },{ new: true })
+
+      return {ok:true, psp};
     } catch (err) {
       return {ok:false,error:err};
     }

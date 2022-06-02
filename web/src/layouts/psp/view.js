@@ -56,7 +56,7 @@ const MenuProps = {
 };
 function addMoney() {
   setButton(true)
-  fetch(`${config.EndPionts}/psp/${prop.id}`,{
+  fetch(`${config.EndPionts}/user/funds/${prop.id}`,{
     method:"PATCH",
     headers: {
       "Content-Type": "application/json",

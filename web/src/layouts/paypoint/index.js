@@ -73,7 +73,10 @@ function PaypointList() {
                                 <IconButton size="small" aria-label="delete">
                                     <BlockIcon />
                                 </IconButton>
-                              <ViewsBox  />
+                              <ViewsBox
+                              terminal={obj.fullName}
+                              location={obj.location}
+                                />
                             </MDBox>
                         ),
 

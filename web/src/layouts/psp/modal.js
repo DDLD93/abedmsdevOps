@@ -125,12 +125,16 @@ export default function ModalBox(prop) {
 
   const submit = () => {
     const data = {
-      name,
+      fullName:name,
       phone,
+      password:123456,
       email,
-      states:stateName,
+      userType:"psp",
+      pspInfo:{states:stateName
+      },
+      
     }
-    fetch(`${config.EndPionts}/psp`, {
+    fetch(`${config.EndPionts}/user/register`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'

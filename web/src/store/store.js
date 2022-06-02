@@ -51,9 +51,10 @@ export default function StateContextProvider({ children }) {
     }
     
     const fetchpsp = () => {
-        fetch(`${config.EndPionts}/psp/`)
+        fetch(`${config.EndPionts}/user/psp`)
             .then(res => res.json())
             .then(response => {
+                console.log("psp response >>>>>", response)
                 setpsp(response)
             })
     }          

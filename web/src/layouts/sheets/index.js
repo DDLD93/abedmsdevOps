@@ -38,7 +38,7 @@ function Sheets() {
     const [importCondition, setimportCondition] = useState(false)
     const [rows, setrows] = useState([])
     const [batch, setbatch] = useState([])
-    const { batchList, token,notification } = useContext(StateContext)
+    const { batchList, token,notification,user } = useContext(StateContext)
 
     const fetchSheet = () => {
         let url = `${config.EndPionts}/sheet/`
@@ -82,7 +82,7 @@ function Sheets() {
                         ),
                         action: (
                             <MDBox sx={{ display: "flex" }} ml={-1}>
-                                <SheetPreview
+                                {user.userType ==="qa"&&<SheetPreview
                                 refresh={fetchSheet}
                                 id={obj._id}
                                 code={obj.code}
@@ -92,14 +92,14 @@ function Sheets() {
                                 uploadBy={obj.uploadedBy && obj.uploadedBy.fullName}
                                 timestamps={obj.createdAt}
                                 status={obj.status}
-                                />
-                                <DeleteModal
+                                />}
+                                {user.userType ==="staff"&&<DeleteModal
                                     id={obj._id}
                                     reFetch={() => {
                                         let idx = e.target.parentElement.id
                                         setrows(rows.filter((item, index) => index != idx))
                                     }}
-                                />
+                                />}
                             </MDBox>
                         ),
                     }
@@ -156,7 +156,7 @@ function Sheets() {
                 ),
                 status: (
                     <MDBox ml={-1}>
-                        <MDBadge badgeContent={obj.status} color={obj.status == "valid" ? "success" : "error"} variant="gradient" size="sm" />
+                        <MDBadge badgeContent={obj.status} color={obj.status == "valid" ? "success" : obj.status == "processing"?"warning":"error"} variant="gradient" size="sm" />
                     </MDBox>
                 ),
                 action: (
@@ -200,7 +200,7 @@ return (
             <Grid container flexDirection={"column"} spacing={0}>
                 <Grid item xs={12}>
                     <Card>
-                        <Grid container sx={{ alignItems: "flex-end", justifyContent: "flex-end", gap: 2 }} >
+                       {user.userType ==="staff"&& <Grid container sx={{ alignItems: "flex-end", justifyContent: "flex-end", gap: 2 }} >
                             {/* <TextField
                                 select
                                 label="Batch"
@@ -223,7 +223,7 @@ return (
                                 Upload
                             </MDButton>
 
-                        </Grid>
+                        </Grid>}
                         <MDBox pt={3}>
                             <DataTable
                                 table={{ columns, rows }}
