@@ -3,9 +3,9 @@ const beneficiaryCtrl = require("./controller/beneficiaries.controller")
 const batchCtrl = require("./controller/batch.controller")
 const sheetCtrl = require("./controller/sheet.controller")
 module.exports = () => {
+  console.log("worker started >>>>>>")
 
   broker.getMsg(async (msg) => {
-    console.log("worker started")
     let data = JSON.parse(msg.content.toString())
   
     const list = data.message.map(field => {
