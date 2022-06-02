@@ -1,8 +1,6 @@
 const config = require("./config");
 const broker = require("./rabbitmq.connection")
 const axios = require('axios').default;
-  console.log("worker started >>>>>>")
-var error = ""
   broker.getMsg(async (msg) => {
     let data = JSON.parse(msg.content.toString())
    

@@ -30,7 +30,7 @@ services:
   #       - 80:8080
   #   networks:
   #       - ujere_net   
-  server:
+  backend:
     build: ./server
     depends_on:
       - database
@@ -45,7 +45,7 @@ services:
     depends_on:
       - database
       - rabbitmq
-      - server
+      - backend
     container_name: 'sheetworker'
     networks:
         - ujere_net                         

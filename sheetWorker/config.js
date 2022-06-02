@@ -1,3 +1,3 @@
 module.exports={
-    endPoint:"http://server:9000/api"
+    endPoint:"http://backend:9000/api"
 }
