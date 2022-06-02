@@ -5,8 +5,9 @@ const sheetCtrl = require("./controller/sheet.controller")
 module.exports = () => {
 
   broker.getMsg(async (msg) => {
+    console.log("worker started")
     let data = JSON.parse(msg.content.toString())
-    const error = []
+  
     const list = data.message.map(field => {
       return {
         serialNo: field.B,
@@ -22,10 +23,12 @@ module.exports = () => {
         sheetCode: data.code
       }
     })
+    console.log("list >>>>>>>", list)
     list.forEach(async (li) => {
       try {
 
         let response = await beneficiaryCtrl.addBeneficiaries(li)
+        console.log("responsess from iteration>>>> ",response)
         if(response.ok == false) error.push(1)
        console.log(error.length)
         
