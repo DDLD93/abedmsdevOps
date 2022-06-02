@@ -30,13 +30,13 @@ class RabbitMQConnection {
             console.error(err)
         }
     }
-    async getMsg(handler) {
-        if (!this.connection) await this.#init()
-        try {
-            this.channel.consume(q,handler)
-        } catch (err) {
-            console.error(err)
-        }
-    }
+    // async getMsg(handler) {
+    //     if (!this.connection) await this.#init()
+    //     try {
+    //         this.channel.consume(q,handler)
+    //     } catch (err) {
+    //         console.error(err)
+    //     }
+    // }
 }
 module.exports = new RabbitMQConnection()

@@ -14,22 +14,22 @@ services:
         - "/var/lib/rabbitmq/mnesia/" 
     networks:
         - ujere_net      
-  database:
-    image: mongo
-    container_name: 'mongodb'
-    ports:
-        - 27017:27017
-    volumes:
-        - "/data/db"
-    networks:
-        - ujere_net  
-  web:
-    build: .
-    container_name: 'webServer'
-    ports:
-        - 80:9000
-    networks:
-        - ujere_net                    
+  # database:
+  #   image: mongo
+  #   container_name: 'mongodb'
+  #   ports:
+  #       - 27017:27017
+  #   volumes:
+  #       - "/data/db"
+  #   networks:
+  #       - ujere_net  
+  # web:
+  #   build: .
+  #   container_name: 'webServer'
+  #   ports:
+  #       - 80:9000
+  #   networks:
+  #       - ujere_net                    
 networks:
   ujere_net:
     driver: bridge          

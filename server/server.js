@@ -25,8 +25,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 //intitializing body parser
 app.use(express.json())
-// connecting to database 
-require("./worker")()
+// connecting to databas
 app.use(express.static("build"));
 app.use("/api/batch", require("./routes/batch.route")(express,UPLOADS));
 app.use("/api/psp", require("./routes/psp.route")(express,UPLOADS));

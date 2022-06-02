@@ -65,6 +65,16 @@ module.exports = (express, UPLOADS) => {
            res.status(500).json(status.error);
          }
        });
+       api.patch("/que/update/:id", async (req, res) => {
+         let {obj} = req.body
+         let {id} = req.params
+        let status = await sheetCtrl.updateSheet(id,obj)
+        if (status.ok) {
+          res.status(200).json(status.sheets);
+        } else {
+          res.status(500).json(status.error);
+        }
+      });
        api.delete("/:id", async (req, res) => {
            let {id} = req.params;
         let status = await sheetCtrl.deleteSheet(id)

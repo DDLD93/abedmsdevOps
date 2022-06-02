@@ -37,9 +37,18 @@ services:
       - rabbitmq
     container_name: 'serverapp'
     ports:
-        - 80:9000
+        - 9000:9000
     networks:
-        - ujere_net                        
+        - ujere_net    
+  worker:
+    build: ./sheetWorker
+    depends_on:
+      - database
+      - rabbitmq
+      - server
+    container_name: 'sheetworker'
+    networks:
+        - ujere_net                         
 networks:
   ujere_net:
     driver: bridge          

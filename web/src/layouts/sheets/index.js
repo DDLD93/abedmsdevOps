@@ -95,10 +95,7 @@ function Sheets() {
                                 />}
                                 {user.userType ==="staff"&&<DeleteModal
                                     id={obj._id}
-                                    reFetch={() => {
-                                        let idx = e.target.parentElement.id
-                                        setrows(rows.filter((item, index) => index != idx))
-                                    }}
+                                    refresh={fetchSheet}
                                 />}
                             </MDBox>
                         ),

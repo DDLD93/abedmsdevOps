@@ -1,12 +1,11 @@
-const broker = require("./connection/rabbitmq.connection")
-const beneficiaryCtrl = require("./controller/beneficiaries.controller")
-const batchCtrl = require("./controller/batch.controller")
-const sheetCtrl = require("./controller/sheet.controller")
-module.exports = () => {
+const config = require("./config");
+const broker = require("./rabbitmq.connection")
+const axios = require('axios').default;
   console.log("worker started >>>>>>")
-
+var error = ""
   broker.getMsg(async (msg) => {
     let data = JSON.parse(msg.content.toString())
+   
   
     const list = data.message.map(field => {
       return {
@@ -23,22 +22,17 @@ module.exports = () => {
         sheetCode: data.code
       }
     })
-    console.log("list >>>>>>>", list)
+    
     list.forEach(async (li) => {
       try {
-
-        let response = await beneficiaryCtrl.addBeneficiaries(li)
-        console.log("responsess from iteration>>>> ",response)
-        if(response.ok == false) error.push(1)
-       console.log(error.length)
-        
+        const url = `${config.endPoint}/beneficiaries/que/add`
+        await axios.post(url,li);
       } catch (err) {
-        console.log(err)
+        console.log("error you probaly abort")
       }
     })
     let total = Number(data.message.length)
     let invalid = Number(error.length)
-    console.log("last log>>>> ",invalid)
     let dataObj = {
       valid: total - error,
       invalid,
@@ -48,9 +42,14 @@ module.exports = () => {
       },
       status:"awaiting Approval",
     }
-    console.log(dataObj)
-    await sheetCtrl.updateSheet(data.id, dataObj)
-    broker.channel.ack(msg)
+    //console.log(dataObj)
+    try {
+      const url = `${config.endPoint}/sheet/que/update/${data.id}`
+      await axios.patch(url,dataObj);
+    } catch (err) {
+      console.log("error you need abort", err.message)
+    }
+   // await sheetCtrl.updateSheet(data.id, dataObj)
+    //broker.channel.ack(msg)
 
   })
-}

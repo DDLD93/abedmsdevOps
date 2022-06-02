@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const beneficiarySchema = new Schema({
   fullName: { type: String, },
+  serialNo:{type:Number},
   batch: { type: String },
   age: { type: String },
   gender: { type: String },
