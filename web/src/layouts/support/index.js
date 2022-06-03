@@ -9,7 +9,8 @@ function Support() {
         <DashboardLayout>
             <DashboardNavbar />
             <MDBox sx={{ display: "flex", justifyContent: "center", alignItems: "center" }} pt={6} pb={3}>
-                <Paper sx={{ width: 400, height: 350, p: 2, display: "flex", flexDirection: "column", gap: 2, justifyContent:"center"}} elevation={3} >
+                <Paper sx={{ width: 400, height: 350, p: 2, display: "flex", flexDirection: "column", gap: 2, alignItems:"center"}} elevation={3} >
+                    <h5>Message Center</h5>
                     <TextField
                         label="Full Name"
                         sx={{ width: 300 }}
@@ -31,7 +32,7 @@ function Support() {
                         }}
                         size='small'
                     >
-                        {[].map((option, index) => (
+                        {["","Technician","Administrator","Staff"].map((option, index) => (
                             <option key={index} value={option}>
                                 {option}
                             </option>
@@ -43,7 +44,7 @@ function Support() {
                         sx={{ width: 300, height: 150 }}
                         size='small'
                     />
-                    <Button variant='contained' >Send</Button>
+                    <Button variant='standard' color='primary' >Send</Button>
 
                 </Paper>
 

@@ -33,14 +33,43 @@ function LiveData() {
     const [data2, setdata2] = useState([])
     const data = [
         ["Name", "Disbursement by state"],
-        ["Michael", 100],
-        ["Elisa", 20],
-        ["Robert", 7],
-        ["John", 54],
-        ["Jessica", 22],
-        ["Aaron", 3],
-        ["Margareth", 42],
-        ["Miranda", 70],
+            ["abia",10],
+            ["adamawa",10],
+            ["akwa Ibom",10],
+            ["anambra",10],
+            ["bauchi",10],
+            ["bayelsa",10],
+            ["benue",10],
+            ["borno",10],
+            ["cross River",10],
+            ["delta",10],
+            ["ebonyi",10],
+            ["edo",10],
+            ["ekiti",10],
+            ["enugu",10],
+            ["abuja",10],
+            ["gombe",10],
+            ["imo",10],
+            ["jigawa",10],
+            ["kaduna",10],
+            ["kano",10],
+            ["katsina",10],
+            ["kebbi",10],
+            ["kogi",10],
+            ["kwara",10],
+            ["lagos",10],
+            ["nasarawa",10],
+            ["niger",10],
+            ["ogun",10],
+            ["ondo",10],
+            ["osun",10],
+            ["oyo",10],
+            ["plateau",10],
+            ["rivers",5000],
+            ["sokoto",10],
+            ["taraba",10],
+            ["yobe",10],
+            ["zamfara",10000]
     ];
     const fetchStats =()=>{
         fetch(`${config.EndPionts}/analytics`).
@@ -198,7 +227,7 @@ function LiveData() {
                     <Chart
                         chartType="PieChart"
                         data={data}
-                        options={{title: "Age Distribution"}}
+                        options={{title: "State Distribution"}}
                         width={"475px"}
                         height={"400px"}
                     />

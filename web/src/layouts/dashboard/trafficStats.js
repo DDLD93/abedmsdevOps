@@ -38,7 +38,7 @@ function TrafficStats(prop) {
   const handleClose = () => setOpen(false);
   return (
     <div>
-      <MDBox onClick={() => setOpen(true)} mb={1.5}>
+      <MDBox onClick={() => console.log("first")} mb={1.5}>
         <ComplexStatisticsCard
            color="dark"
            icon="traffic_icon"

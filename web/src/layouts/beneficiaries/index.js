@@ -222,7 +222,7 @@ function Beneficiaries() {
                                                 </option>
                                             ))} 
                                         </TextField>                                        
-                                        <TextField sx={{ width: 200, ml: 4 }} placeholder="Name Phone BVN NIN" size="small" label="Search" />
+                                        <TextField sx={{ width: 200, ml: 4 }} placeholder="Name Phone ID Number" size="small" label="Search" />
 
 
                                     </Grid>
