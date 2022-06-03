@@ -9,7 +9,7 @@ function Support() {
         <DashboardLayout>
             <DashboardNavbar />
             <MDBox sx={{ display: "flex", justifyContent: "center", alignItems: "center" }} pt={6} pb={3}>
-                <Paper sx={{ width: 400, height: 350, p: 2, display: "flex", flexDirection: "column", gap: 2 }} elevation={3} >
+                <Paper sx={{ width: 400, height: 350, p: 2, display: "flex", flexDirection: "column", gap: 2, justifyContent:"cent"}} elevation={3} >
                     <TextField
                         label="Full Name"
                         sx={{ width: 300 }}
