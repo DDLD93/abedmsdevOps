@@ -149,7 +149,6 @@ export default function App() {
       <Routes>
         {getRoutes(paths)}
         <Route path="*" element={<Navigate to="/" />} />
-        <Route path="/login" element={<Navigate to="/login" />} />
       </Routes>
     </>
   </ThemeProvider>)

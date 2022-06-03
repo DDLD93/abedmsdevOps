@@ -25,7 +25,7 @@ async function Staff (req, res, next) {
             if(!err) {
                 req.user = response
                 console.log(response)
-                if (req.user.userType != "staff") return res.status(403).send("Access denied. invalid user type");
+                if (req.user.userType != "admin") return res.status(403).send("Access denied. invalid user type");
                 next();
             }else{
                 console.log(err)
@@ -41,7 +41,7 @@ async function Staff (req, res, next) {
             if(!err) {
                 req.user = response
                 console.log(response)
-                if (req.user.userType != "qa") return res.status(403).send("Access denied. invalid user type");
+                if (req.user.userType != "admin") return res.status(403).send("Access denied. invalid user type");
                 next();
             }else{
                 console.log(err)

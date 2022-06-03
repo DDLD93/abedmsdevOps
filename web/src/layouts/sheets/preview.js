@@ -67,13 +67,25 @@ export default function SheetPreview(prop) {
         })
     }
     const descriptionElementRef = React.useRef(null);
-    const result = excelToJson({
-        source: `${config.EndPionts}/uploads/5de5da118fee4ae7923b2e77a7dec173.xlsx`,
-        header: {
-          rows: 4,
-        }
-      });
-      console.log(result)
+    async function createFile(){
+        let response = await fetch('http://localhost:9000/api/uploads/bafb51012d574c8ab33687fb9bfd5414.xlsx');
+        let data = await response.blob();
+        let metadata = {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        };
+        let file = new File([data], "temp.xlsx", metadata);
+        // ... do something with the file or return it
+        const result = excelToJson({
+            sourceFile: file,
+            header: {
+              rows: 4,
+            }
+          });
+          console.log(result)
+     }
+      React.useEffect(() => {
+        createFile()
+      }) 
     React.useEffect(() => {
         if (open) {
             const { current: descriptionElement } = descriptionElementRef;

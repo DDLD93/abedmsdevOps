@@ -60,6 +60,7 @@ import Reports from "layouts/report";
 import LiveData from "layouts/live-data";
 import PaypointList from "layouts/paypoint";
 import BasicPSPLogin from "layouts/authentication/sign-in-psp";
+import Support from "layouts/support";
 const psp = [
   {
     type: "collapse",
@@ -216,6 +217,14 @@ const qa = [
   },
   {
     type: "collapse",
+    name: "Beneficiaries",
+    key: "beneficiaries",
+    icon: <Icon fontSize="small">people_icon</Icon>,
+    route: "/beneficiaries",
+    component: <Beneficiaries />,
+  },
+  {
+    type: "collapse",
     name: "Reports",
     key: "Reports",
     icon: <Icon fontSize="small">login</Icon>,
@@ -296,6 +305,14 @@ const admin = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "Live-Data",
     component: <LiveData />,
+  },
+  {
+    type: "collapse",
+    name: "Support",
+    key: "Support",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/Support",
+    component: <Support />,
   },
 ];
 const coordinator = [

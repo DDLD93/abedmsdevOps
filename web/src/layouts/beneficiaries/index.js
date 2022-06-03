@@ -16,15 +16,13 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 
 
-import MDAvatar from "components/MDAvatar";
 import MDBadge from "components/MDBadge";
 import { useContext, useEffect, useState } from "react";
 import ModalBox from "./modal";
 import { TextField } from "@mui/material";
 import { StateContext } from "../../store/store"
-import Info from "./info";
-import config from "../../config"
-import ModalStepper from "./modalStepper";
+
+import Profile from "./preview";
 
 
 
@@ -77,8 +75,8 @@ function Beneficiaries() {
                         //     </MDBox>
                         // ),
                         capture: (
-                            <MDBox sx={{display:"flex"}} ml={-1}>
-                                    {/* <Info
+                            <MDBox sx={{display:"flex"}} ml={-1}>                                  
+                                    <Profile
                                     code={obj.code}
                                     status={obj.status}
                                     payment={obj.isPayment}
@@ -97,9 +95,6 @@ function Beneficiaries() {
                                     ward={obj.ward}                
                                     idType={obj.identification && obj.identification.type}
                                     idNo={obj.identification && obj.identification.idNo}
-                                    /> */}
-                                    <ModalStepper
-                                    user={obj}
                                     />
                             </MDBox>
                         ),
@@ -109,43 +104,43 @@ function Beneficiaries() {
   
     const stateList = [
         "",
-        "Abia",
-        "Adamawa",
-        "Akwa Ibom",
-        "Anambra",
-        "Bauchi",
-        "Bayelsa",
-        "Benue",
-        "Borno",
-        "Cross River",
-        "Delta",
-        "Ebonyi",
-        "Edo",
-        "Ekiti",
-        "Enugu",
-        "FCT - Abuja",
-        "Gombe",
-        "Imo",
-        "Jigawa",
-        "Kaduna",
-        "Kano",
-        "Katsina",
-        "Kebbi",
-        "Kogi",
-        "Kwara",
-        "Lagos",
-        "Nasarawa",
-        "Niger",
-        "Ogun",
-        "Ondo",
-        "Osun",
-        "Oyo",
-        "Plateau",
-        "Rivers",
-        "Sokoto",
-        "Taraba",
-        "Yobe",
-        "Zamfara"
+        "abia",
+        "adamawa",
+        "akwa Ibom",
+        "anambra",
+        "bauchi",
+        "bayelsa",
+        "benue",
+        "borno",
+        "cross River",
+        "delta",
+        "ebonyi",
+        "edo",
+        "ekiti",
+        "enugu",
+        "abuja",
+        "gombe",
+        "imo",
+        "jigawa",
+        "kaduna",
+        "kano",
+        "katsina",
+        "kebbi",
+        "kogi",
+        "kwara",
+        "lagos",
+        "nasarawa",
+        "niger",
+        "ogun",
+        "ondo",
+        "osun",
+        "oyo",
+        "plateau",
+        "rivers",
+        "sokoto",
+        "taraba",
+        "yobe",
+        "zamfara"
       ]
     const columns = [
         { Header: "Name", accessor: "author", width: "25%", align: "left" },
@@ -178,7 +173,7 @@ function Beneficiaries() {
                                     <Grid container sx={{ justifyContent: "center", gap: 3 }} >
                                         <TextField
                                             select
-                                            label="Batch"
+                                            label="State"
                                             sx={{ width: 100 }}
                                             value={batch}
                                             onChange={(e) => setbatch(e.target.value)}
@@ -187,15 +182,15 @@ function Beneficiaries() {
                                             }}
                                             size='small'
                                         >
-                                            {batchList.map((option) => (
-                                                <option key={option.value} value={option.value}>
-                                                    {option.code}
+                                            {stateList.map((option, index) => (
+                                                <option key={index} value={option}>
+                                                    {option}
                                                 </option>
                                             ))}
                                         </TextField>  
                                         <TextField
                                             select
-                                            label="Status"
+                                            label="LGAs"
                                             sx={{ width: 100 }}
                                             value={batch}
                                             onChange={(e) => setbatch(e.target.value)}
@@ -204,7 +199,7 @@ function Beneficiaries() {
                                             }}
                                             size='small'
                                         >
-                                            {["All","Procssing","Awaiting Payment","Paid"].map((option) => (
+                                            {[].map((option) => (
                                                 <option key={option} value={option}>
                                                     {option}
                                                 </option>
@@ -212,7 +207,7 @@ function Beneficiaries() {
                                         </TextField>                                       
                                         <TextField
                                             select
-                                            label="State"
+                                            label="Status"
                                             sx={{ width: 100 }}
                                             value={state}
                                             onChange={(e) => setstate(e.target.value)}
@@ -221,7 +216,7 @@ function Beneficiaries() {
                                             }}
                                             size='small'
                                         >
-                                             {stateList.map((option) => (
+                                             {["All","Procssing","Awaiting Payment","Paid"].map((option) => (
                                                 <option key={option} value={option}>
                                                     {option}
                                                 </option>
