@@ -59,7 +59,6 @@ import PSPDashboard from "layouts/pspdashboard";
 import Reports from "layouts/report";
 import LiveData from "layouts/live-data";
 import PaypointList from "layouts/paypoint";
-import BasicPSPLogin from "layouts/authentication/sign-in-psp";
 import Support from "layouts/support";
 const psp = [
   {
