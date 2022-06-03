@@ -26,6 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 //intitializing body parser
 app.use(express.json())
 // connecting to databas
+app.use('/terminal', express.static('buildtwo'))
 app.use(express.static("build"));
 app.use("/api/batch", require("./routes/batch.route")(express,UPLOADS));
 app.use("/api/psp", require("./routes/psp.route")(express,UPLOADS));
