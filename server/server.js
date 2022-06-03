@@ -4,6 +4,7 @@ const PAYMENT = __dirname+'/payment';
 require('./connection/mongodb.connection')();
 const https = require('https')
 const fs = require('fs')
+const path = require('path');
 
 const express = require("express");
 const cors = require('cors');
@@ -26,8 +27,13 @@ app.use(express.urlencoded({ extended: true }));
 //intitializing body parser
 app.use(express.json())
 // connecting to databas
-app.use('/terminal', express.static('buildtwo'))
+
 app.use(express.static("build"));
+app.use(express.static(path.join(__dirname, 'buildtwo')));
+
+app.get('/terminal', function (req, res) {
+  res.sendFile(path.join(__dirname, 'buildtwo', 'index.html'));
+});
 app.use("/api/batch", require("./routes/batch.route")(express,UPLOADS));
 app.use("/api/psp", require("./routes/psp.route")(express,UPLOADS));
 

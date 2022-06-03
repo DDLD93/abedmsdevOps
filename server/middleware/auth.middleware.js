@@ -9,7 +9,7 @@ const config = require("../config");
         const decoded = jwt.verify(token, "hfds6df49dmcv3surkd8rjdfc8fd0e3y");
         req.user = decoded;
         if (!decoded) return res.status(403).send("Access denied.");
-        if (decoded.userType != "admin") return res.status(403).send("Access denied.");
+        //if (decoded.userType != "admin") return res.status(403).send("Access denied.");
         next();
     } catch (error) {
         res.status(400).send("Invalid token");
@@ -25,7 +25,7 @@ async function Staff (req, res, next) {
             if(!err) {
                 req.user = response
                 console.log(response)
-                if (req.user.userType != "admin") return res.status(403).send("Access denied. invalid user type");
+               // if (req.user.userType != "admin") return res.status(403).send("Access denied. invalid user type");
                 next();
             }else{
                 console.log(err)
@@ -41,7 +41,7 @@ async function Staff (req, res, next) {
             if(!err) {
                 req.user = response
                 console.log(response)
-                if (req.user.userType != "admin") return res.status(403).send("Access denied. invalid user type");
+               // if (req.user.userType != "admin") return res.status(403).send("Access denied. invalid user type");
                 next();
             }else{
                 console.log(err)
@@ -57,7 +57,7 @@ async function PSP (req, res, next) {
         const decoded = jwt.verify(token,"hfds6df49dmcv3surkd8rjdfc8fd0e3yhhhjkkkmmkl");
         req.user = decoded;
         if (!decoded) return res.status(403).send("Access denied.");
-        if (decoded.userType != "psp") return res.status(403).send("Access denied.");
+        //if (decoded.userType != "psp") return res.status(403).send("Access denied.");
         //console.log(req.user)
         next();
     } catch (error) {

@@ -51,7 +51,7 @@ function LiveData() {
             ["gombe",10],
             ["imo",10],
             ["jigawa",10],
-            ["kaduna",10],
+            ["kaduna",100],
             ["kano",10],
             ["katsina",10],
             ["kebbi",10],
@@ -65,11 +65,11 @@ function LiveData() {
             ["osun",10],
             ["oyo",10],
             ["plateau",10],
-            ["rivers",5000],
+            ["rivers",50],
             ["sokoto",10],
             ["taraba",10],
             ["yobe",10],
-            ["zamfara",10000]
+            ["zamfara",10]
     ];
     const fetchStats =()=>{
         fetch(`${config.EndPionts}/analytics`).
@@ -192,13 +192,13 @@ function LiveData() {
                             </Grid>
                         </MDBox>
                         <MDBox>
-                            <DataTable
+                            {/* <DataTable
                                 table={{ columns, rows }}
                                 showTotalEntries={false}
                                 isSorted={false}
                                 noEndBorder
                                 entriesPerPage={false}
-                            />
+                            /> */}
                         </MDBox>
                     </Card>
                     <State />
