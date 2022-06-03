@@ -45,10 +45,11 @@ const error = []
     try {
       const url = `${config.endPoint}/sheet/que/update/${data.id}`
       await axios.patch(url,dataObj);
+      broker.channel.ack(msg)
     } catch (err) {
       console.log("error you need abort", err.message)
     }
    // await sheetCtrl.updateSheet(data.id, dataObj)
-    //broker.channel.ack(msg)
+   
 
   })
