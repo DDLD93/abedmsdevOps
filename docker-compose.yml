@@ -40,15 +40,15 @@ services:
         - 80:9000
     networks:
         - ujere_net    
-  # worker:
-  #   build: ./sheetWorker
-  #   depends_on:
-  #     - database
-  #     - rabbitmq
-  #     - backend
-  #   container_name: 'sheetworker'
-  #   networks:
-  #       - ujere_net                         
+  worker:
+    build: ./sheetWorker
+    depends_on:
+      - database
+      - rabbitmq
+      - backend
+    container_name: 'sheetworker'
+    networks:
+        - ujere_net                         
 networks:
   ujere_net:
     driver: bridge          
