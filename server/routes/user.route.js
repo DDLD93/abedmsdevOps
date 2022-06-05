@@ -73,14 +73,10 @@ module.exports = (express, UPLOADS) => {
     let data = req.body
     // bcrypt.hash(data)
     // await bcrypt.hash(data.password, 10,)
-    console.log(data)
     try {
       const status = await userCtrl.registerUser(data)
       if (status.ok) {
-        if (status.user) {
           return res.status(200).json(status.user);
-        }
-
       } else {
         res.status(500).json(status.error);
       }
@@ -137,7 +133,6 @@ module.exports = (express, UPLOADS) => {
   api.patch("/funds/:id", async (req, res) => {
     let {id} = req.params
     let {amount} = req.body
-    console.log(req.body)
     let status = await userCtrl.addFunds(id,amount)
     if (status.ok) {
       res.status(201).json(status.psp);

@@ -15,8 +15,8 @@ Coded by www.creative-tim.com
 
 export default {
   sales: {
-    labels: ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec","Jan"],
-    datasets: { label: "Mobile apps", data: [1, 0, 0, 0, 0, 0, 0, 0, 0] },
+    labels: ["wk1", "wk2", "wk3", "wk4", "wk5", "wk6", "wk8", "wk9","wk10"],
+    datasets: { label: "Payments", data: [, 0, 0, 0, 0, 0, 0, 0, 0] },
   },
   tasks: {
     labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],

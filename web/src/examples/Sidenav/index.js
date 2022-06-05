@@ -46,8 +46,6 @@ import {
   setTransparentSidenav,
   setWhiteSidenav,
 } from "context";
-import { Button } from "@mui/material";
-import { WindowsAuthClient } from "@digitalpersona/devices";
 
 function Sidenav({ color, brand, brandName, routes, ...rest }) {
   const [controller, dispatch] = useMaterialUIController();

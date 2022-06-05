@@ -62,30 +62,30 @@ function PSPDashboard() {
       <MDBox py={3}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={3}>
-          <BeneStats
+          {/* <BeneStats
           title={"Beneficiaries"}
           // count={stats.total}
           // percentage2={stats.paid}
           // percentage1={11}
           // paid= {paid}
           
-          />
+          /> */}
           </Grid>
-           <Grid item xs={12} md={6} lg={3}>
+           {/* <Grid item xs={12} md={6} lg={3}>
             <FundStats/>
-          </Grid>
+          </Grid> */}
           {/* <Grid item xs={12} md={6} lg={3}>
           <StateStats/>
           </Grid> */}
           {/* <Grid item xs={12} md={6} lg={4}>
             <PspStats/>
           </Grid> */}
-          <Grid item xs={12} md={6} lg={3}>
+          {/* <Grid item xs={12} md={6} lg={3}>
             <TrafficStats/>
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <UserStats/>
-          </Grid>
+          </Grid> */}
           {/* <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
@@ -127,7 +127,7 @@ function PSPDashboard() {
             </MDBox>
           </Grid> */}
         </Grid>
-        <MDBox mt={4.5}>
+        {/* <MDBox mt={4.5}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={6}>
               <MDBox mb={3}>
@@ -156,7 +156,7 @@ function PSPDashboard() {
               </MDBox>
             </Grid>
           </Grid>
-        </MDBox>
+        </MDBox> */}
         {/* <MDBox>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={8}>

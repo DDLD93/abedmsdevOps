@@ -76,6 +76,7 @@ function PaypointList() {
                               <ViewsBox
                               terminal={obj.fullName}
                               location={obj.location}
+                              id={obj._id}
                                 />
                             </MDBox>
                         ),
@@ -94,6 +95,46 @@ function PaypointList() {
             <MDTypography variant="caption">{description}</MDTypography>
         </MDBox>
     );
+    const stateList = [
+        "",
+        "abia",
+        "adamawa",
+        "akwa Ibom",
+        "anambra",
+        "bauchi",
+        "bayelsa",
+        "benue",
+        "borno",
+        "cross River",
+        "delta",
+        "ebonyi",
+        "edo",
+        "ekiti",
+        "enugu",
+        "abuja",
+        "gombe",
+        "imo",
+        "jigawa",
+        "kaduna",
+        "kano",
+        "katsina",
+        "kebbi",
+        "kogi",
+        "kwara",
+        "lagos",
+        "nasarawa",
+        "niger",
+        "ogun",
+        "ondo",
+        "osun",
+        "oyo",
+        "plateau",
+        "rivers",
+        "sokoto",
+        "taraba",
+        "yobe",
+        "zamfara"
+      ]
 
     const columns = [
         { Header: "Name", accessor: "name", align: "left" },

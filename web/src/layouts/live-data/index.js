@@ -51,7 +51,7 @@ function LiveData() {
             ["gombe",10],
             ["imo",10],
             ["jigawa",10],
-            ["kaduna",100],
+            ["kaduna",10],
             ["kano",10],
             ["katsina",10],
             ["kebbi",10],
@@ -192,13 +192,13 @@ function LiveData() {
                             </Grid>
                         </MDBox>
                         <MDBox>
-                            {/* <DataTable
+                            <DataTable
                                 table={{ columns, rows }}
                                 showTotalEntries={false}
                                 isSorted={false}
                                 noEndBorder
                                 entriesPerPage={false}
-                            /> */}
+                            />
                         </MDBox>
                     </Card>
                     <State />

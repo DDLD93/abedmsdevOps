@@ -1,7 +1,7 @@
 const amqp = require("amqplib");
-const q = 'user';
+const q = 'q';
 
-class RabbitMQConnection {
+class RabbitMQ {
     constructor() {
         this.connection = null
         this.channel = null
@@ -10,7 +10,7 @@ class RabbitMQConnection {
     }
     async #init() {
         try {
-            this.connection = await amqp.connect('amqp://ujere:123456@rabbitmq:5672', 'heartbeat=60');
+            this.connection = await amqp.connect('amqp://ujere:123456@rabbitmq:5672');
             this.channel = await this.connection.createChannel();
             await this.channel.assertQueue(q, { durable: true });
             console.log('Connected to RabbitMQ ..');
@@ -30,13 +30,13 @@ class RabbitMQConnection {
     //         console.error(err)
     //     }
     // }
-    async getMsg(handler) {
-        if (!this.connection) await this.#init()
-        try {
-            this.channel.consume(q,handler)
-        } catch (err) {
-            console.error(err)
-        }
-    }
+    // async getMsg(handler) {
+    //     if (!this.connection) await this.#init()
+    //     try {
+    //         this.channel.consume(q,handler)
+    //     } catch (err) {
+    //         console.error(err)
+    //     }
+    // }
 }
-module.exports = new RabbitMQConnection()
+module.exports = new RabbitMQ()

@@ -1,5 +1,5 @@
 const amqp = require("amqplib");
-const q = 'user';
+const q = 'q';
 
 class RabbitMQConnection {
     constructor() {

@@ -153,7 +153,7 @@ function Sheets() {
                 ),
                 status: (
                     <MDBox ml={-1}>
-                        <MDBadge badgeContent={obj.status} color={obj.status == "valid" ? "success" : obj.status == "processing"?"warning":"error"} variant="gradient" size="sm" />
+                        <MDBadge badgeContent={obj.status} color={obj.status == "valid" ? "success" : obj.status == "processing" ? "warning" :"error"} variant="gradient" size="sm" />
                     </MDBox>
                 ),
                 action: (

@@ -43,16 +43,16 @@ function FundStats(prop) {
           color="error"
           icon="attach_money_icon"
           title="Funds"
-          count={"#"+0}
+          count={prop.count}
           percentage2={{
             color: "success",
-            amount: "0%",
+            amount: prop.percentage2,
             label: "Spent this week",
           }}
           percentage={{
             color: "success",
-            amount: "0%",
-            label: "Total Spent",
+            amount: prop.percentage1,
+            label: "Spent",
           }}
         />
       </MDBox>

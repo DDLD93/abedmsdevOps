@@ -11,7 +11,7 @@ services:
         - 5672:5672
         - 15672:15672
     volumes:
-        - "/var/lib/rabbitmq/mnesia/" 
+        - ./volume/rb:/var/lib/rabbitmq/mnesia/ 
     networks:
         - ujere_net      
   database:
@@ -20,7 +20,7 @@ services:
     ports:
         - 27017:27017
     volumes:
-        - ./volume:/data/db
+        - ./volume/mongo:/data/db
     networks:
         - ujere_net  
   # # web:
@@ -37,18 +37,18 @@ services:
       - rabbitmq
     container_name: 'backendapp'
     ports:
-        - 80:9000
+        - 8080:9000
     networks:
         - ujere_net    
-  worker:
-    build: ./sheetWorker
-    depends_on:
-      - database
-      - rabbitmq
-      - backend
-    container_name: 'sheetworker'
-    networks:
-        - ujere_net                         
+  # worker:
+  #   build: ./sheetWorker
+  #   depends_on:
+  #     - database
+  #     - rabbitmq
+  #     - backend
+  #   container_name: 'sheetworker'
+  #   networks:
+  #       - ujere_net                         
 networks:
   ujere_net:
     driver: bridge          

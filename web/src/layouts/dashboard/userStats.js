@@ -42,17 +42,17 @@ function UserStats(prop) {
         <ComplexStatisticsCard
              icon="leaderboard"
              title="Total Users"
-             count="3"
-             percentage2={{
-               color: "success",
-               amount: "3",
-               label: "new users from the past week",
-             }}
-             percentage={{
-               color: "success",
-               amount: "3",
-               label: "new users from the past month",
-             }}
+             count={prop.count}
+            percentage2={{
+            color: "success",
+            amount: prop.percentage2,
+            label: "Active users",
+          }}
+          percentage={{
+            color: "success",
+            amount: prop.percentage1,
+            label: "New users in the past week",
+          }}
         />
       </MDBox>
       <Modal

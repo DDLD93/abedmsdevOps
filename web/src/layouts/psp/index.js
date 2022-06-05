@@ -49,7 +49,7 @@ function PSPList() {
         return {
             name: (
                 <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-                    {obj.name}
+                    {obj.fullName}
                 </MDTypography>
             ),
             email: <Job title={obj.email} />,
@@ -65,7 +65,7 @@ function PSPList() {
             ),
             balance: (
                 <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-                    {obj.disbursment}
+                    {obj.pspInfo && obj.pspInfo.disbursment}
                 </MDTypography>
             ),
             action: (

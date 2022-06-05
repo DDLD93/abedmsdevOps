@@ -5,6 +5,7 @@
   "main": "worker.js",
   "scripts": {
     "start": "node worker",
+    "dev":"nodemon worker",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

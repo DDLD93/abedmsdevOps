@@ -67,17 +67,24 @@ class UserController{
     }
   }
   async addFunds(id,amount){
+    let inc = parseInt(amount)
+    console.log(inc)
     try {
     let psp = await User.findByIdAndUpdate(id,{
-      $inc:{
-        pspInfo:{
-          disbursment: amount
+      pspInfo:{
+        $inc:{
+          disbursment: inc
+
         }
-      }
+          }
+     
+
   },{ new: true })
+  
 
       return {ok:true, psp};
     } catch (err) {
+      console.log(err)
       return {ok:false,error:err};
     }
   }

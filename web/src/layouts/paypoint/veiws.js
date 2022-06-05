@@ -65,16 +65,26 @@ const userType = [
 export default function ViewsBox(prop) {
   const [open, setOpen] = React.useState(false);
   const [phone, setPhone] = React.useState("");
-  const [budget, setBudget] = React.useState(0)
+  const [wardArr, setwardArr] = React.useState([])
+  const [total, setTotal] = React.useState(0)
   const [lga, setLga] = React.useState(null)
   const [lgaList, setLgaList] = React.useState([])
-  const [wardList, setWardList] = React.useState([])
+  const [wardList, setWardList] = React.useState([""])
   const [ward, setWard] = React.useState(null)
   const [state, setState] = React.useState("");
-  const [button, setButton] = React.useState(false)
+  const [button, setButton] = React.useState(true)
   const { user } = React.useContext(StateContext)
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setwardArr([])
+    setTotal(0)
+    setLga("")
+    setLgaList([])
+    setWardList([])
+    setWard("")
+    setState("")
+    setOpen(false);
+  }
 
   const submit = () => {
     const data = {
@@ -109,21 +119,46 @@ export default function ViewsBox(prop) {
     fetch(`${config.EndPionts}/beneficiaries/ward/${lga}`).
       then(res => (res.json())).
       then(list => {
-        console.log("warddddds>>> ", list)
-        setWardList(list)
+        setWardList(["", ...list])
       })
   }
-  function add() {
 
+
+  function add() {
+    fetch(`${config.EndPionts}/beneficiaries/count/${ward}`).
+      then(res => (res.json())).
+      then(num => {
+        setwardArr([...wardArr, { ward, count: num }])
+        setTotal(prev => prev + num)
+      }).catch(err => console.log("errorr >>>>", err))
+    console.log(wardArr)
+  }
+  function assign() {
+    setButton(false)
+    const wardList = wardArr.map(li=>{
+      return {ward:li.ward}
+    })
+    console.log(wardList)
+    fetch(`${config.EndPionts}/beneficiaries/assign/${prop.id}`,{
+      method:"PATCH",
+      headers: {
+        "Content-Type": "application/json",
+    },
+      body:JSON.stringify(wardList)
+    }).
+      then(res => (res.json())).
+      then(response => {
+        console.log(response)
+      }).catch(err =>  console.log(err))
   }
 
   React.useEffect(() => {
-    if (!phone) {
+    if (!wardArr) {
       setButton(true)
     } else {
       setButton(false)
     }
-  }, [])
+  }, [wardArr])
 
   React.useLayoutEffect(() => {
     getLGAs()
@@ -158,8 +193,8 @@ export default function ViewsBox(prop) {
             </Typography>
             <Grid gap={2.4} container>
               <Grid flexWrap="nowrap" container gap={2} >
-                <TextField label="Total beneficiaries" type="number" size='small' />
-                <TextField label="Total wards" type="number" size='small' />
+                <TextField label="Total beneficiaries" value={total} type="number" size='small' />
+                <TextField label="Total wards" value={wardArr.length} type="number" size='small' />
 
               </Grid>
               <Grid flexWrap="nowrap" alignItems="center" container gap={1} item sm={12} >
@@ -193,8 +228,8 @@ export default function ViewsBox(prop) {
                     native: true,
                   }}
                 >
-                  {lgaList.map((option) => (
-                    <option key={option.value} value={option}>
+                  {lgaList.map((option, index) => (
+                    <option key={index} value={option}>
                       {option}
                     </option>
                   ))}
@@ -210,8 +245,8 @@ export default function ViewsBox(prop) {
                     native: true,
                   }}
                 >
-                  {wardList.map((option) => (
-                    <option key={option.value} value={option}>
+                  {wardList.map((option, index) => (
+                    <option key={index} value={option}>
                       {option}
                     </option>
                   ))}
@@ -222,13 +257,12 @@ export default function ViewsBox(prop) {
                   onClick={add} />
               </Grid>
             </Grid>
-            <div style={{ display: "flex", gap: "2px" }} >
-              <div style={{ height: "30px", width: "60px", backgroundColor: "lightgreen", fontSize: "14px", padding: "2px" }}>kabala 2</div>
-              <div style={{ height: "30px", width: "60px", backgroundColor: "lightgreen", fontSize: "14px", padding: "2px" }}>kabala 2</div>
-              <div style={{ height: "30px", width: "60px", backgroundColor: "lightgreen", fontSize: "14px", padding: "2px" }}>kabala 2</div>
-              <div style={{ height: "30px", width: "60px", backgroundColor: "lightgreen", fontSize: "14px", padding: "2px" }}>kabala 2</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "2px" }} >
+              {wardArr.map((obj) => (
+                <div style={{ display:"flex", height: "30px", width: "70px", backgroundColor: "lightgreen", fontSize: "14px", padding: "2px" }}>{obj.ward}: <span style={{ fontWeight: "bold" }} >{obj.count}</span> </div>
+              ))}
             </div>
-            <MDButton disabled={button} onClick={submit} sx={{ mt: 4 }} size="small" fullWidth={true} variant="gradient" color="primary" >Assign</MDButton>
+            <MDButton disabled={button} onClick={assign} sx={{ mt: 4 }} size="small" fullWidth={true} variant="gradient" color="primary" >Assign</MDButton>
           </Box>
         </Fade>
       </Modal>

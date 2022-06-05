@@ -40,7 +40,7 @@ async function Staff (req, res, next) {
         jwt.verify(token,config.keys.jwt,(err,response)=>{
             if(!err) {
                 req.user = response
-                console.log(response)
+                console.log("Staff midileware>>>>>>> ",response)
                // if (req.user.userType != "admin") return res.status(403).send("Access denied. invalid user type");
                 next();
             }else{

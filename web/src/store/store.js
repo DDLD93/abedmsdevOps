@@ -195,7 +195,7 @@ export default function StateContextProvider({ children }) {
     };
 
     useEffect(() => {
-        getBene()
+        //getBene()
         setUsers()
         setTokens()
         fetchBatch()

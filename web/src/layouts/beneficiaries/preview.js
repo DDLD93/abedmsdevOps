@@ -9,7 +9,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import config from '../../config';
 import { Card, Grid, IconButton, TextField } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import excelToJson from 'convert-excel-to-json'
 import CloseIcon from '@mui/icons-material/Close';
 
 import { StateContext } from 'store/store';
@@ -67,24 +66,24 @@ export default function Profile(prop) {
             })
     }
     const descriptionElementRef = React.useRef(null);
-    async function createFile() {
-        let response = await fetch('http://localhost:9000/api/uploads/bafb51012d574c8ab33687fb9bfd5414.xlsx');
-        let data = await response.blob();
-        let metadata = {
-            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        };
-        let file = new File([data], "temp.xlsx", metadata);
-        // ... do something with the file or return it
-        const result = excelToJson({
-            sourceFile: file,
-            header: {
-                rows: 4,
-            }
-        });
-        console.log(result)
-    }
+    // async function createFile() {
+    //     let response = await fetch('http://localhost:9000/api/uploads/bafb51012d574c8ab33687fb9bfd5414.xlsx');
+    //     let data = await response.blob();
+    //     let metadata = {
+    //         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    //     };
+    //     let file = new File([data], "temp.xlsx", metadata);
+    //     // ... do something with the file or return it
+    //     const result = excelToJson({
+    //         sourceFile: file,
+    //         header: {
+    //             rows: 4,
+    //         }
+    //     });
+    //     console.log(result)
+    // }
     React.useEffect(() => {
-        createFile()
+        //createFile()
     })
     React.useEffect(() => {
         if (open) {

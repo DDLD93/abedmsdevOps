@@ -23,6 +23,7 @@ import { TextField } from "@mui/material";
 import { StateContext } from "../../store/store"
 
 import Profile from "./preview";
+import config from "config";
 
 
 
@@ -33,11 +34,52 @@ import Profile from "./preview";
 function Beneficiaries() {
     
     const [loading, setloading] = useState(false)
-    const [batch, setbatch] = useState("batch")
-    const [state, setstate] = useState("state")
-    const { batchList,bene } = useContext(StateContext)
-    
+    const [bene, setbene] = useState([])
+    const [beneBck, setbeneBck] = useState([])
+    const [search, setSearch] = useState([])
+    const [batch, setbatch] = useState([])
+    const [state, setstate] = useState([])
+    const [lga, setlga] = useState([])
+    const [lgaList, setlgaList] = useState([])
+    const { batchList,token } = useContext(StateContext)
 
+    const filterByLga = ()=>{
+        setbene(beneBck.filter(li=>{
+            return li.lga == lga
+         }))
+        
+    }
+    const filterBySearch = ()=>{
+        setbene(beneBck.filter(li=>{
+            return li.fullName.includes(search) || li.phone.includes(search)
+         }))
+        
+    }
+
+    function getLGAs() {
+        console.log(state)
+        fetch(`${config.EndPionts}/beneficiaries/lga/${state}`).
+          then(res => (res.json())).
+          then(list => {
+              console.log(list)
+            setlgaList(list)
+          })
+      }
+    
+    const getBene =()=>{
+        let url = `${config.EndPionts}/beneficiaries/state/${state}`
+        fetch(url,{
+            headers: {
+                "Authorization": "Bearer "+ token,
+            },
+        }).then(res=>(res.json())).
+        then(response=>{
+            setbene(response)
+            setbeneBck(response)
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
 
     const Job = ({ title, description }) => (
         <MDBox lineHeight={1} textAlign="left">
@@ -152,7 +194,23 @@ function Beneficiaries() {
     ]
 
     useEffect(() => {
-    }, [])
+        if(state){
+            getLGAs()
+            getBene()
+        }
+    }, [state])
+    useEffect(() => {
+        if(lga){
+            filterByLga()
+        }
+    }, [lga])
+    useEffect(() => {
+        setbene(beneBck)
+        if(search.length > 1){
+            console.log("search")
+            filterBySearch()
+        }
+    }, [search])
 
     return (
         <DashboardLayout>
@@ -175,8 +233,8 @@ function Beneficiaries() {
                                             select
                                             label="State"
                                             sx={{ width: 100 }}
-                                            value={batch}
-                                            onChange={(e) => setbatch(e.target.value)}
+                                            value={state}
+                                            onChange={(e) => setstate(e.target.value)}
                                             SelectProps={{
                                                 native: true,
                                             }}
@@ -192,15 +250,15 @@ function Beneficiaries() {
                                             select
                                             label="LGAs"
                                             sx={{ width: 100 }}
-                                            value={batch}
-                                            onChange={(e) => setbatch(e.target.value)}
+                                            value={lga}
+                                            onChange={(e) => setlga(e.target.value)}
                                             SelectProps={{
                                                 native: true,
                                             }}
                                             size='small'
                                         >
-                                            {[].map((option) => (
-                                                <option key={option} value={option}>
+                                            {lgaList.map((option, index) => (
+                                                <option key={index} value={option}>
                                                     {option}
                                                 </option>
                                             ))}
@@ -216,13 +274,13 @@ function Beneficiaries() {
                                             }}
                                             size='small'
                                         >
-                                             {["All","Procssing","Awaiting Payment","Paid"].map((option) => (
-                                                <option key={option} value={option}>
+                                             {["All","Procssing","Awaiting Payment","Paid"].map((option,index) => (
+                                                <option key={index} value={option}>
                                                     {option}
                                                 </option>
                                             ))} 
                                         </TextField>                                        
-                                        <TextField sx={{ width: 200, ml: 4 }} placeholder="Name Phone ID Number" size="small" label="Search" />
+                                        <TextField onChange={(e)=>setSearch(e.target.value)} sx={{ width: 200, ml: 4 }} placeholder="Name Phone" size="small" label="Search" />
 
 
                                     </Grid>

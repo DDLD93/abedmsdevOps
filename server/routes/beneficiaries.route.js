@@ -34,6 +34,16 @@ module.exports = (express, PHOTO_ID) => {
         res.status(500).json(status.error);
       }
     });
+    api.get("/state/:state", async (req, res) => {
+      let {state}= req.params
+      let status = await beneCtrl.getBeneficiariesByState(state)
+      if (status.ok) {
+        if (status.bene) return res.status(200).json(status.bene);
+        res.status(200).json([]);
+      } else {
+        res.status(500).json(status.error);
+      }
+    });
     // api.delete("/id", async (req, res) => {
     //   let {id} = req.params
     //    let status = await beneCtrl.getBeneficiariesByLGA(batch,state,lga);
@@ -165,11 +175,23 @@ module.exports = (express, PHOTO_ID) => {
           return res.status(500).json(status.error);
         }
       })
-      api.get("/wardCount/:ward", async (req, res) => {
-        let {ward} = req.params
-       let status = await beneCtrl.getWardCount(ward)
+      api.get("/count/:arg", async (req, res) => {
+        let {arg} = req.params
+        console.log(arg)
+        let status = await beneCtrl.getCount(arg)
        if(status.ok) {
-         return res.status(200).json(status.wardCount);
+         return res.status(200).json(status.count);
+        }else{
+          return res.status(500).json(status.error);
+        }
+      })
+      api.patch("/assign/:id", async (req, res) => {
+        let {id} = req.params
+        let data = req.body
+        console.log(id,data)
+        let status = await beneCtrl.assignPSP(data,id)
+       if(status.ok) {
+         return res.status(200).json(status.count);
         }else{
           return res.status(500).json(status.error);
         }

@@ -9,9 +9,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import config from '../../config';
 import { Grid, IconButton } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import excelToJson from 'convert-excel-to-json'
 import CloseIcon from '@mui/icons-material/Close';
-
 import { StateContext } from 'store/store';
 
 export default function SheetPreview(prop) {
@@ -75,13 +73,13 @@ export default function SheetPreview(prop) {
         };
         let file = new File([data], "temp.xlsx", metadata);
         // ... do something with the file or return it
-        const result = excelToJson({
-            sourceFile: file,
-            header: {
-              rows: 4,
-            }
-          });
-          console.log(result)
+        // const result = excelToJson({
+        //     sourceFile: file,
+        //     header: {
+        //       rows: 4,
+        //     }
+        //   });
+        //   console.log(result)
      }
       React.useEffect(() => {
         createFile()

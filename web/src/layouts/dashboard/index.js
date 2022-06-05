@@ -26,6 +26,8 @@ import Footer from "examples/Footer";
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
+import { useEffect, useState, useContext ,useLayoutEffect} from "react";
+
 
 // Data
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
@@ -40,26 +42,42 @@ import StateStats from "./stateStats";
 import PspStats from "./pspStats";
 import TrafficStats from "./trafficStats";
 import UserStats from "./userStats";
+import config from "../../config";
 
 function Dashboard() {
+  const [stats, setstats] = useState("")
   const { sales, tasks } = reportsLineChartData;
-
+  const fetchStats =()=>{
+    fetch(`${config.EndPionts}/analytics`).
+    then(res=>(res.json())).
+    then(response=>{
+      console.log(response)
+      setstats(response)
+    })  
+  }
+  useEffect(() => {
+    fetchStats()
+  }, [])
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox py={3}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={4}>
+          {/* <Grid item xs={12} md={6} lg={4}>
           <BeneStats
           title={"Beneficiaries"}
-          count={6}
-          percentage2={"%"+0}
-          percentage1={"%"+0}
+          count={stats.total}
+          percentage2={"%"+stats.perTotal}
+          percentage1={"%"+stats.perTotal}
           
           />
           </Grid>
            <Grid item xs={12} md={6} lg={4}>
-            <FundStats/>
+            <FundStats
+            count={stats.total*20000}
+            percentage2={"%"+stats.perTotal}
+            percentage1={"%"+stats.perTotal}
+            />
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
           <StateStats/>
@@ -71,8 +89,12 @@ function Dashboard() {
             <TrafficStats/>
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
-            <UserStats/>
-          </Grid>
+            <UserStats
+            count={stats.userCount}
+            percentage2={"%"+stats.userCount}
+            percentage1={"%"+stats.perTotal}
+            />
+          </Grid> */}
           {/* <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
@@ -118,28 +140,28 @@ function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={6}>
               <MDBox mb={3}>
-                <ReportsBarChart
+                {/* <ReportsBarChart
                   color="info"
                   title="Website live data"
                   description="Last Campaign Performance"
                   date="campaign sent 2 days ago"
                   chart={reportsBarChartData}
-                />
+                /> */}
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={6}>
               <MDBox mb={3}>
-                <ReportsLineChart
+                {/* <ReportsLineChart
                   color="success"
                   title="Disbursment stats"
                   description={
                     <>
-                      Data for the last 30days
+                      Data for the last 10Weeks
                     </>
                   }
                   date="updated 4 min ago"
                   chart={sales}
-                />
+                /> */}
               </MDBox>
             </Grid>
           </Grid>

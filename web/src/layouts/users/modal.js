@@ -129,9 +129,18 @@ export default function ModalBox({setRows}) {
       body: JSON.stringify(data)
     }).then(res => res.json())
       .then(res => {
-        changeRows()
-        handleClose()
-        notification("success","user added")
+        if(res.code&&res.code == 11000){
+          notification("error","duplicate entry/entries")
+        }else{
+          changeRows();
+          handleClose();
+          notification("success","user added")
+
+        }
+        
+       
+        
+        
       }).catch(err => clg)
   };
  

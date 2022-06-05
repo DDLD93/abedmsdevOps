@@ -5,7 +5,15 @@ class BeneficiariesController{
   
 async getBeneficiariesCustom(batch,state,lga){
     try {
-      const bene = await Beneficiary.find({ status: { $not: { $eq: "uploaded" } }, });
+      const bene = await Beneficiary.find();
+      return {ok:true, bene};
+    } catch (err) {
+      return {ok:false,error:err};
+    }
+  }
+  async getBeneficiariesByState(state){
+    try {
+      const bene = await Beneficiary.find({state:state,status: { $not: { $eq: "uploaded" } }, });
       return {ok:true, bene};
     } catch (err) {
       return {ok:false,error:err};
@@ -27,10 +35,24 @@ async getBeneficiariesCustom(batch,state,lga){
       return {ok:false,error:err};
     }
   }
-  async getWardCount(ward){
+  async getCount(ward){
     try {
-      let wardCount = await Beneficiary.find({ward}).count()
-      return {ok:true, wardCount};
+      let count = await Beneficiary.find({ward}).count()
+      console.log("count >>>>>", count)
+      return {ok:true, count};
+    } catch (err) {
+      return {ok:false,error:err};
+    }
+  }
+  async assignPSP(data,id){
+    try {
+      let count = await Beneficiary.updateMany({$or:data},{
+        $set:{
+          pspId:id
+        }
+      })
+      console.log("count >>>>>", count)
+      return {ok:true, count};
     } catch (err) {
       return {ok:false,error:err};
     }
