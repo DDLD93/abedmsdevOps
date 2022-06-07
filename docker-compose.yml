@@ -1,6 +1,7 @@
 version: "3.3"
 services:
   rabbitmq:
+    restart: always
     image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'
     hostname: rabmq
@@ -17,6 +18,7 @@ services:
   database:
     image: mongo:latest
     container_name: 'mongodb'
+    restart: alwayws
     ports:
         - 27017:27017
     volumes:
@@ -31,6 +33,7 @@ services:
   #   networks:
   #       - ujere_net   
   backend:
+    restart: always
     build: ./server
     depends_on:
       - database
@@ -41,6 +44,8 @@ services:
     networks:
         - ujere_net    
   worker:
+    restart: always
+    replicas: 3
     build: ./sheetWorker
     depends_on:
       - database
