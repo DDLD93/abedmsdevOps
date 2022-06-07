@@ -35,7 +35,21 @@ import { StateContext } from "store/store";
 import { useContext } from "react";
 
 function Reports() {
- const {bene} = useContext(StateContext)
+ const [rows, setrows] = useState([])
+ const getBene =()=>{
+  fetch(`${config.EndPionts}/beneficiaries/qa`,{
+      headers: {
+          "Authorization": "Bearer "+ token,
+      },
+  }).then(res=>(res.json())).
+  then(response=>{
+    let object =  response.map(obj=>{
+      return {id: obj._id, Name:obj.fullName, Gender:obj.gender,Phone:obj.phone,Occupation:obj.occupation,Batch:obj.batch,Disability:obj.disability,State:obj.state,lga:obj.lga,Status:obj.status,onCellClick: ()=>console.log("first")}
+  
+    })
+      setrows([...object])
+  })
+}
  
   const columns = [
     {field: 'Name', headerName: 'Name', width: 200, sortable: false,onColumnHeaderClick: ()=>console.log("first"), onCellClick: ()=>console.log("first")},
@@ -49,13 +63,9 @@ function Reports() {
     // {field: 'Geo-Political Zone', headerName: 'Geo-Political Zone', sortable: false, generateData: ()=>console.log("first"), renderCell: ()=>console.log("data"),},
     {field: 'Status', headerName: 'Status', sortable: false, onCellClick: ()=>console.log("first")},
   ];
-
-  const rows = bene.map(obj=>{
-    return {id: obj._id, Name:obj.fullName, Gender:obj.gender,Phone:obj.phone,Occupation:obj.occupation,Batch:obj.batch,Disability:obj.disability,State:obj.state,lga:obj.lga,Status:obj.status,onCellClick: ()=>console.log("first")}
-
-  })
+  
  useEffect(() => {
- 
+  getBene()
  }, [])
  
 
