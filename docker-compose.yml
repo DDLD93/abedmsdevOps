@@ -18,7 +18,7 @@ services:
   database:
     image: mongo:latest
     container_name: 'mongodb'
-    restart: alwayws
+    restart: always
     ports:
         - 27017:27017
     volumes:
@@ -45,7 +45,6 @@ services:
         - ujere_net    
   worker:
     restart: always
-    replicas: 3
     build: ./sheetWorker
     depends_on:
       - database
