@@ -1,3 +1,5 @@
 /node_modules
-/volumes
-../volumes
+/volume
+../volume
+../sheetWorker/volumes
+../sheetWorker/node_modules

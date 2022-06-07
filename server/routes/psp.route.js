@@ -3,7 +3,7 @@ const uuid = require('uuid').v4;
 const PSPCtrl = require("../controller/psp.controller")
 const jwt = require("jsonwebtoken")
 const Psp = require("../model/psp.model")
-const config = require("../config")
+const config = require("../../config")
 
 
 module.exports = (express, UPLOADS) => {

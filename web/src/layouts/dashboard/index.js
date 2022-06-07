@@ -63,7 +63,7 @@ function Dashboard() {
       <DashboardNavbar />
       <MDBox py={3}>
         <Grid container spacing={3}>
-          {/* <Grid item xs={12} md={6} lg={4}>
+          <Grid item xs={12} md={6} lg={4}>
           <BeneStats
           title={"Beneficiaries"}
           count={stats.total}
@@ -94,9 +94,9 @@ function Dashboard() {
             percentage2={"%"+stats.userCount}
             percentage1={"%"+stats.perTotal}
             />
-          </Grid> */}
-          {/* <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            {/* <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="success"
                 icon="store"
@@ -113,10 +113,10 @@ function Dashboard() {
                   label: "than yesterday",
                 }}
               />
-            </MDBox>
-          </Grid> */}
-          {/* <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
+            </MDBox> */}
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            {/* <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="primary"
                 icon="person_add"
@@ -133,8 +133,8 @@ function Dashboard() {
                   label: "Just updated",
                 }}
               />
-            </MDBox>
-          </Grid> */}
+            </MDBox> */}
+          </Grid>
         </Grid>
         <MDBox mt={4.5}>
           <Grid container spacing={3}>

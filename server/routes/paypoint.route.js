@@ -4,7 +4,7 @@ const paypointCtrl = require("../controller/paypoint.controller")
 const Paypoint = require("../model/paypiont.model")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
-const config = require('../config');
+const config = require('../../config');
 
 
 

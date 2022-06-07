@@ -135,13 +135,8 @@ export default function ModalBox({setRows}) {
           changeRows();
           handleClose();
           notification("success","user added")
-
-        }
-        
-       
-        
-        
-      }).catch(err => clg)
+        } 
+      }).catch(err => notification("error",err.message))
   };
  
   React.useEffect(() => {

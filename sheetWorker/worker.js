@@ -1,4 +1,4 @@
-const config = require("./config");
+const config = require("../config");
 const amqp = require("amqplib");
 
 const axios = require('axios').default;
@@ -24,7 +24,7 @@ const axios = require('axios').default;
 // }
 async function connect() {
   try {
-    const connection = await amqp.connect('amqp://ujere:123456@rabbitmq:5672');
+    const connection = await amqp.connect(`amqp://ujere:123456@${config.EndPionts.rb}:5672`);
     const channel = await connection.createChannel();
     await channel.assertQueue("q");
     channel.consume("q", message => {
@@ -61,18 +61,18 @@ const error = []
       sheetCode: data.code
     }
   })
+ var errors = 0
+ for (let i = 0; i < list.length; i++) {
+  try {
+    const url = `http://backend:9000/api/beneficiaries/que/add`
+   let status =  await axios.post(url, list[i]);
+  } catch (err) {
+    errors = errors + 1
+  }
+ }
 
-  list.forEach(async (li) => {
-    try {
-      const url = `${config.endPoint}/beneficiaries/que/add`
-     let status =  await axios.post(url, li);
-     console.log("response axios>>>>>> ",status)
-    } catch (err) {
-      console.log(err)
-    }
-  })
   let total = Number(data.message.length)
-  let invalid = Number(error.length)
+  let invalid = errors
   let dataObj = {
     valid: total - error,
     invalid,
@@ -83,11 +83,11 @@ const error = []
     status: "awaiting Approval",
   }
   try {
-    const url = `${config.endPoint}/sheet/que/update/${data.id}`
-    await axios.patch(url, dataObj);
+    const url = `http://backend:9000/api/sheet/que/update/${data.id}`
+    let status  = await axios.patch(url, dataObj);
     channel.ack(jobMsg)
   } catch (err) {
-    console.log( err)
+    console.log(err.message)
   }
   // await sheetCtrl.updateSheet(data.id, dataObj)
 

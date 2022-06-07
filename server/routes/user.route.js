@@ -3,7 +3,7 @@ const uuid = require('uuid').v4;
 const userCtrl = require("../controller/user.controller")
 const User = require("../model/user.model")
 const jwt = require("jsonwebtoken");
-const config = require('../config');
+const config = require('../../config');
 
 
 

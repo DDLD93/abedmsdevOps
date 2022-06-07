@@ -74,6 +74,7 @@ function Beneficiaries() {
             },
         }).then(res=>(res.json())).
         then(response=>{
+            console.log(response)
             setbene(response)
             setbeneBck(response)
         }).catch(err=>{
@@ -92,23 +93,23 @@ function Beneficiaries() {
     
     const rows =  bene.map(obj => {
                     return {
-                        author: (<MDTypography component="a" href="#" variant="a" color="text" fontWeight="medium">
+                        name: (<MDTypography component="a" href="#" variant="a" color="text" fontWeight="medium">
                             {obj.fullName}
                         </MDTypography>),
-                        function: <Job title={obj.state} description={obj.LGA} />,
+                        state: <Job title={obj.state} description={obj.LGA} />,
                         status: (
                             <MDBox ml={-1}>
                                 <MDBadge badgeContent={obj.status} color={obj.status == "processing" ? "warning" : obj.status == "paid"?"success":"error"} variant="gradient" size="sm" />
                             </MDBox>
                         ),
-                        employed: (
+                        phone: (
                             <MDTypography component="a" href="#" variant="a" color="text" fontWeight="medium">
                                 {obj.phone}
                             </MDTypography>
                         ),
-                        action: (
+                        lga: (
                             <MDTypography component="a" href="#" variant="a" color="text" fontWeight="medium">
-                                {obj.code}
+                                {obj.lga}
                             </MDTypography>
                         ),
                         // payment: (
@@ -116,7 +117,7 @@ function Beneficiaries() {
                         //         <MDBadge badgeContent={obj.isPaid} color={obj.isPaid == "approved" ? "success" : "error"} variant="gradient" size="sm" />
                         //     </MDBox>
                         // ),
-                        capture: (
+                        action: (
                             <MDBox sx={{display:"flex"}} ml={-1}>                                  
                                     <Profile
                                     code={obj.code}
@@ -185,12 +186,12 @@ function Beneficiaries() {
         "zamfara"
       ]
     const columns = [
-        { Header: "Name", accessor: "author", width: "25%", align: "left" },
-        { Header: "Code", accessor: "action", align: "center" },
-        { Header: "State", accessor: "function", align: "left" },
+        { Header: "Name", accessor: "name", width: "25%", align: "left" },
+        { Header: "State", accessor: "state", align: "left" },
+        { Header: "LGA", accessor: "lga", align: "center" },
         { Header: "Status", accessor: "status", align: "center" },
-        { Header: "Phone", accessor: "employed", align: "center" },
-        { Header: "Action", accessor: "capture", align: "center" },
+        { Header: "Phone", accessor: "phone", align: "center" },
+        { Header: "Action", accessor: "action", align: "center" },
     ]
 
     useEffect(() => {

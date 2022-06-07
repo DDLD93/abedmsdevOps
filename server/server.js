@@ -29,11 +29,11 @@ app.use(express.json())
 // connecting to databas
 
 app.use(express.static("build"));
-app.use(express.static(path.join(__dirname, 'buildtwo')));
+// app.use(express.static(path.join(__dirname, 'buildtwo')));
 
-app.get('/terminal', function (req, res) {
-  res.sendFile(path.join(__dirname, 'buildtwo', 'index.html'));
-});
+// app.get('/terminal', function (req, res) {
+//   res.sendFile(path.join(__dirname, 'buildtwo', 'index.html'));
+// });
 app.use("/api/batch", require("./routes/batch.route")(express,UPLOADS));
 app.use("/api/psp", require("./routes/psp.route")(express,UPLOADS));
 
