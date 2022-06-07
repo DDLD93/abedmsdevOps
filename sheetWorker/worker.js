@@ -1,4 +1,3 @@
-const config = require("../config");
 const amqp = require("amqplib");
 
 const axios = require('axios').default;
@@ -24,7 +23,7 @@ const axios = require('axios').default;
 // }
 async function connect() {
   try {
-    const connection = await amqp.connect(`amqp://ujere:123456@${config.EndPionts.rb}:5672`);
+    const connection = await amqp.connect(`amqp://ujere:123456@$rabbitmq:5672`);
     const channel = await connection.createChannel();
     await channel.assertQueue("q");
     channel.consume("q", message => {
