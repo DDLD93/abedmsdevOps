@@ -23,7 +23,7 @@ const axios = require('axios').default;
 // }
 async function connect() {
   try {
-    const connection = await amqp.connect(`amqp://ujere:123456@$rabbitmq:5672`);
+    const connection = await amqp.connect(`amqp://ujere:123456@rabbitmq:5672`);
     const channel = await connection.createChannel();
     await channel.assertQueue("q");
     channel.consume("q", message => {
