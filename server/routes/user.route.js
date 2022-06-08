@@ -70,10 +70,9 @@ module.exports = (express, UPLOADS) => {
 
   api.post("/register", async (req, res) => {
     let data = req.body
-    // bcrypt.hash(data)
-    // await bcrypt.hash(data.password, 10,)
     try {
       const status = await userCtrl.registerUser(data)
+      console.log(status)
       if (status.ok) {
           return res.status(200).json(status.user);
       } else {
@@ -84,9 +83,10 @@ module.exports = (express, UPLOADS) => {
       res.status(500).json(error);
     }
   });
+
+
   api.post("/psp/register", async (req, res) => {
     let data = req.body
-    console.log(data.password)
     try {
       const status = await userCtrl.registerUser(data)
       if (status.ok) {

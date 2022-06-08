@@ -52,7 +52,7 @@ function UserList() {
                         email: <Job title={obj.email} />,
                         type: (
                             <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-                            {`${obj.userType} ${obj.state}`}
+                            {`${obj.userType} ${obj.state && obj.state}`}
                         </MDTypography>
                         ),
                         phone: (
@@ -62,7 +62,7 @@ function UserList() {
                         ),
                         company: (
                             <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-                                {`${obj.company}/${obj.state}`}
+                                {`${obj.company}/${obj.state && obj.state}`}
                             </MDTypography>
                         ),
                         action: (

@@ -34,6 +34,16 @@ module.exports = (express, PHOTO_ID) => {
         res.status(500).json(status.error);
       }
     });
+    api.get("/paypoint",Staff, async (req, res) => {
+      let id = req.user.id
+      let status = await beneCtrl.getBeneficiariesPaypoint(id)
+      if (status.ok) {
+        if (status.bene) return res.status(200).json(status.bene);
+        res.status(200).json([]);
+      } else {
+        res.status(500).json(status.error);
+      }
+    });
     api.get("/qa",Staff, async (req, res) => {
       let state= req.user.state
       let status = await beneCtrl.getBeneficiariesByState(state)

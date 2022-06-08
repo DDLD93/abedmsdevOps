@@ -3,6 +3,7 @@ const uuid = require('uuid').v4;
 const paypointCtrl = require("../controller/paypoint.controller")
 const Paypoint = require("../model/paypiont.model")
 const bcrypt = require("bcrypt")
+const {Staff} = require("../middleware/auth.middleware")
 const jwt = require("jsonwebtoken");
 
 
@@ -36,7 +37,15 @@ module.exports = (express, UPLOADS) => {
       res.status(500).json(status.error);
     }
   });
-
+  api.get("/dashboard",Staff, async (req, res) => {
+    let status = await paypointCtrl.getDashboard(req.user.id);
+    if (status.ok) {
+      if (status.response) return res.status(200).json(status.response);
+      res.status(200).json([]);
+    } else {
+      res.status(500).json(status.error);
+    }
+  });
   // api.get("/bypsp", async (req, res) => {
   //   let company = req.user.company
   //   let status = await userCtrl.getUsersByCompany(company);
@@ -82,10 +91,11 @@ module.exports = (express, UPLOADS) => {
 
   api.post("/login", async (req, res) => {
     try {
-      let data = req.body
-      const user = await Paypoint.findOne({ email: data.email });
+      let {email,password} = req.body
+      const user = await Paypoint.findOne({email});
+      console.log("paypoint login",user)
       if (!user) return res.status(400).json({ status: "failed", message: "Invalid email or password" });
-      if (user.password !== data.password) return res.status(400).json({ status: "failed", message: "Invalid email or password" });
+      if (user.password !== password) return res.status(400).json({ status: "failed", message: "Invalid email or password" });
       const token = jwt.sign({
         id: user._id,
         email: user.email,

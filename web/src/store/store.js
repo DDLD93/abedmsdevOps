@@ -149,9 +149,9 @@ export default function StateContextProvider({ children }) {
             .then((response) => {
                 if (response.status == "success") {
                     localStorage.setItem("user", JSON.stringify(response.user))
-                
                     localStorage.setItem("token",response.token)
-                    setToken(localStorage.getItem("token"))
+                    setUsers()
+                    setToken()
                     setLoading(false)
                     notification("success", "Login Success")
                     return
@@ -163,36 +163,36 @@ export default function StateContextProvider({ children }) {
                 setLoading(false)
             });
     };
-    const LoginPSP = (data) => {
-        setLoading(true)
-        //console.log(data)
-        fetch(`${config.EndPionts}/psp/login`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        })
-            .then((res) => {
-                return res.json()
-            })
-            .then((response) => {
-                if (response.status == "success") {
-                    localStorage.setItem("user", JSON.stringify(response.user))
-                
-                    localStorage.setItem("token",response.token)
-                    setToken(localStorage.getItem("token"))
-                    setLoading(false)
-                    notification("success", "Login Success")
-                    return
-                }
-                notification("error", response.message)
-                setLoading(false)
-            }).catch((err) => {
-                notification("error", err.message)
-                setLoading(false)
-            });
-    };
+    // const LoginPSP = (data) => {
+    //     setLoading(true)
+    //     //console.log(data)
+    //     fetch(`${config.EndPionts}/psp/login`, {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(data),
+    //     })
+    //         .then((res) => {
+    //             return res.json()
+    //         })
+    //         .then((response) => {
+    //             if (response.status == "success") {
+    //                 localStorage.setItem("user", JSON.stringify(response.user))
+    //                 setUsers()
+    //                 localStorage.setItem("token",response.token)
+    //                 setToken(localStorage.getItem("token"))
+    //                 setLoading(false)
+    //                 notification("success", "Login Success")
+    //                 return
+    //             }
+    //             notification("error", response.message)
+    //             setLoading(false)
+    //         }).catch((err) => {
+    //             notification("error", err.message)
+    //             setLoading(false)
+    //         });
+    // };
 
     useEffect(() => {
         //getBene()
@@ -203,7 +203,6 @@ export default function StateContextProvider({ children }) {
     }, []);
     const context = {
         user,
-        LoginPSP,
         fetchBatch,
         fetchpsp,
         notification,

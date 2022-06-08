@@ -80,12 +80,20 @@ const psp = [
   },
   {
     type: "collapse",
-    name: "User Account",
-    key: "Users",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/users",
-    component: <UserList />,
+    name: "Support",
+    key: "Support",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/Support",
+    component: <Support />,
   },
+  // {
+  //   type: "collapse",
+  //   name: "User Account",
+  //   key: "Users",
+  //   icon: <Icon fontSize="small">person</Icon>,
+  //   route: "/users",
+  //   component: <UserList />,
+  // },
   //  {
   //     type: "collapse",
   //     name: "Payments",
@@ -178,6 +186,14 @@ const staff = [
     route: "/scheduler",
     component: <Sheets />,
   },
+  {
+    type: "collapse",
+    name: "Support",
+    key: "Support",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/Support",
+    component: <Support />,
+  },
 
   //  {
   //     type: "collapse",
@@ -229,6 +245,14 @@ const qa = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "reports",
     component: <Reports />,
+  },
+  {
+    type: "collapse",
+    name: "Support",
+    key: "Support",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/Support",
+    component: <Support />,
   },
 ]
 const admin = [
@@ -297,14 +321,14 @@ const admin = [
     route: "/psp",
     component: <PSPList />,
   },
-  {
-    type: "collapse",
-    name: "Live-Data",
-    key: "Live-Data",
-    icon: <Icon fontSize="small">login</Icon>,
-    route: "Live-Data",
-    component: <LiveData />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Live-Data",
+  //   key: "Live-Data",
+  //   icon: <Icon fontSize="small">login</Icon>,
+  //   route: "Live-Data",
+  //   component: <LiveData />,
+  // },
   {
     type: "collapse",
     name: "Support",
@@ -322,6 +346,14 @@ const coordinator = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/",
     component: <Reports />,
+  },
+  {
+    type: "collapse",
+    name: "Support",
+    key: "Support",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/Support",
+    component: <Support />,
   },
 ]
 const sign = [

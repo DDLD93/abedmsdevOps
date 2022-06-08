@@ -1,4 +1,5 @@
 const Paypoint = require("../model/paypiont.model");
+const BeneFiciaries = require("../model/beneficiary.model")
 const bcrypt = require("bcrypt");
  
 class UserController{
@@ -18,6 +19,27 @@ class UserController{
     try {
       const paypoint = await Paypoint.findById(id);
       return {ok:true, paypoint};
+    } catch (err) {
+      return {ok:false,error:err};
+    }
+  }
+  async getDashboard(id){
+    const wards = await BeneFiciaries.find({pspId:id,status: { $not: { $eq: "uploaded" } }, }).distinct('ward')
+    try {
+     async function counter(arr) {
+        let promises =  arr.map(async(ward) =>{
+           return{
+            ward: ward,
+            count:await BeneFiciaries.find({ward:ward}).count(),
+            paid:await BeneFiciaries.find({ward:ward,status:"paid"}).count()
+          }
+        })
+        return await Promise.all(promises)
+      }
+        
+      let result = counter(wards)
+      console.log(result)
+      return {ok:true, response};
     } catch (err) {
       return {ok:false,error:err};
     }

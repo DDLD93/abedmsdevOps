@@ -61,7 +61,8 @@ export default function App() {
   const [controller, dispatch] = useMaterialUIController();
   // let pathRoute = user.userType=="staff"?staff:user.userType=="psp"?psp:user.userType=="admin"?admin:sign
 
-  let paths = user?user.userType =="admin"?admin:user.userType =="psp"?psp:user.userType=="qa"?qa:user.userType=="coordinator"?coordinator:staff:sign
+let paths = user?user.userType =="admin"?admin:user.userType =="psp"?psp:user.userType=="qa"?qa:user.userType=="coordinator"?coordinator:staff:sign
+
   const {
     miniSidenav,
     direction,

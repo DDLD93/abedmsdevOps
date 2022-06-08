@@ -11,6 +11,15 @@ async getBeneficiariesCustom(batch,state,lga){
       return {ok:false,error:err};
     }
   }
+  async getBeneficiariesPaypoint(id){
+    try {
+      const bene = await Beneficiary.find({pspId:id,status: { $not: { $eq: "uploaded" } }, });
+      return {ok:true, bene};
+    } catch (err) {
+      console.log(err)
+      return {ok:false,error:err};
+    }
+  }
   async getBeneficiariesByState(state){
     try {
       const bene = await Beneficiary.find({state:state,status: { $not: { $eq: "uploaded" } }, });
@@ -51,7 +60,6 @@ async getBeneficiariesCustom(batch,state,lga){
           pspId:id
         }
       })
-      console.log("count >>>>>", count)
       return {ok:true, count};
     } catch (err) {
       return {ok:false,error:err};

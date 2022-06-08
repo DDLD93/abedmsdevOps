@@ -1,5 +1,5 @@
 const User = require("../model/user.model");
-const bcrypt = require("bcrypt");
+const {mailer} = require("../controller/mailer")
  
 class UserController{
   constructor(){}
@@ -53,7 +53,19 @@ class UserController{
     try {
       const newUser = new User(data);
       const user = await newUser.save();
+      await mailer.sendMail({
+        from: `umar.jere@gmail.com`, // sender address
+        to: `${user.email}`,
+        subject: "Welcome to ABEDMS portal", // Subject line
+        html: `<p>hello Welcome ABEDMS portal</p>`, // plain text body
+       },(err,resp)=>{
+        if (err) {
+              console.log("error >>>>>>", err)
+           }
+           console.log("mail response", resp)
+       })
       return {ok:true, user};
+
     } catch (err) {
       return {ok:false,error:err};
     }

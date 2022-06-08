@@ -26,7 +26,7 @@ async function Staff (req, res, next) {
                // if (req.user.userType != "admin") return res.status(403).send("Access denied. invalid user type");
                 next();
             }else{
-                console.log(err)
+                console.log("erro inside staff middleware >>>>> ", err)
             return res.status(403).send("Access denied. invalid token");
             }
         });

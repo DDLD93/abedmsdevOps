@@ -31,10 +31,12 @@ import { useDemoData } from '@mui/x-data-grid-generator';
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
+import config from "../../config";
 import { StateContext } from "store/store";
 import { useContext } from "react";
 
 function Reports() {
+  const {token} = useContext(StateContext)
  const [rows, setrows] = useState([])
  const getBene =()=>{
   fetch(`${config.EndPionts}/beneficiaries/qa`,{
@@ -44,7 +46,7 @@ function Reports() {
   }).then(res=>(res.json())).
   then(response=>{
     let object =  response.map(obj=>{
-      return {id: obj._id, Name:obj.fullName, Gender:obj.gender,Phone:obj.phone,Occupation:obj.occupation,Batch:obj.batch,Disability:obj.disability,State:obj.state,lga:obj.lga,Status:obj.status,onCellClick: ()=>console.log("first")}
+      return {id: obj._id, Name:obj.fullName, Gender:obj.gender,Phone:obj.phone,Occupation:obj.occupation,Batch:obj.batch,Disability:obj.disability,State:obj.state,LGA:obj.lga,Status:obj.status,onCellClick: ()=>console.log("first")}
   
     })
       setrows([...object])
@@ -56,7 +58,6 @@ function Reports() {
     {field: 'Gender', headerName: 'Gender', sortable: false, onCellClick: ()=>console.log("first")},
     {field: 'Phone', headerName: 'Phone',width: 120, color:"blue", sortable: false, onCellClick: ()=>console.log("first"),},
     {field: 'Occupation', headerName: 'Occupation', sortable: false, onCellClick: ()=>console.log("first")},
-    {field: 'Batch', headerName: 'Batch', sortable: false, onCellClick: ()=>console.log("first"),},
     {field: 'Disability', headerName: 'Disability', sortable: false, onCellClick: ()=>console.log("first")},
     {field: 'State', headerName: 'State', sortable: false, onCellClick: ()=>console.log("first")},
     {field: 'LGA', headerName: 'lga', sortable: false, onCellClick: ()=>console.log("first")},
