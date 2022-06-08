@@ -39,8 +39,8 @@ services:
       - database
       - rabbitmq
     container_name: 'backendapp'
-    volumes:
-      - ./web/build:/app/build
+    # volumes:
+    #   - ./web/build:/app/build
     ports:
         - 8999:9000
     networks:
