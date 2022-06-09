@@ -27,7 +27,7 @@ services:
         - ujere_net  
   web:
     build: ./web
-    container_name: reactapp
+    container_name: 'reactapp'
     ports:
         - 80:8080
     networks:
