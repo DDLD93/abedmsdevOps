@@ -28,9 +28,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 // connecting to databas
 
-app.use(express.static("build"));
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 app.use(express.static(path.join(__dirname, 'buildtwo')));
-
 app.get('/terminal', function (req, res) {
   res.sendFile(path.join(__dirname, 'buildtwo', 'index.html'));
 });
