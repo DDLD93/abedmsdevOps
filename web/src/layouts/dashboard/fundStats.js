@@ -40,8 +40,9 @@ function FundStats(prop) {
     <div>
       <MDBox onClick={() => console.log("first")} mb={1.5}>
         <ComplexStatisticsCard
+        import AssuredWorkloadIcon
           color="error"
-          icon="attach_money_icon"
+          icon="assured_workload_icon"
           title="Funds"
           count={prop.count}
           percentage2={{
