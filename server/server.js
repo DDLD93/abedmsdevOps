@@ -28,10 +28,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 // connecting to databas
 
-// app.use(express.static(path.join(__dirname, 'build')));
-// app.get('/', function (req, res) {
-//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 // app.use(express.static(path.join(__dirname, 'buildtwo')));
 // app.get('/terminal', function (req, res) {
 //   res.sendFile(path.join(__dirname, 'buildtwo', 'index.html'));
@@ -48,6 +48,9 @@ app.use("/api/analytics", require("./routes/analytics.route")(express));
 app.use("/api/paypoint", require("./routes/paypoint.route")(express));
 app.use("/api/uploads",express.static(UPLOADS))
 app.use("/api/photoID",express.static(PHOTO_ID))
+app.use(function(req, res, next){
+  res.status(404).sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 //setInterval(()=>broker.sendMsg({name:"umar"}),10000)
 
