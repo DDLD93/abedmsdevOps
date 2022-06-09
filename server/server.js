@@ -32,10 +32,10 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-app.use(express.static(path.join(__dirname, 'buildtwo')));
-app.get('/terminal', function (req, res) {
-  res.sendFile(path.join(__dirname, 'buildtwo', 'index.html'));
-});
+// app.use(express.static(path.join(__dirname, 'buildtwo')));
+// app.get('/terminal', function (req, res) {
+//   res.sendFile(path.join(__dirname, 'buildtwo', 'index.html'));
+// });
 
 app.use("/api/batch", require("./routes/batch.route")(express,UPLOADS));
 app.use("/api/psp", require("./routes/psp.route")(express,UPLOADS));
