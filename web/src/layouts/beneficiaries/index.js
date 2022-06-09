@@ -40,7 +40,7 @@ function Beneficiaries() {
     const [batch, setbatch] = useState([])
     const [state, setstate] = useState([])
     const [lga, setlga] = useState([])
-    const [lgaList, setlgaList] = useState([])
+    const [lgaList, setlgaList] = useState(["All"])
     const { batchList,token } = useContext(StateContext)
 
     const filterByLga = ()=>{
@@ -51,7 +51,7 @@ function Beneficiaries() {
     }
     const filterBySearch = ()=>{
         setbene(beneBck.filter(li=>{
-            return li.fullName.includes(search) || li.phone.includes(search)
+            return li.fullName.includes(search) || li.phone && li.phone.includes(search)
          }))
         
     }
@@ -61,8 +61,7 @@ function Beneficiaries() {
         fetch(`${config.EndPionts}/beneficiaries/lga/${state}`).
           then(res => (res.json())).
           then(list => {
-              console.log(list)
-            setlgaList(list)
+            setlgaList([lgaList,...list])
           })
       }
     

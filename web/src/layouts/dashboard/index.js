@@ -42,10 +42,11 @@ import StateStats from "./stateStats";
 import PspStats from "./pspStats";
 import TrafficStats from "./trafficStats";
 import UserStats from "./userStats";
+import millify from "millify"
 import config from "../../config";
-
 function Dashboard() {
   const [stats, setstats] = useState("")
+  const [total, settotal] = useState(0)
   const { sales, tasks } = reportsLineChartData;
   const fetchStats =()=>{
     fetch(`${config.EndPionts}/analytics`).
@@ -56,6 +57,7 @@ function Dashboard() {
     })  
   }
   useEffect(() => {
+    settotal(stats.total)
     fetchStats()
   }, [])
   return (
@@ -66,7 +68,7 @@ function Dashboard() {
           <Grid item xs={12} md={6} lg={4}>
           <BeneStats
           title={"Beneficiaries"}
-          count={stats.total}
+          count={millify(stats.total != null?stats.total:0)}
           percentage2={"%"+stats.perTotal}
           percentage1={"%"+stats.perTotal}
           
@@ -74,7 +76,7 @@ function Dashboard() {
           </Grid>
            <Grid item xs={12} md={6} lg={4}>
             <FundStats
-            count={stats.total*20000}
+            count={millify(stats.total != null?`${stats.total*20000}`:0)}
             percentage2={"%"+stats.perTotal}
             percentage1={"%"+stats.perTotal}
             />

@@ -14,7 +14,8 @@ import { StateContext } from 'store/store';
 
 export default function SheetPreview(prop) {
     const [open, setOpen] = React.useState(false);
-    const {notification,token} = React.useContext(StateContext)
+    const [label, setlabel] = React.useState("Approve")
+    const {notification,token,Alert} = React.useContext(StateContext)
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -27,6 +28,7 @@ export default function SheetPreview(prop) {
     }, [prop.refresh])
 
     function approveStatus() {
+        setlabel("Approving...")
         let data = {
             sheetId:prop.id,
             status:"processing"
@@ -42,8 +44,13 @@ export default function SheetPreview(prop) {
         }).then(res=>(res.json())).
         then(res=>{
             notification("success","List has been successfully Approved")
+            setlabel("Approve")
             handleRefresh()
             handleClose()
+        }).catch(err=>{
+            Alert()
+            setlabel("Approve")
+           // notification("error","Operation failed")
         })
     }
     function rejectStatus() {
@@ -65,24 +72,24 @@ export default function SheetPreview(prop) {
         })
     }
     const descriptionElementRef = React.useRef(null);
-    async function createFile(){
-        let response = await fetch('http://localhost:9000/api/uploads/bafb51012d574c8ab33687fb9bfd5414.xlsx');
-        let data = await response.blob();
-        let metadata = {
-            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        };
-        let file = new File([data], "temp.xlsx", metadata);
-        // ... do something with the file or return it
-        // const result = excelToJson({
-        //     sourceFile: file,
-        //     header: {
-        //       rows: 4,
-        //     }
-        //   });
-        //   console.log(result)
-     }
+    // async function createFile(){
+    //     let response = await fetch('http://localhost:9000/api/uploads/bafb51012d574c8ab33687fb9bfd5414.xlsx');
+    //     let data = await response.blob();
+    //     let metadata = {
+    //         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    //     };
+    //     let file = new File([data], "temp.xlsx", metadata);
+    //     // ... do something with the file or return it
+    //     // const result = excelToJson({
+    //     //     sourceFile: file,
+    //     //     header: {
+    //     //       rows: 4,
+    //     //     }
+    //     //   });
+    //     //   console.log(result)
+    //  }
       React.useEffect(() => {
-        createFile()
+       // createFile()
       }) 
     React.useEffect(() => {
         if (open) {
@@ -168,7 +175,7 @@ export default function SheetPreview(prop) {
                 </DialogContent>
                 <DialogActions>
                     <Button  color="secondary" onClick={rejectStatus}>Reject</Button>
-                    <Button onClick={approveStatus}>Approve</Button>
+                    <Button onClick={approveStatus}>{label}</Button>
                 </DialogActions>
             </Dialog>
         </div>

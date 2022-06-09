@@ -14,7 +14,7 @@ import config from "../../config"
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
-import { Grid, IconButton, TextField } from '@mui/material';
+import { CircularProgress, Grid, IconButton, Stack, TextField } from '@mui/material';
 import { StateContext } from 'store/store';
 import list from 'assets/theme-dark/components/list';
 
@@ -32,7 +32,7 @@ const style = {
     width: 600,
     bgcolor: 'background.paper',
     boxShadow: 24,
-    pt: 1,
+    pt: 3,
     pb: 3,
     pr: 4,
     pl: 4
@@ -68,12 +68,13 @@ export default function ViewsBox(prop) {
   const [wardArr, setwardArr] = React.useState([])
   const [total, setTotal] = React.useState(0)
   const [lga, setLga] = React.useState(null)
-  const [lgaList, setLgaList] = React.useState([])
+  const [lgaList, setLgaList] = React.useState([""])
   const [wardList, setWardList] = React.useState([""])
+  const [fetching, setfetching] = React.useState(false)
   const [ward, setWard] = React.useState(null)
   const [state, setState] = React.useState("");
   const [button, setButton] = React.useState(true)
-  const { user } = React.useContext(StateContext)
+  const { user,notification } = React.useContext(StateContext)
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setwardArr([])
@@ -109,18 +110,25 @@ export default function ViewsBox(prop) {
       })
   };
   function getLGAs() {
+    setfetching(true)
     fetch(`${config.EndPionts}/beneficiaries/lga/${state}`).
       then(res => (res.json())).
       then(list => {
-        setLgaList(list)
+        setLgaList([lgaList,...list])
+      }).catch(err=>{
+        setfetching(false)
+        //notification("error", "Error fetching allocated LGAs")
       })
   }
   function getWards() {
+    setfetching(true)
     fetch(`${config.EndPionts}/beneficiaries/ward/${lga}`).
       then(res => (res.json())).
       then(list => {
         setWardList(["", ...list])
-      })
+        setfetching(false)
+        //notification("error", "Error fetching allocated wards")
+      }).catch(err=>n)
   }
 
 
@@ -138,7 +146,6 @@ export default function ViewsBox(prop) {
     const wardList = wardArr.map(li=>{
       return {ward:li.ward}
     })
-    console.log(wardList)
     fetch(`${config.EndPionts}/beneficiaries/assign/${prop.id}`,{
       method:"PATCH",
       headers: {
@@ -148,12 +155,13 @@ export default function ViewsBox(prop) {
     }).
       then(res => (res.json())).
       then(response => {
-        console.log(response)
-      }).catch(err =>  console.log(err))
+        handleClose()
+        notification("success","Ward Allocated successfully")
+      }).catch(err => notification("error",err.message) )
   }
 
   React.useEffect(() => {
-    if (!wardArr) {
+    if (wardArr.length < 1) {
       setButton(true)
     } else {
       setButton(false)
@@ -161,10 +169,14 @@ export default function ViewsBox(prop) {
   }, [wardArr])
 
   React.useLayoutEffect(() => {
-    getLGAs()
+    if(!lga){
+      getLGAs()
+    }
   }, [state])
   React.useLayoutEffect(() => {
-    getWards()
+    if(!ward){
+      getWards()
+    }
   }, [lga])
 
 
@@ -185,18 +197,20 @@ export default function ViewsBox(prop) {
       >
         <Fade in={open}>
           <Box container sx={style.modal}>
-            <Typography sx={{ mb: 1 }} fontSize="15px" textAlign="start" variant="p" component="p">
+            <Typography sx={{ mb: 1 }} fontSize="15px" textAlign="center" variant="h3" component="p">
               {prop.terminal}
             </Typography>
-            <Typography sx={{ mb: 1 }} fontSize="15px" textAlign="start" variant="p" component="p">
+            {/* <Typography sx={{ mb: 1 }} fontSize="15px" textAlign="start" variant="p" component="p">
               {prop.location}
-            </Typography>
-            <Grid gap={2.4} container>
+            </Typography> */}
+            <Grid gap={2.4} justifyContent="center" container>
               <Grid flexWrap="nowrap" container gap={2} >
                 <TextField label="Total beneficiaries" value={total} type="number" size='small' />
                 <TextField label="Total wards" value={wardArr.length} type="number" size='small' />
-
               </Grid>
+              {/* {fetching?<Stack sx={{ color: 'grey.500',alignItems: "center", justifyContent: "center"}} spacing={2}>
+            <p>fetching data</p>
+            <CircularProgress sx={{}} color="secondary" /></Stack>:null} */}
               <Grid flexWrap="nowrap" alignItems="center" container gap={1} item sm={12} >
 
                 <TextField

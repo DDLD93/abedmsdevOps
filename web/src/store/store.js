@@ -38,7 +38,6 @@ export default function StateContextProvider({ children }) {
 
     const [loading, setLoading] = useState(false)
     const changeLoading = (e) => setLoading(e)
-
     const getBene =()=>{
         fetch(`${config.EndPionts}/beneficiaries`,{
             headers: {

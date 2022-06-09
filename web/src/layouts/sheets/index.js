@@ -110,7 +110,6 @@ function Sheets() {
     const postXLSX = () => {
         let form = new FormData
         form.append("xlsx", file)
-        console.log(file)
         fetch(`${config.EndPionts}/sheet/`, {
             headers: {
                 "Authorization": "Bearer "+ token,
@@ -170,7 +169,7 @@ function Sheets() {
                 ),
             }
             setrows(prev => [...prev, object])
-        }).catch(err=>notification("error",err.message  )
+        }).catch(err=>{notification("error","server unreacheble, please login again")}
         )
 }
 

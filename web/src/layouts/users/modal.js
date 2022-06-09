@@ -96,6 +96,7 @@ const stateList = [
 ]
 export default function ModalBox({setRows}) {
   const [open, setOpen] = React.useState(false);
+  const [emailError, setemailError] = React.useState(false)
   const [fullName, setName] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -143,7 +144,12 @@ export default function ModalBox({setRows}) {
     if (!email || !phone || !fullName|| !type) {
       setButton(true)
     } else {
-      setButton(false)
+      if(/.+@.+\.[A-Za-z]+$/.test(email)){
+        setButton(false)
+        setemailError(false)
+        }else{
+          setemailError(true)
+        }
     }
 
   }, [email, phone, fullName,type])
@@ -174,7 +180,7 @@ export default function ModalBox({setRows}) {
                 <TextField onChange={(e) => setName(e.target.value)} size='small' fullWidth label="Full Name" />
               </Grid>
               <Grid item sm={12} >
-                <TextField onChange={(e) => setEmail(e.target.value)} size='small' fullWidth label="Email" />
+                <TextField error={emailError} helperText={emailError?"invalid email":""}  onChange={(e) => setEmail(e.target.value)} size='small' fullWidth label="Email" />
               </Grid>
               <Grid item sm={12} >
                 <TextField onChange={(e) => setPhone(e.target.value)} size='small' fullWidth label="Phone" />

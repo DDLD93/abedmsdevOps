@@ -105,7 +105,7 @@ const stateList = [
   "Yobe",
   "Zamfara"
 ]
-export default function ModalBox({setRows}) {
+export default function ModalBox({ setRows }) {
   const [open, setOpen] = React.useState(false);
   const [fullName, setName] = React.useState("");
   const [phone, setPhone] = React.useState("");
@@ -115,14 +115,14 @@ export default function ModalBox({setRows}) {
   const [type, setType] = React.useState('');
   const [states, setstates] = React.useState([])
   const [button, setButton] = React.useState(false)
-  const {notification,user} = React.useContext(StateContext)
+  const { notification, user } = React.useContext(StateContext)
   const changeRows = React.useCallback(() => {
     setRows()
   }, [setRows])
-  
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
- 
+
 
 
   const submit = () => {
@@ -145,27 +145,27 @@ export default function ModalBox({setRows}) {
       .then(res => {
         changeRows()
         handleClose()
-        notification("success","paypoint added")
-      }).catch(err => notification("error",err.message))
+        notification("success", "paypoint added")
+      }).catch(err => notification("error", err.message))
   };
 
   // const pspState = () => {
-    
+
   //   fetch(`${config.EndPionts}/psp/state`).
   //   then(res => res.json())
   //     .then(res => {
   //       setstates(res)
   //     }).catch(err => notification("warning","error fetching psp asigned state"))
   // };
- 
+
   React.useEffect(() => {
-    if (!email || !phone || !fullName|| !type) {
+    if (!email || !phone || !fullName || !location) {
       setButton(true)
     } else {
       setButton(false)
     }
 
-  }, [email, phone, fullName,type])
+  }, [email, phone, fullName, location])
 
 
   return (
@@ -185,12 +185,14 @@ export default function ModalBox({setRows}) {
       >
         <Fade in={open}>
           <Box container sx={style.modal}>
-          <CloseIcon
-          onClick={handleClose}
-          sx={{position:"absolute",
-               left:"10px",
-               cursor:"pointer"  }}
-          />
+            <CloseIcon
+              onClick={handleClose}
+              sx={{
+                position: "absolute",
+                left: "10px",
+                cursor: "pointer"
+              }}
+            />
             <Typography sx={{ m: 3 }} textAlign="center" id="transition-modal-title" variant="h4" component="h2">
               Add Paypoint
             </Typography>
@@ -208,7 +210,7 @@ export default function ModalBox({setRows}) {
                 <TextField onChange={(e) => setLocation(e.target.value)} size='small' fullWidth label="Location" />
               </Grid>
               <Grid container flexWrap="nowrap" gap={1}>
-                 <Grid item sm={12} >
+                {/* <Grid item sm={12} >
                   <TextField
                     select
                     label="State"
@@ -227,7 +229,7 @@ export default function ModalBox({setRows}) {
                       </option>
                     ))}
                   </TextField>
-                </Grid>
+                </Grid> */}
                 {/*
                 <Grid item sm={6} >
                   <TextField
