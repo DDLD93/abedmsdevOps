@@ -38,9 +38,10 @@ module.exports = (express, UPLOADS) => {
     }
   });
   api.get("/dashboard",Staff, async (req, res) => {
+    console.log("dashbord")
     let status = await paypointCtrl.getDashboard(req.user.id);
     if (status.ok) {
-      if (status.response) return res.status(200).json(status.response);
+      if (status.wards) return res.status(200).json(status.wards);
       res.status(200).json([]);
     } else {
       res.status(500).json(status.error);

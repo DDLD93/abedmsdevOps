@@ -34,6 +34,7 @@ module.exports = (express, PHOTO_ID) => {
         res.status(500).json(status.error);
       }
     });
+    
     api.get("/paypoint",Staff, async (req, res) => {
       let id = req.user.id
       let status = await beneCtrl.getBeneficiariesPaypoint(id)

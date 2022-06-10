@@ -24,22 +24,24 @@ class UserController{
     }
   }
   async getDashboard(id){
+    console.log("user id >>>>>>", id)
     const wards = await BeneFiciaries.find({pspId:id,status: { $not: { $eq: "uploaded" } }, }).distinct('ward')
     try {
-     async function counter(arr) {
-        let promises =  arr.map(async(ward) =>{
-           return{
-            ward: ward,
-            count:await BeneFiciaries.find({ward:ward}).count(),
-            paid:await BeneFiciaries.find({ward:ward,status:"paid"}).count()
-          }
-        })
-        return await Promise.all(promises)
-      }
+    //  async function counter(arr) {
+    //     let promises =  arr.map(async(ward) =>{
+    //        return{
+    //         ward: ward,
+    //         count:await BeneFiciaries.find({ward:ward}).count(),
+    //         paid:await BeneFiciaries.find({ward:ward,status:"paid"}).count()
+    //       }
+    //     })
+    //     return await Promise.all(promises)
+    //   }
         
-      let result = counter(wards)
-      console.log(result)
-      return {ok:true, response};
+     // let result = counter(wards)
+      // console.log(result)
+      console.log("wards >>>>> ",wards)
+      return {ok:true, wards};
     } catch (err) {
       return {ok:false,error:err};
     }

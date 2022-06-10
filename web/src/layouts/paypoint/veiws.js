@@ -138,6 +138,9 @@ export default function ViewsBox(prop) {
       then(num => {
         setwardArr([...wardArr, { ward, count: num }])
         setTotal(prev => prev + num)
+        setState("")
+        setLga("")
+        setWard("")
       }).catch(err => console.log("errorr >>>>", err))
     console.log(wardArr)
   }
