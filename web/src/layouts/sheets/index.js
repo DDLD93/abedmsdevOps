@@ -196,7 +196,7 @@ return (
             <Grid container flexDirection={"column"} spacing={0}>
                 <Grid item xs={12}>
                     <Card>
-                       {user.userType ==="staff" || user.userType ==="admin" && <Grid container sx={{ alignItems: "flex-end", justifyContent: "flex-end", gap: 2 }} >
+                       {user.userType ==="staff" || user.userType ==="admin"? <Grid container sx={{ alignItems: "flex-end", justifyContent: "flex-end", gap: 2 }} >
                             {/* <TextField
                                 select
                                 label="Batch"
@@ -219,7 +219,7 @@ return (
                                 Upload
                             </MDButton>
 
-                        </Grid>}
+                        </Grid>:<></>}
                         <MDBox pt={3}>
                             <DataTable
                                 table={{ columns, rows }}
