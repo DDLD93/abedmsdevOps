@@ -40,6 +40,7 @@ import TrafficStats from "./trafficStats";
 import UserStats from "./userStats";
 import config from "../../config"
 import { useState,useEffect } from "react";
+import StateStats from "layouts/dashboard/stateStats";
 
 function PSPDashboard() {
   const { sales, tasks } = reportsLineChartData;
@@ -48,7 +49,10 @@ function PSPDashboard() {
   const fetchStats = () =>{
     fetch(`${config.EndPionts}/analytics`).
     then(res => res.json()).
-    then(res => setstats(res))
+  then(res => {
+    setstats(res)
+    console.log(res)
+  })
   }
 
   useEffect(() => {
@@ -62,30 +66,30 @@ function PSPDashboard() {
       <MDBox py={3}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={3}>
-          {/* <BeneStats
+          <BeneStats
           title={"Beneficiaries"}
-          // count={stats.total}
-          // percentage2={stats.paid}
-          // percentage1={11}
-          // paid= {paid}
+          count={0}
+          percentage2={0}
+          percentage1={11}
+          paid= {0}
           
-          /> */}
+          />
           </Grid>
-           {/* <Grid item xs={12} md={6} lg={3}>
+           <Grid item xs={12} md={6} lg={3}>
             <FundStats/>
-          </Grid> */}
-          {/* <Grid item xs={12} md={6} lg={3}>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
           <StateStats/>
-          </Grid> */}
+          </Grid>
           {/* <Grid item xs={12} md={6} lg={4}>
             <PspStats/>
           </Grid> */}
           {/* <Grid item xs={12} md={6} lg={3}>
             <TrafficStats/>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} md={6} lg={3}>
             <UserStats/>
-          </Grid> */}
+          </Grid>
           {/* <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard

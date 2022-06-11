@@ -16,6 +16,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import { CircularProgress, Grid, IconButton, Stack, TextField } from '@mui/material';
 import { StateContext } from 'store/store';
+import AddIcon from '@mui/icons-material/Add';
 import list from 'assets/theme-dark/components/list';
 
 const style = {
@@ -80,8 +81,8 @@ export default function ViewsBox(prop) {
     setwardArr([])
     setTotal(0)
     setLga("")
-    setLgaList([])
-    setWardList([])
+    setLgaList([""])
+    setWardList([""])
     setWard("")
     setState("")
     setOpen(false);
@@ -125,7 +126,7 @@ export default function ViewsBox(prop) {
     fetch(`${config.EndPionts}/beneficiaries/ward/${lga}`).
       then(res => (res.json())).
       then(list => {
-        setWardList(["", ...list])
+        setWardList([wardList, ...list])
         setfetching(false)
         //notification("error", "Error fetching allocated wards")
       }).catch(err=>n)
@@ -140,6 +141,8 @@ export default function ViewsBox(prop) {
         setTotal(prev => prev + num)
         setState("")
         setLga("")
+        setLgaList([""])
+        setWardList([""])
         setWard("")
       }).catch(err => console.log("errorr >>>>", err))
     console.log(wardArr)
@@ -172,21 +175,17 @@ export default function ViewsBox(prop) {
   }, [wardArr])
 
   React.useLayoutEffect(() => {
-    if(!lga){
       getLGAs()
-    }
   }, [state])
   React.useLayoutEffect(() => {
-    if(!ward){
       getWards()
-    }
   }, [lga])
 
 
   return (
     <div>
       <IconButton onClick={handleOpen} size="small" aria-label="delete">
-        <VisibilityIcon />
+        <AddIcon />
       </IconButton>
       <Modal
 

@@ -19,7 +19,7 @@ import DataTable from "examples/Tables/DataTable";
 import MDBadge from "components/MDBadge";
 import { useContext, useEffect, useState } from "react";
 import ModalBox from "./modal";
-import { TextField } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import { StateContext } from "../../store/store"
 
 import Profile from "./preview";
@@ -34,6 +34,7 @@ import config from "config";
 function Beneficiaries() {
     
     const [loading, setloading] = useState(false)
+    const [gettingList, setgettingList] = useState(false)
     const [bene, setbene] = useState([])
     const [beneBck, setbeneBck] = useState([])
     const [search, setSearch] = useState([])
@@ -66,6 +67,7 @@ function Beneficiaries() {
       }
     
     const getBene =()=>{
+        setgettingList(true)
         let url = `${config.EndPionts}/beneficiaries/state/${state}`
         fetch(url,{
             headers: {
@@ -73,11 +75,12 @@ function Beneficiaries() {
             },
         }).then(res=>(res.json())).
         then(response=>{
-            console.log(response)
+            setgettingList(false)
             setbene(response)
             setbeneBck(response)
         }).catch(err=>{
-            console.log(err)
+            notification("error", "An error ocuured fetching list")
+            setgettingList(false)
         })
     }
 
@@ -207,7 +210,6 @@ function Beneficiaries() {
     useEffect(() => {
         setbene(beneBck)
         if(search.length > 1){
-            console.log("search")
             filterBySearch()
         }
     }, [search])
@@ -228,7 +230,7 @@ function Beneficiaries() {
                         <Grid item xs={12}>
                             <Card>
                                 <MDBox pt={3}>
-                                    <Grid container sx={{ justifyContent: "center", gap: 3 }} >
+                                    <Grid container sx={{ justifyContent: "center", gap: 3, pb:2 }} >
                                         <TextField
                                             select
                                             label="State"
@@ -268,7 +270,7 @@ function Beneficiaries() {
                                             label="Status"
                                             sx={{ width: 100 }}
                                             value={state}
-                                            onChange={(e) => setstate(e.target.value)}
+                                            //onChange={(e) => setstate(e.target.value)}
                                             SelectProps={{
                                                 native: true,
                                             }}
@@ -280,17 +282,25 @@ function Beneficiaries() {
                                                 </option>
                                             ))} 
                                         </TextField>                                        
-                                        <TextField onChange={(e)=>setSearch(e.target.value)} sx={{ width: 200, ml: 4 }} placeholder="Name Phone" size="small" label="Search" />
+                                        <TextField 
+                                        //onChange={(e)=>setSearch(e.target.value)}
+                                         sx={{ width: 200, ml: 4 }} placeholder="Name Phone" size="small" label="Search" />
 
 
                                     </Grid>
-                                    <DataTable
+                                   {rows.length < 1? <Typography variant="h6" textAlign={"center"} >
+                                        Choose a state to display beneficiary list
+                                    </Typography>:<DataTable
                                         table={{ columns, rows }}
                                         isSorted={false}
                                         entriesPerPage={false}
                                         showTotalEntries={true}
                                         noEndBorder
-                                    />
+                                    />}
+                                    {/* {gettingList && <Typography variant="h6" textAlign={"center"} >
+                                        Fetching list ....
+                                    </Typography>} */}
+                                      
                                 </MDBox>
                             </Card>
                         </Grid>}

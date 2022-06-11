@@ -67,12 +67,12 @@ function PaypointList() {
                         ),
                         action: (
                             <MDBox sx={{display:"flex"}} ml={-1}>
-                                <IconButton size="small" aria-label="delete">
+                                {/* <IconButton size="small" aria-label="delete">
                                     <DeleteIcon />
                                 </IconButton>
                                 <IconButton size="small" aria-label="delete">
                                     <BlockIcon />
-                                </IconButton>
+                                </IconButton> */}
                               <ViewsBox
                               terminal={obj.fullName}
                               location={obj.location}
