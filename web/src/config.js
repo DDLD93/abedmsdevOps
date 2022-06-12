@@ -1,3 +1,3 @@
 module.exports = {
-    EndPionts:"http://localhost:9000/api"
+    EndPionts:"http://backend:9000/api"
 }

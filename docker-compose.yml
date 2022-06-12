@@ -25,13 +25,13 @@ services:
         - ./volume/mongo:/data/db
     networks:
         - ujere_net  
-  # web:
-  #   build: ./web
-  #   container_name: 'reactapp'
-  #   ports:
-  #       - 80:8080
-  #   networks:
-  #       - ujere_net   
+  web:
+    build: ./web
+    container_name: 'reactapp'
+    ports:
+        - 80:8080
+    networks:
+        - ujere_net   
   backend:
     restart: always
     build: ./server
