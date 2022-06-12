@@ -1,3 +1,3 @@
 module.exports = {
-    EndPionts:"http://backend:9000/api"
+    EndPionts:"https://ddld.info/api"
 }

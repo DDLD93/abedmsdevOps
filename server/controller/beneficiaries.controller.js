@@ -65,6 +65,14 @@ async getBeneficiariesCustom(batch,state,lga){
       return {ok:false,error:err};
     }
   }
+  async processed(data,id){
+    try {
+      let count = await Beneficiary.updateMany({_id:id},data)
+      return {ok:true, count};
+    } catch (err) {
+      return {ok:false,error:err};
+    }
+  }
   async deleteBeneficiaries(id){
     try {
       const bene = await Beneficiary.deleteMany({sheetId:id});

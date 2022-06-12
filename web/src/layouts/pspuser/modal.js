@@ -80,6 +80,7 @@ export default function ModalBox(prop) {
   const [name, setName] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [email, setEmail] = React.useState("");
+  const [emailErro, setemailErro] = React.useState(false)
   const [button, setButton] = React.useState(false)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

@@ -111,6 +111,7 @@ export default function ModalBox({ setRows }) {
   const [phone, setPhone] = React.useState("");
   const [location, setLocation] = React.useState("")
   const [email, setEmail] = React.useState("");
+  const [emailErro, setemailErro] = React.useState(false)
   const [state, setState] = React.useState("");
   const [type, setType] = React.useState('');
   const [states, setstates] = React.useState([])
@@ -133,7 +134,7 @@ export default function ModalBox({ setRows }) {
       location,
       password: "ABEDMS",
       userType: type,
-      state,
+      company:user.fullName,
     }
     fetch(`${config.EndPionts}/paypoint/register`, {
       method: "POST",
@@ -162,7 +163,12 @@ export default function ModalBox({ setRows }) {
     if (!email || !phone || !fullName || !location) {
       setButton(true)
     } else {
+      if(/.+@.+\.[A-Za-z]+$/.test(email)){
       setButton(false)
+      setemailErro(false)
+      }else{
+        setemailErro(true)
+      }
     }
 
   }, [email, phone, fullName, location])
@@ -201,7 +207,7 @@ export default function ModalBox({ setRows }) {
                 <TextField onChange={(e) => setName(e.target.value)} size='small' fullWidth label="Full Name" />
               </Grid>
               <Grid item sm={12} >
-                <TextField onChange={(e) => setEmail(e.target.value)} size='small' fullWidth label="Email" />
+                <TextField error={emailErro} helperText={emailErro?"invalid email":""} onChange={(e) => setEmail(e.target.value)} size='small' fullWidth label="Email" />
               </Grid>
               <Grid item sm={12} >
                 <TextField onChange={(e) => setPhone(e.target.value)} size='small' fullWidth label="Phone" />
