@@ -138,7 +138,7 @@ export default function Profile(prop) {
                         ref={descriptionElementRef}
                         tabIndex={-1}>
                         <Card sx={{ display: "flex", flexDirection: "row", width: 550, height: 300, p: 2 }}>
-                            <img style={{ marginRight: "20px", border: "1px solid red", borderRadius: "50%", marginBottom: "10px" }} alt="avatar" width="150" height="150" />
+                            <img src={prop.avatar} style={{ marginRight: "20px", border: "1px solid red", borderRadius: "50%", marginBottom: "10px" }} alt="avatar" width="150" height="150" />
                             <div>
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Name</span>: <em style={{ color: "#000" }} >{prop.fullName}</em> </p>
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Age</span>: <em style={{ color: "#000" }} >{prop.age}</em> </p>

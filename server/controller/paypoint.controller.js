@@ -1,6 +1,7 @@
 const Paypoint = require("../model/paypiont.model");
 const BeneFiciaries = require("../model/beneficiary.model")
-const bcrypt = require("bcrypt");
+const {mailer} = require("../controller/mailer")
+const uuid = require("uuid").v4
  
 class UserController{
   constructor(){}
@@ -50,7 +51,23 @@ class UserController{
   async addPaypoint(data){
     try {
       const newPaypoint = new Paypoint(data);
+      const password = uuid().split("-")[0]
+      newUser.password = password
       const paypoint = await newPaypoint.save();
+      mailer.sendMail({
+        from: `umar.jere@gmail.com`, // sender address
+        to: `${user.email}`,
+        subject: "Welcome to ABEDMS portal", // Subject line
+        html: `<p>hello ${user.fullName} , Welcome to ABEDMS portal</p> </br> 
+        <p><span>USERNAME: ${user.email}</span></br><span>password: ${user.password}</span></p>
+        <p>Login at: https://ddld.info</p>
+        `, // plain text body
+       },(err,resp)=>{
+        if (err) {
+              console.log("error >>>>>>", err)
+           }
+           console.log("mail response", resp)
+       })
       return {ok:true, paypoint};
     } catch (err) {
       return {ok:false,error:err};

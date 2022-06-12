@@ -1,5 +1,6 @@
 const User = require("../model/user.model");
 const {mailer} = require("../controller/mailer")
+const uuid = require("uuid").v4
  
 class UserController{
   constructor(){}
@@ -52,12 +53,17 @@ class UserController{
   async registerUser(data){
     try {
       const newUser = new User(data);
+      const password = uuid().split("-")[0]
+      newUser.password = password
       const user = await newUser.save();
-      await mailer.sendMail({
+       mailer.sendMail({
         from: `umar.jere@gmail.com`, // sender address
         to: `${user.email}`,
         subject: "Welcome to ABEDMS portal", // Subject line
-        html: `<p>hello Welcome ABEDMS portal</p>`, // plain text body
+        html: `<p>Hello ${user.fullName} , Welcome to ABEDMS portal</p> </br> 
+        <p>USERNAME: ${user.email}</p> <p>password: ${user.password}</p>
+        <p>Login at: https://ddld.info</p>
+        `, // plain text body
        },(err,resp)=>{
         if (err) {
               console.log("error >>>>>>", err)

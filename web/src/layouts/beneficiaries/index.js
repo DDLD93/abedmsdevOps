@@ -42,7 +42,7 @@ function Beneficiaries() {
     const [state, setstate] = useState([])
     const [lga, setlga] = useState([])
     const [lgaList, setlgaList] = useState(["All"])
-    const { batchList,token } = useContext(StateContext)
+    const { batchList,token,notification } = useContext(StateContext)
 
     const filterByLga = ()=>{
         setbene(beneBck.filter(li=>{
@@ -94,6 +94,7 @@ function Beneficiaries() {
     );
     
     const rows =  bene.map(obj => {
+        console.log(obj)
                     return {
                         name: (<MDTypography component="a" href="#" variant="a" color="text" fontWeight="medium">
                             {obj.fullName}
@@ -126,6 +127,7 @@ function Beneficiaries() {
                                     status={obj.status}
                                     payment={obj.isPayment}
                                     fullName={obj.fullName}
+                                    avatar={obj.biometric && obj.biometric.imagePath}
                                     gender={obj.gender}
                                     disability={obj.disability}
                                     age={obj.age}

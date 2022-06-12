@@ -219,10 +219,9 @@ module.exports = (express, PHOTO_ID) => {
           return res.status(500).json(status.error);
         }
       })
-      api.put("/processed/:id", async (req, res) => {
+      api.put("/process/:id", async (req, res) => {
         let {id} = req.params
         let data = req.body
-        console.log(id,data)
         let status = await beneCtrl.processed(data,id)
        if(status.ok) {
          return res.status(200).json(status.count);
