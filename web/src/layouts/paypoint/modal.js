@@ -131,7 +131,7 @@ export default function ModalBox({ setRows }) {
       phone,
       email,
       location,
-      password: 123456,
+      password: "ABEDMS",
       userType: type,
       state,
     }

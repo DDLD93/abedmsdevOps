@@ -128,8 +128,9 @@ export default function ModalBox(prop) {
     const data = {
       fullName:name,
       phone,
-      password:123456,
+      password:"humanitarian",
       email,
+      company:name,
       userType:"psp",
       pspInfo:{states:stateName
       },

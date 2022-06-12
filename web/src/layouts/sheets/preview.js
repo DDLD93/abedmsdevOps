@@ -48,7 +48,7 @@ export default function SheetPreview(prop) {
             handleRefresh()
             handleClose()
         }).catch(err=>{
-            Alert()
+            notification("error","Seession Error>> Reload page or Login again")
             setlabel("Approve")
            // notification("error","Operation failed")
         })

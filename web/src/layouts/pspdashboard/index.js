@@ -70,7 +70,7 @@ function PSPDashboard() {
           title={"Beneficiaries"}
           count={0}
           percentage2={0}
-          percentage1={11}
+          percentage1={0}
           paid= {0}
           
           />

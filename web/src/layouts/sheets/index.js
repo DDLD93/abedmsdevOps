@@ -82,7 +82,7 @@ function Sheets() {
                         ),
                         action: (
                             <MDBox sx={{ display: "flex" }} ml={-1}>
-                                {user.userType ==="qa" || user.userType ==="admin" &&<SheetPreview
+                                {user.userType ==="qa" || user.userType ==="admin"?<SheetPreview
                                 refresh={fetchSheet}
                                 id={obj._id}
                                 code={obj.code}
@@ -92,11 +92,11 @@ function Sheets() {
                                 uploadBy={obj.uploadedBy && obj.uploadedBy.fullName}
                                 timestamps={obj.createdAt}
                                 status={obj.status}
-                                />}
-                                {user.userType ==="qa"|| user.userType ==="admin"&&<DeleteModal
+                                />:<></>}
+                                {user.userType ==="qa"|| user.userType ==="admin"?<DeleteModal
                                     id={obj._id}
                                     refresh={fetchSheet}
-                                />}
+                                />:<></>}
                             </MDBox>
                         ),
                     }
@@ -157,15 +157,23 @@ function Sheets() {
                 ),
                 action: (
                     <MDBox sx={{ display: "flex" }} ml={-1}>
-
-                        <DeleteModal
-                            id={obj._id}
-                            reFetch={() => {
-                                let idx = e.target.parentElement.id
-                                setrows(rows.filter((item, index) => index != idx))
-                            }}
-                        />
-                    </MDBox>
+                                {user.userType ==="qa" || user.userType ==="admin"?<SheetPreview
+                                refresh={fetchSheet}
+                                id={obj._id}
+                                code={obj.code}
+                                total={obj.total}
+                                valid={obj.valid}
+                                invalid={obj.invalid}
+                                uploadBy={obj.uploadedBy && obj.uploadedBy.fullName}
+                                timestamps={obj.createdAt}
+                                status={obj.status}
+                                />:<></>}
+                                {user.userType ==="qa"|| user.userType ==="admin"?<DeleteModal
+                                    id={obj._id}
+                                    refresh={fetchSheet}
+                                />:<></>}
+                            </MDBox>
+                        
                 ),
             }
             setrows(prev => [...prev, object])
