@@ -57,3 +57,6 @@ app.use(function(req, res, next){
  app.listen(port,()=>{
     console.log(`app listening on port ${port}`)
 })
+https.createServer(httpsOptions, app).listen(port,()=>{
+  console.log(`app listening on port ${port}`)
+});
