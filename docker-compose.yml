@@ -75,12 +75,12 @@ services:
     container_name: 'backendapp'
     networks:
         - ujere_net
-  terminal:
+  paypoint:
     restart: always
-    build: ./terminal
+    build: ./paypoint
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.node-server.rule=Host(`terminal.ddld.info`)"
+      - "traefik.http.routers.node-server.rule=Host(`paypoint.ddld.info`)"
       - "traefik.http.routers.node-server.entrypoints=websecure"
       - "traefik.http.routers.node-server.tls.certresolver=myresolver"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
@@ -89,7 +89,7 @@ services:
       - "traefik.http.routers.redirs.middlewares=redirect-to-https"
     depends_on:
       - backend
-    container_name: 'terminal'
+    container_name: 'paypoint'
     networks:
         - ujere_net              
   worker:
