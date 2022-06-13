@@ -14,7 +14,7 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
       - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.myresolver.acme.email=hello@paularah.com"
+      - "--certificatesresolvers.myresolver.acme.email=umar.jere@gmail.com"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
       - "443:443"
@@ -62,7 +62,7 @@ services:
     build: ./server
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.node-server.rule=Host(`play.paularah.com`)"
+      - "traefik.http.routers.node-server.rule=Host(`ddld.info`)"
       - "traefik.http.routers.node-server.entrypoints=websecure"
       - "traefik.http.routers.node-server.tls.certresolver=myresolver"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
@@ -73,8 +73,6 @@ services:
       - database
       - rabbitmq
     container_name: 'backendapp'
-    volumes:
-      - /etc/letsencrypt/live/ddld.info:/app/cert
     networks:
         - ujere_net    
   worker:
