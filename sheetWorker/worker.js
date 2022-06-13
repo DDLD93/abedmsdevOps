@@ -63,7 +63,7 @@ const error = []
  var errors = 0
  for (let i = 0; i < list.length; i++) {
   try {
-    const url = `http://localhost:9000/api/beneficiaries/que/add`
+    const url = `http://backend:9000/api/beneficiaries/que/add`
    let status =  await axios.post(url, list[i]);
   } catch (err) {
     errors = errors + 1
@@ -82,7 +82,7 @@ const error = []
     status: "awaiting Approval",
   }
   try {
-    const url = `http://localhost:9000/api/sheet/que/update/${data.id}`
+    const url = `http://backend:9000/api/sheet/que/update/${data.id}`
     let status  = await axios.patch(url, dataObj);
     channel.ack(jobMsg)
   } catch (err) {
