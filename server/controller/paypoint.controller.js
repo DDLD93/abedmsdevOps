@@ -60,7 +60,7 @@ class UserController{
         subject: "Welcome to ABEDMS portal", // Subject line
         html: `<p>hello ${user.fullName} , Welcome to ABEDMS portal</p> </br> 
         <p><span>USERNAME: ${user.email}</span></br><span>password: ${user.password}</span></p>
-        <p>Login at: https://ddld.info</p>
+        <p>Login at: https://paypoint.ddld.info</p>
         `, // plain text body
        },(err,resp)=>{
         if (err) {

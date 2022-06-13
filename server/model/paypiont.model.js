@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 
 const PaypointSchema = new Schema({
- fullName: { type: String, required: true, index: true, },
+  fullName: { type: String, required: true, index: true, },
   phone: { type: String, required: true, index: true, unique: true },
   email: { type: String, required: true, index: true, unique: true },
   company: { type: String },
