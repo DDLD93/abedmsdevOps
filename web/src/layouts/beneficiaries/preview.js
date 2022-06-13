@@ -149,7 +149,7 @@ export default function Profile(prop) {
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Ward</span>: <em style={{ color: "#000" }} >{prop.ward}</em> </p>
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Marital Status</span>: <em style={{ color: "#000" }} >{prop.maritalStatus}</em> </p>
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Occupation</span>: <em style={{ color: "#000" }} >{prop.occupation}</em> </p>
-                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Biometric</span>: <em style={{ color: "#000" }} >{prop.status}</em> </p>
+                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Biometric</span>: <em style={{ color: "#000" }} >{null}</em> </p>
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Status</span>: <em style={{ color: "#000" }} >{prop.status}</em> </p>
                             </div>
                         </Card>

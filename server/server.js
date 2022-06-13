@@ -10,8 +10,8 @@ const express = require("express");
 const cors = require('cors');
 require('dotenv').config();
 const httpsOptions = {
-    key: fs.readFileSync('./certs/key.pem'),
-    cert: fs.readFileSync('./certs/cert.pem')
+    key: fs.readFileSync('./cert/privkey.pem'),
+    cert: fs.readFileSync('./cert/cert.pem')
   }
 // const broker = require("./connection/rabbitmq.connection")
 

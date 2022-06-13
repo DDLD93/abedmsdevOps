@@ -24,7 +24,7 @@ const beneficiarySchema = new Schema({
     type: { type: String },
     guarantor: { type: String },
     idNo: { type: String,},
-    imagePath: { type: Buffer }
+    imagePath: { type: String}
   },
   biometric: {
     dateCapture: { type: Date },
@@ -36,7 +36,7 @@ const beneficiarySchema = new Schema({
     company: { type: String },
     amount: { type: Number },
     remark: { type: String },
-    imagePath: { type: Buffer }
+    imagePath: { type: String }
   },
   updatedAt: { type: Date, },
   createdAt: { type: Date, default: Date.now() }
