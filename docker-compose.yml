@@ -32,19 +32,19 @@ services:
   #       - 8080:8080
   #   networks:
   #       - ujere_net   
-  backend:
-    restart: always
-    build: ./server
-    depends_on:
-      - database
-      - rabbitmq
-    container_name: 'backendapp'
-    volumes:
-      - /etc/letsencrypt/live/ddld.info:/app/cert
-    ports:
-        - 443:9000
-    networks:
-        - ujere_net    
+  # backend:
+  #   restart: always
+  #   build: ./server
+  #   depends_on:
+  #     - database
+  #     - rabbitmq
+  #   container_name: 'backendapp'
+  #   volumes:
+  #     - /etc/letsencrypt/live/ddld.info:/app/cert
+  #   ports:
+  #       - 443:9000
+  #   networks:
+  #       - ujere_net    
   worker:
     restart: always
     build: ./sheetWorker

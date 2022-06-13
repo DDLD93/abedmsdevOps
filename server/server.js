@@ -53,8 +53,8 @@ app.use(function(req, res, next){
 });
 
 //setInterval(()=>broker.sendMsg({name:"umar"}),10000)
-setTimeout(()=>{
+
   https.createServer(httpsOptions, app).listen(port,()=>{
     console.log(`app listening on port ${port}`)
   });
-},5000)
+
