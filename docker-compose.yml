@@ -74,7 +74,24 @@ services:
       - rabbitmq
     container_name: 'backendapp'
     networks:
-        - ujere_net    
+        - ujere_net
+  terminal:
+    restart: always
+    build: ./terminal
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.node-server.rule=Host(`terminal.ddld.info`)"
+      - "traefik.http.routers.node-server.entrypoints=websecure"
+      - "traefik.http.routers.node-server.tls.certresolver=myresolver"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.redirs.entrypoints=web"
+      - "traefik.http.routers.redirs.middlewares=redirect-to-https"
+    depends_on:
+      - backend
+    container_name: 'terminal'
+    networks:
+        - ujere_net              
   worker:
     restart: always
     build: ./sheetWorker
