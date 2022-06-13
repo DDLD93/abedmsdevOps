@@ -56,14 +56,8 @@ app.use(function(req, res, next){
 
 //setInterval(()=>broker.sendMsg({name:"umar"}),10000)
 
-// app.listen(port,()=>{
-//     console.log(`app listening on port ${port}`)
-//   });
+app.listen(port,()=>{
+    console.log(`app listening on port ${port}`)
+  });
 
-const httpServer = http.createServer(app);
-const httpsServer = https.createServer(app);
-  
-  
-httpServer.listen(port);
-httpsServer.listen(8443);  
 
