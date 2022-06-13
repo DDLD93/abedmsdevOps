@@ -1,5 +1,30 @@
 version: "3.3"
 services:
+  reverse-proxy:
+    image: traefik:v2.4
+    container_name: "traefik"
+    command:
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      - "--api.debug=true"
+      - "--providers.docker=true"
+      - "--log.LEVEL=DEBUG"
+      - "--entryPoints.web.address=:80"
+      - "--entryPoints.websecure.address=:443"
+      - "--providers.docker.exposedbydefault=false"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.myresolver.acme.email=hello@paularah.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "443:443"
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "./letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+        - ujere_net   
   rabbitmq:
     restart: always
     image: rabbitmq:3-management-alpine
@@ -32,25 +57,33 @@ services:
   #       - 8080:8080
   #   networks:
   #       - ujere_net   
-  # backend:
-  #   restart: always
-  #   build: ./server
-  #   depends_on:
-  #     - database
-  #     - rabbitmq
-  #   container_name: 'backendapp'
-  #   volumes:
-  #     - /etc/letsencrypt/live/ddld.info:/app/cert
-  #   ports:
-  #       - 443:9000
-  #   networks:
-  #       - ujere_net    
+  backend:
+    restart: always
+    build: ./server
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.node-server.rule=Host(`play.paularah.com`)"
+      - "traefik.http.routers.node-server.entrypoints=websecure"
+      - "traefik.http.routers.node-server.tls.certresolver=myresolver"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.redirs.entrypoints=web"
+      - "traefik.http.routers.redirs.middlewares=redirect-to-https"
+    depends_on:
+      - database
+      - rabbitmq
+    container_name: 'backendapp'
+    volumes:
+      - /etc/letsencrypt/live/ddld.info:/app/cert
+    networks:
+        - ujere_net    
   worker:
     restart: always
     build: ./sheetWorker
     depends_on:
       - database
       - rabbitmq
+      - backend
     container_name: 'sheetworker'
     networks:
         - ujere_net                         
