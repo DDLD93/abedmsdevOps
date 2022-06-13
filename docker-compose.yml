@@ -72,6 +72,8 @@ services:
     depends_on:
       - database
       - rabbitmq
+    ports:
+      - 9000:9000  
     container_name: 'backendapp'
     networks:
         - ujere_net
