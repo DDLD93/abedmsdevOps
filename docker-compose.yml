@@ -62,7 +62,7 @@ services:
     build: ./server
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.node-server.rule=Host(`ddld.info`)"
+      - "traefik.http.routers.node-server.rule=Host(`play.paularah.com`)"
       - "traefik.http.routers.node-server.entrypoints=websecure"
       - "traefik.http.routers.node-server.tls.certresolver=myresolver"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"

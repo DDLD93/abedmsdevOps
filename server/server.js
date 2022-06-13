@@ -3,10 +3,12 @@ const PHOTO_ID = __dirname+'/photoID';
 const PAYMENT = __dirname+'/payment';
 require('./connection/mongodb.connection')();
 const https = require('https')
+const http = require('http');
 const fs = require('fs')
 const path = require('path');
 
 const express = require("express");
+
 const cors = require('cors');
 require('dotenv').config();
 // const httpsOptions = {
@@ -54,7 +56,14 @@ app.use(function(req, res, next){
 
 //setInterval(()=>broker.sendMsg({name:"umar"}),10000)
 
-app.listen(port,()=>{
-    console.log(`app listening on port ${port}`)
-  });
+// app.listen(port,()=>{
+//     console.log(`app listening on port ${port}`)
+//   });
+
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(app);
+  
+  
+httpServer.listen(port);
+httpsServer.listen(8443);  
 
