@@ -2,7 +2,6 @@ const multer = require('multer');
 const uuid = require('uuid').v4;
 const paypointCtrl = require("../controller/paypoint.controller")
 const Paypoint = require("../model/paypiont.model")
-const bcrypt = require("bcrypt")
 const {Staff} = require("../middleware/auth.middleware")
 const jwt = require("jsonwebtoken");
 
