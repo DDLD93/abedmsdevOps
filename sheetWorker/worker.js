@@ -64,7 +64,7 @@ const error = []
  for (let i = 0; i < list.length; i++) {
   try {
     const url = `http://backend:9000/api/beneficiaries/que/add`
-   let status =  await axios.post(url, list[i]);
+    await axios.post(url, list[i]);
   } catch (err) {
     errors = errors + 1
   }
@@ -83,7 +83,7 @@ const error = []
   }
   try {
     const url = `http://backend:9000/api/sheet/que/update/${data.id}`
-    let status  = await axios.patch(url, dataObj);
+    await axios.put(url, dataObj);
     channel.ack(jobMsg)
   } catch (err) {
     console.log(err.message)
