@@ -24,10 +24,11 @@ import DataTable from "examples/Tables/DataTable";
 
 import MDAvatar from "components/MDAvatar";
 import MDBadge from "components/MDBadge";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ModalBox from "./modal";
 import ViewsBox from "./veiws";
 import config from "../../config"
+import { StateContext } from "store/store";
 
 
 
@@ -35,11 +36,16 @@ import config from "../../config"
 
 
 function PaypointList() {
+    const {token} = useContext(StateContext)
     const [rows, setrows] = useState([])
     const erows = () => fetchUsers()
     const fetchUsers = () => {
         setrows([])
-        fetch(`${config.EndPionts}/paypoint`)
+        fetch(`${config.EndPionts}/paypoint`,{
+            headers:{
+                "Authorization": "Bearer "+ token,
+            }
+        })
             .then(res => res.json())
             .then(response => {
                 response.map(obj => {

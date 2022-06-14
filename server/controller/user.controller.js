@@ -1,5 +1,5 @@
 const User = require("../model/user.model");
-const {mailer} = require("../controller/mailer")
+const {mailer, welcomeMsg} = require("../controller/mailer")
 const uuid = require("uuid").v4
  
 class UserController{
@@ -56,20 +56,7 @@ class UserController{
       const password = uuid().split("-")[0]
       newUser.password = password
       const user = await newUser.save();
-       mailer.sendMail({
-        from: `umar.jere@gmail.com`, // sender address
-        to: `${user.email}`,
-        subject: "Welcome to ABEDMS portal", // Subject line
-        html: `<p>Hello ${user.fullName} , Welcome to ABEDMS portal</p> </br> 
-        <p>USERNAME: ${user.email}</p> <p>password: ${user.password}</p>
-        <p>Login at: https://ddld.info</p>
-        `, // plain text body
-       },(err,resp)=>{
-        if (err) {
-              console.log("error >>>>>>", err)
-           }
-           console.log("mail response", resp)
-       })
+      let response = await welcomeMsg(user.email,user.fullName,user.password,'ddld.info')
       return {ok:true, user};
 
     } catch (err) {

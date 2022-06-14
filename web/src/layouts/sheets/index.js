@@ -22,7 +22,7 @@ import { useContext } from 'react'
 import MDBadge from "components/MDBadge";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useEffect, useState } from "react";
-import { Button, Fab, Input, TextField } from "@mui/material";
+import { Button, CircularProgress, Fab, Input, TextField } from "@mui/material";
 import MDButton from "components/MDButton";
 import { StateContext } from "store/store";
 import DeleteModal from "./delete";
@@ -38,6 +38,7 @@ function Sheets() {
     const [importCondition, setimportCondition] = useState(false)
     const [rows, setrows] = useState([])
     const [batch, setbatch] = useState([])
+    const [loading, setloading] = useState(false)
     const { batchList, token,notification,user } = useContext(StateContext)
 
     const fetchSheet = () => {
@@ -108,6 +109,7 @@ function Sheets() {
 
 
     const postXLSX = () => {
+        setloading(true)
         let form = new FormData
         form.append("xlsx", file)
         fetch(`${config.EndPionts}/sheet/`, {
@@ -177,7 +179,10 @@ function Sheets() {
                 ),
             }
             setrows(prev => [...prev, object])
-        }).catch(err=>{notification("error","server unreacheble, please login again")}
+            setloading(false)
+        }).catch(err=>{
+            setloading(false)
+            notification("error","server unreacheble, please login again")}
         )
 }
 
@@ -222,9 +227,10 @@ return (
                                     </option>
                                 ))}
                             </TextField> */}
+                            <CircularProgress sx={{display:loading?"block":"none"}} size={25} color="success" />
                             <Input sx={{ width: "200px" }} onChange={(e) => setfile(e.target.files[0])} multiple type="file" />
                             <MDButton disabled={file ? false : true} color="primary" onClick={postXLSX} size="small" sx={{ mr: 5, mt: 3 }} variant="contained">
-                                Upload
+                                {loading?"Uploading...":"Upload"}
                             </MDButton>
 
                         </Grid>:<></>}

@@ -106,10 +106,11 @@ export default function ModalBox(prop) {
   const [phone, setPhone] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [button, setButton] = React.useState(false)
+  const [loading, setloading] = React.useState(false)
   const [emailErro, setemailErro] = React.useState(false)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { batchList, fetchpsp,notification } = React.useContext(StateContext)
+  const { batchList, fetchpsp, notification } = React.useContext(StateContext)
   const theme = useTheme();
   const [stateName, setStateName] = React.useState([]);
 
@@ -125,16 +126,19 @@ export default function ModalBox(prop) {
   };
 
   const submit = () => {
+    setButton(true)
+    setloading(true)
     const data = {
-      fullName:name,
+      fullName: name,
       phone,
-      password:"humanitarian",
+      password: "humanitarian",
       email,
-      company:name,
-      userType:"psp",
-      pspInfo:{states:stateName
+      company: name,
+      userType: "psp",
+      pspInfo: {
+        states: stateName
       },
-      
+
     }
     fetch(`${config.EndPionts}/user/register`, {
       method: "POST",
@@ -146,26 +150,36 @@ export default function ModalBox(prop) {
       return res.json()
     })
       .then(res => {
-        notification("success","Account added")
-        setStateName([])
-        fetchpsp()
-        handleClose()
-      }).catch(err => notification("error",err.message))
+        setButton(false)
+        setloading(false)
+        if (res.code && res.code == 11000) {
+          notification("error", "duplicate entry/entries")
+        } else {
+          
+          notification("success", "Account added")
+          setStateName([])
+          fetchpsp()
+          handleClose()
+        }
+      }).catch(err => {
+        setButton(false)
+        setloading(false)
+        notification("error", err.message)})
   };
 
   React.useEffect(() => {
     if (!email || !phone || !name || !stateName) {
       setButton(true)
     } else {
-      if(/.+@.+\.[A-Za-z]+$/.test(email)){
+      if (/.+@.+\.[A-Za-z]+$/.test(email)) {
         setButton(false)
         setemailErro(false)
-        }else{
-          setemailErro(true)
-        }
+      } else {
+        setemailErro(true)
+      }
     }
 
-  }, [email, phone, name,stateName])
+  }, [email, phone, name, stateName])
 
 
   return (
@@ -185,12 +199,14 @@ export default function ModalBox(prop) {
       >
         <Fade in={open}>
           <Box container sx={style.modal}>
-          <CloseIcon
-          onClick={handleClose}
-          sx={{position:"absolute",
-               left:"10px",
-               cursor:"pointer"  }}
-          />
+            <CloseIcon
+              onClick={handleClose}
+              sx={{
+                position: "absolute",
+                left: "10px",
+                cursor: "pointer"
+              }}
+            />
             <Typography sx={{ m: 3 }} textAlign="center" id="transition-modal-title" variant="h4" component="h2">
               Add PSP
             </Typography>
@@ -199,47 +215,47 @@ export default function ModalBox(prop) {
                 <TextField onChange={(e) => setName(e.target.value)} size='small' fullWidth label="Company Name" />
               </Grid>
               <Grid item sm={12} >
-                <TextField error={emailErro} helperText={emailErro?"invalid email":""} type="email" onChange={(e) => setEmail(e.target.value)} size='small' fullWidth label="Email" />
+                <TextField error={emailErro} helperText={emailErro ? "invalid email" : ""} type="email" onChange={(e) => setEmail(e.target.value)} size='small' fullWidth label="Email" />
               </Grid>
               <Grid item sm={12} >
                 <TextField onChange={(e) => setPhone(e.target.value)} size='small' fullWidth label="Phone" />
               </Grid>
               <Grid item >
-              <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-chip-label">Select States</InputLabel>
-        <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
-          multiple
-          value={stateName}
-          onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Select States" />}
-          renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
-          MenuProps={MenuProps}
-        >
-          {stateList.map((state) => (
-            <MenuItem
-              key={state}
-              value={state}
-              style={getStyles(state, stateName, theme)}
-            >
-              {state}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </div>
+                <div>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-chip-label">Select States</InputLabel>
+                    <Select
+                      labelId="demo-multiple-chip-label"
+                      id="demo-multiple-chip"
+                      multiple
+                      value={stateName}
+                      onChange={handleChange}
+                      input={<OutlinedInput id="select-multiple-chip" label="Select States" />}
+                      renderValue={(selected) => (
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                          {selected.map((value) => (
+                            <Chip key={value} label={value} />
+                          ))}
+                        </Box>
+                      )}
+                      MenuProps={MenuProps}
+                    >
+                      {stateList.map((state) => (
+                        <MenuItem
+                          key={state}
+                          value={state}
+                          style={getStyles(state, stateName, theme)}
+                        >
+                          {state}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
               </Grid>
             </Grid>
 
-            <MDButton disabled={button} onClick={submit} sx={{ mt: 4 }} size="small" fullWidth={true} variant="gradient" color="primary" >Create</MDButton>
+            <MDButton disabled={button} onClick={submit} sx={{ mt: 4 }} size="small" fullWidth={true} variant="gradient" color="primary" >{loading ? "Creating..." : "Create"}</MDButton>
           </Box>
         </Fade>
       </Modal>

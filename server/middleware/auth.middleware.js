@@ -27,7 +27,7 @@ async function Staff (req, res, next) {
                 next();
             }else{
                 console.log("erro inside staff middleware >>>>> ", err)
-            return res.status(403).send("Access denied. invalid token");
+            return res.status(500).send("Access denied. invalid token");
             }
         });
       }  ;

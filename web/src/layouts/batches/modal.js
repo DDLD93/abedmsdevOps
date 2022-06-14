@@ -7,7 +7,7 @@ import Icon from "@mui/material/Icon";
 import Typography from '@mui/material/Typography';
 import MDButton from 'components/MDButton';
 import Fab from '@mui/material/Fab';
-import { Grid, NativeSelect, TextField } from '@mui/material';
+import { CircularProgress, Grid, NativeSelect, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import config from "../../config"
@@ -53,6 +53,7 @@ export default function ModalBox(prop) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [focus, setfocus] = React.useState(false)
+  const [loading, setloading] = React.useState(false)
   const {fetchBatch,notification} = React.useContext(StateContext)
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -115,13 +116,14 @@ export default function ModalBox(prop) {
   };
 
   const submit = () => {
+    setloading(true)
+    setButton(true)
     const data = {
       closingDate: date,
       total: Tbudget,
       name: batchName,
       states: states
     }
-    console.log(data)
     fetch(`${config.EndPionts}/batch`, {
       method: "POST",
       headers: {
@@ -132,8 +134,12 @@ export default function ModalBox(prop) {
       .then(res => {
         fetchBatch()
         notification("success","new batch added")
+        setloading(false)
+        setButton(false)
 
         handleClose()}).catch(err => {
+          setloading(false)
+          setButton(false)
           notification("error",err.message)
         })
         
@@ -258,7 +264,6 @@ export default function ModalBox(prop) {
                   color='primary'
                   onClick={add}
                 />
-
               </Grid>
               {tempList.map((li, indx) => (
                 <div>
@@ -272,7 +277,7 @@ export default function ModalBox(prop) {
                 </div>
               ))}
             </Grid>
-            <MDButton disabled={button} onClick={submit} sx={{ mt: 4 }} size="small" fullWidth={true} variant="gradient" color="primary" >Create</MDButton>
+            <MDButton disabled={button} onClick={submit} sx={{ mt: 4 }} size="small" fullWidth={true} variant="gradient" color="primary" >{loading?"Creating...":"Create"}</MDButton>
           </Box>
         </Fade>
       </Modal>

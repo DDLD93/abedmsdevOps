@@ -116,6 +116,9 @@ export default function ModalBox({ setRows }) {
   const [type, setType] = React.useState('');
   const [states, setstates] = React.useState([])
   const [button, setButton] = React.useState(false)
+  const [focus, setfocus] = React.useState(false)
+  const [loading, setloading] = React.useState(false)
+
   const { notification, user } = React.useContext(StateContext)
   const changeRows = React.useCallback(() => {
     setRows()
@@ -127,6 +130,8 @@ export default function ModalBox({ setRows }) {
 
 
   const submit = () => {
+    setloading(true)
+    setButton(true)
     const data = {
       fullName,
       phone,
@@ -134,7 +139,7 @@ export default function ModalBox({ setRows }) {
       location,
       password: "ABEDMS",
       userType: type,
-      company:user.fullName,
+      company: user.fullName,
     }
     fetch(`${config.EndPionts}/paypoint/register`, {
       method: "POST",
@@ -144,10 +149,20 @@ export default function ModalBox({ setRows }) {
       body: JSON.stringify(data)
     }).then(res => res.json())
       .then(res => {
-        changeRows()
-        handleClose()
-        notification("success", "paypoint added")
-      }).catch(err => notification("error", err.message))
+        setloading(false)
+        setButton(false)
+        if (res.code && res.code == 11000) {
+          notification("error", "duplicate entry/entries")
+        } else {
+          changeRows();
+          handleClose();
+          notification("success", "user added")
+        }
+      }).catch(err => {
+        setloading(false)
+        setButton(false)
+        notification("error", err.message)
+      })
   };
 
   // const pspState = () => {
@@ -163,10 +178,10 @@ export default function ModalBox({ setRows }) {
     if (!email || !phone || !fullName || !location) {
       setButton(true)
     } else {
-      if(/.+@.+\.[A-Za-z]+$/.test(email)){
-      setButton(false)
-      setemailErro(false)
-      }else{
+      if (/.+@.+\.[A-Za-z]+$/.test(email)) {
+        setButton(false)
+        setemailErro(false)
+      } else {
         setemailErro(true)
       }
     }
@@ -207,7 +222,7 @@ export default function ModalBox({ setRows }) {
                 <TextField onChange={(e) => setName(e.target.value)} size='small' fullWidth label="Full Name" />
               </Grid>
               <Grid item sm={12} >
-                <TextField error={emailErro} helperText={emailErro?"invalid email":""} onChange={(e) => setEmail(e.target.value)} size='small' fullWidth label="Email" />
+                <TextField error={emailErro} helperText={emailErro ? "invalid email" : ""} onChange={(e) => setEmail(e.target.value)} size='small' fullWidth label="Email" />
               </Grid>
               <Grid item sm={12} >
                 <TextField onChange={(e) => setPhone(e.target.value)} size='small' fullWidth label="Phone" />
@@ -259,8 +274,7 @@ export default function ModalBox({ setRows }) {
                 </Grid> */}
               </Grid>
             </Grid>
-
-            <MDButton disabled={button} onClick={submit} sx={{ mt: 4 }} size="small" fullWidth={true} variant="gradient" color="primary" >Create</MDButton>
+            <MDButton disabled={button} onClick={submit} sx={{ mt: 4 }} size="small" fullWidth={true} variant="gradient" color="primary" >{loading ? "Creating..." : "Create"}</MDButton>
           </Box>
         </Fade>
       </Modal>

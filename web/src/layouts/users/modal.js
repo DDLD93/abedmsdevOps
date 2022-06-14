@@ -94,7 +94,7 @@ const stateList = [
   "yobe",
   "zamfara"
 ]
-export default function ModalBox({setRows}) {
+export default function ModalBox({ setRows }) {
   const [open, setOpen] = React.useState(false);
   const [emailError, setemailError] = React.useState(false)
   const [fullName, setName] = React.useState("");
@@ -103,17 +103,20 @@ export default function ModalBox({setRows}) {
   const [state, setState] = React.useState("");
   const [type, setType] = React.useState('');
   const [button, setButton] = React.useState(false)
-  const {notification} = React.useContext(StateContext)
+  const [loading, setloading] = React.useState(false)
+  const { notification } = React.useContext(StateContext)
   const changeRows = React.useCallback(() => {
     setRows()
   }, [setRows])
-  
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
- 
+
 
 
   const submit = () => {
+    setloading(true)
+    setButton(true)
     const data = {
       fullName,
       phone,
@@ -130,29 +133,35 @@ export default function ModalBox({setRows}) {
       body: JSON.stringify(data)
     }).then(res => res.json())
       .then(res => {
-        if(res.code&&res.code == 11000){
-          notification("error","duplicate entry/entries")
-        }else{
+        setloading(false)
+        setButton(false)
+        if (res.code && res.code == 11000) {
+          notification("error", "duplicate entry/entries")
+        } else {
           changeRows();
           handleClose();
-          notification("success","user added")
-        } 
-      }).catch(err => notification("error",err.message))
+          notification("success", "user added")
+        }
+      }).catch(err => {
+        setloading(false)
+        setButton(false)
+        notification("error", err.message)
+      })
   };
- 
+
   React.useEffect(() => {
-    if (!email || !phone || !fullName|| !type) {
+    if (!email || !phone || !fullName || !type) {
       setButton(true)
     } else {
-      if(/.+@.+\.[A-Za-z]+$/.test(email)){
+      if (/.+@.+\.[A-Za-z]+$/.test(email)) {
         setButton(false)
         setemailError(false)
-        }else{
-          setemailError(true)
-        }
+      } else {
+        setemailError(true)
+      }
     }
 
-  }, [email, phone, fullName,type])
+  }, [email, phone, fullName, type])
 
 
   return (
@@ -180,7 +189,7 @@ export default function ModalBox({setRows}) {
                 <TextField onChange={(e) => setName(e.target.value)} size='small' fullWidth label="Full Name" />
               </Grid>
               <Grid item sm={12} >
-                <TextField error={emailError} helperText={emailError?"invalid email":""}  onChange={(e) => setEmail(e.target.value)} size='small' fullWidth label="Email" />
+                <TextField error={emailError} helperText={emailError ? "invalid email" : ""} onChange={(e) => setEmail(e.target.value)} size='small' fullWidth label="Email" />
               </Grid>
               <Grid item sm={12} >
                 <TextField onChange={(e) => setPhone(e.target.value)} size='small' fullWidth label="Phone" />
@@ -228,7 +237,7 @@ export default function ModalBox({setRows}) {
               </Grid>
             </Grid>
 
-            <MDButton disabled={button} onClick={submit} sx={{ mt: 4 }} size="small" fullWidth={true} variant="gradient" color="primary" >Create</MDButton>
+            <MDButton disabled={button} onClick={submit} sx={{ mt: 4 }} size="small" fullWidth={true} variant="gradient" color="primary" >{loading ? "Creating..." : "Create"}</MDButton>
           </Box>
         </Fade>
       </Modal>

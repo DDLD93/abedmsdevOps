@@ -106,9 +106,7 @@ function BasicLogin() {
               </MDTypography>
             </MDBox> */}
             <MDBox mt={4} mb={1}>
-              <MDButton onClick={SignIn} variant="gradient" color="primary" fullWidth>
-                sign in
-              </MDButton>
+              <MDButton onClick={SignIn} variant="gradient" color="primary" fullWidth>sign in</MDButton>
             </MDBox>
             {/* <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">

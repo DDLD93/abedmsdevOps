@@ -100,7 +100,6 @@ services:
     depends_on:
       - database
       - rabbitmq
-      - backend
     container_name: 'sheetworker'
     networks:
         - ujere_net                         
