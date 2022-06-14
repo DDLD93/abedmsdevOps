@@ -150,7 +150,7 @@ export default function StateContextProvider({ children }) {
                     localStorage.setItem("user", JSON.stringify(response.user))
                     localStorage.setItem("token",response.token)
                     setUsers()
-                    setToken()
+                    setTokens()
                     setLoading(false)
                     notification("success", "Login Success")
                     return
