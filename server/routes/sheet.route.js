@@ -65,7 +65,7 @@ module.exports = (express, UPLOADS) => {
            res.status(500).json(status.error);
          }
        });
-       api.patch("/que/update/:id", async (req, res) => {
+       api.put("/que/update/:id", async (req, res) => {
          let {obj} = req.body
          let {id} = req.params
         let status = await sheetCtrl.updateSheet(id,obj)

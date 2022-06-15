@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const SheetsSchema =  new Schema({
-
     total : { type: Number},
     valid:{ type: Number,default:0},
     invalid:{ type: Number,default:0},
