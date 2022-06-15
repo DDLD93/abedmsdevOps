@@ -84,6 +84,7 @@ export default function Biometric(prop) {
   function samplesAcquired(s) {
     let samples = JSON.parse(s.samples);
     let data = "data:image/png;base64," + Fingerscanner.b64UrlTo64(samples[0])
+    console.log(data)
     setRight(data)
   }
 
@@ -130,13 +131,13 @@ export default function Biometric(prop) {
   }
   setTimeout(() => {
     startFeed()
-
   }, 1000)
+  
   React.useEffect(() => {
     var scn = new ScannerSdk()
     scn.startCapture()
-
   }, [swtch])
+
   React.useEffect(() => {
    if(!Right || !image){
      setbtn(true)

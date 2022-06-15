@@ -22,6 +22,7 @@ export default function StateContextProvider({ children }) {
             ...prevState,
             [key]: value
         }));
+        console.log(object)
         if(id){
             db.doc({id}).update({
                 ...object,

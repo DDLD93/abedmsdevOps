@@ -29,8 +29,8 @@ function WardList(prop) {
         <Grid container gap={2} p={5}>
             {list.length < 1?
                 <Typography textAlign="center" >You Have 0 wards assigned or currently offline  <Link to="/table" >Show offline data</Link></Typography>:
-                list.map(ward => (
-                    <Link style={{textDecoration:"none"}} to="/table">
+                list.map((ward, index) => (
+                    <Link key={index} style={{textDecoration:"none"}} to="/table">
                         <Card sx={{ width: 120, height: 100, p:1, bgcolor: "#00c3014f", decoration:"none" }}>
                             <p style={{fontSize:"20px", fontWeight:"bolder"}} >{ward}</p>
                             <span>{null}</span>

@@ -33,7 +33,6 @@ const style = {
 
 export default function Payment(prop) {
   const [type, setType] = React.useState("Table payment");
-  const [pic, setpic] = React.useState("")
   const [remark, setRemark] = React.useState("")
   const [imgSrc, setimgSrc] = React.useState("")
  const { token,setObj } = React.useContext(StateContext)

@@ -41,8 +41,8 @@ function Beneficiaries() {
     const [beneBck, setbeneBck] = useState([])
     const [search, setSearch] = useState([])
     const [batch, setbatch] = useState([])
-    const [state, setstate] = useState(null)
-    const [lga, setlga] = useState([])
+    const [state, setstate] = useState("")
+    const [lga, setlga] = useState("")
     const [lgaList, setlgaList] = useState(["All"])
     const { batchList, token, notification } = useContext(StateContext)
 
@@ -54,7 +54,8 @@ function Beneficiaries() {
     }
     const filterBySearch = () => {
         setbene(beneBck.filter(li => {
-            return li.fullName.includes(search) || li.phone && li.phone.includes(search)
+            console.log(li.fullName==undefined?console.log(li):"none")
+            //return li.fullName.includes(search)
         }))
 
     }
@@ -98,7 +99,6 @@ function Beneficiaries() {
     );
 
     const rows = bene.map(obj => {
-        console.log(obj)
         return {
             name: (<MDTypography component="a" href="#" variant="a" color="text" fontWeight="medium">
                 {obj.fullName}
@@ -285,7 +285,7 @@ function Beneficiaries() {
                                             ))}
                                         </TextField>
                                         <TextField
-                                            //onChange={(e)=>setSearch(e.target.value)}
+                                            onChange={(e)=>setSearch(e.target.value)}
                                             sx={{ width: 200, ml: 4 }} placeholder="Name Phone" size="small" label="Search" />
 
 

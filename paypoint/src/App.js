@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { AppBar, Card, Grid } from '@mui/material';
@@ -38,7 +38,6 @@ export default function App() {
         arr.forEach(obj => {
           if (obj.status == "paid") {
             let url = `${config.endPoint}/beneficiaries/process/${obj.id}`
-            console.log(url)
             fetch(url, {
               method: "PUT",
               headers: {
@@ -65,12 +64,6 @@ export default function App() {
 
 
   function fetchBene() {
-    // db.collection('beneList').get().then(arr => {
-    //   setcount(arr.lenght)
-    // })
-    // db.collection('beneList').get({}).then(arr => {
-    //   setcount(arr.lenght)
-    // })
     db.get().then(arr => {
       setcount(arr.length)
       let list = arr.map(obj => {
@@ -94,9 +87,14 @@ export default function App() {
     })
   }
   
-  useLayoutEffect(() => {
-    fetchBene()
-  }, [])
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        console.log("DOMED")
+        fetchBene()
+      }, 2000);  
+    }
+  }, [user])
 
 
 

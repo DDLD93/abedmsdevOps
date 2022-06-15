@@ -9,17 +9,13 @@ import { Grid } from '@mui/material';
 import Biodata from './steps/BioData';
 import Biometric from './steps/Biometrics';
 import Payment from './steps/Payment';
+import Preview from './steps/Preview';
 
 export default function CustomStepper(prop) {
     
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
-    // const handleChange = (key,value)=> { 
-    //     setObject(prevState => ({
-    //         ...prevState,
-    //         [key]: value
-    //     }));
-    // };
+
     let handleNextClose = prop.next 
     let user= prop.user  
     const handleModalNext = React.useCallback(() => {
@@ -62,6 +58,13 @@ export default function CustomStepper(prop) {
         {
             label: 'Payment',
             component: <Payment
+            next={handleNext}
+            user={user.id}
+            />,
+        },
+        {
+            label: 'Preview',
+            component: <Preview
             next={handleNext}
             user={user.id}
             />,

@@ -71,6 +71,7 @@ export default function ViewsBox(prop) {
   const [lga, setLga] = React.useState(null)
   const [lgaList, setLgaList] = React.useState([""])
   const [wardList, setWardList] = React.useState([""])
+  const [stateList, setstateList] = useState([""])
   const [fetching, setfetching] = React.useState(false)
   const [ward, setWard] = React.useState(null)
   const [state, setState] = React.useState("");
@@ -173,6 +174,9 @@ export default function ViewsBox(prop) {
       setButton(false)
     }
   }, [wardArr])
+  React.useEffect(() => {
+    setstateList([stateList,...user.pspInfo.states])
+  }, [])
 
   React.useLayoutEffect(() => {
       getLGAs()
@@ -220,14 +224,14 @@ export default function ViewsBox(prop) {
                   sx={{ minWidth: 100 }}
                   label="State"
                   value={state}
-                  onChange={(e) => { setState(e.target.value) }}
+                  onChange={(e) => {setState(e.target.value)}}
                   size='small'
                   defaultValue={""}
                   SelectProps={{
                     native: true,
                   }}
                 >
-                  {user.pspInfo.states && user.pspInfo.states.map((option, index) => (
+                  {stateList.map((option, index) => (
                     <option key={index} value={option}>
                       {option}
                     </option>

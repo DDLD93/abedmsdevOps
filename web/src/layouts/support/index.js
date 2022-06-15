@@ -44,7 +44,7 @@ function Support() {
                         sx={{ width: 300, height: 150 }}
                         size='small'
                     />
-                    <Button variant='standard' color='primary' >Send</Button>
+                    <Button variant='standard' color='primary'>Send</Button>
 
                 </Paper>
 

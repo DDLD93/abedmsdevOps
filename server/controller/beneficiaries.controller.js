@@ -21,6 +21,7 @@ async getBeneficiariesCustom(batch,state,lga){
     }
   }
   async getBeneficiariesByState(state){
+    console.log(state)
     try {
       const bene = await Beneficiary.find({state:state,status: { $not: { $eq: "uploaded" } }, });
       return {ok:true, bene};

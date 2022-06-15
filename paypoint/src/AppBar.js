@@ -213,7 +213,7 @@ export default function NavAppBar({count,sync}) {
       <AppBar color='secondary' position="static">
         <Toolbar>
         <Link style={{textDecoration:"none",color:"white", display:"flex",justifyContent:"center",alignItems:"center"}} to="/">
-          <Avatar bg sx={{ width: "50px", height: "50px", marginRight: "10px", }} alt="AA" src={Logo} />
+          <Avatar sx={{ width: "50px", height: "50px", marginRight: "10px", }} alt="AA" src={Logo} />
           <Typography
             variant="h6"
             noWrap
