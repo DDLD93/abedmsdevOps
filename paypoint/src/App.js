@@ -27,12 +27,14 @@ const columns = [
 ];
 
 export default function App() {
-  const { user, token } = useContext(StateContext)
+  const { user, token,notification} = useContext(StateContext)
   const [rows, setrows] = useState([])
   const [count, setcount] = useState(0)
+  const [loading, setloading] = useState(false)
   const [processed, setprocessed] = useState(0)
   let db = new Localbase('db').collection("beneList")
   async function sync() {
+    setloading(true)
     try {
       db.get().then(arr => {
         arr.forEach(obj => {
@@ -52,13 +54,15 @@ export default function App() {
                   //db.collection('beneList').doc({ id: obj.id }).delete()
                 }
               })
+              notification("Database updated","success")
           }
         })
       }) 
-
+      setloading(false)
     }
     catch (error) {
-      console.log('error: ', error)
+      setloading(false)
+      notification("An error occured synching data || check your internet","error")
     }
   }
 
@@ -104,6 +108,7 @@ export default function App() {
       <NavAppBar
         count={count}
         processed={processed}
+        loading={loading}
         sync={sync}
       />
       <Card sx={{ height: "85vh", width: "100%" }}>

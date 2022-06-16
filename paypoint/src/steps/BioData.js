@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useContext } from 'react'
 import Box from '@mui/material/Box';
-import { Button, Card, Divider, Grid, IconButton, TextField } from '@mui/material';
+import { Button, Card, CircularProgress, Divider, Grid, IconButton, Input, Stack, TextField } from '@mui/material';
 import { StateContext } from '../context/context';
 
 
@@ -26,6 +26,7 @@ export default function Biodata(prop) {
   const [occupation, setoccupation] = useState("")
   const [disability, setdisability] = useState("")
   const [phone, setphone] = useState('')
+  const [scn, setScn] = useState(false)
   const [idtype, setIdtype] = useState("")
   const [gname, setgname] = useState("")
   const [gidtype, setgIdtype] = useState("")
@@ -40,20 +41,31 @@ export default function Biodata(prop) {
   }, [prop.next])
 
   const imgPreview = (e) => {
-    let obj = window.URL.createObjectURL(e.target.files[0])
-    setimgSrc(obj)
+    setScn(false)
+    getBase64(e.target.files[0])
+
+  }
+ function getBase64(file) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      setimgSrc(reader.result)
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
   }
 
   const updateBio = () => {
     let data = {
-        occupation,
-        disability,
-        guarantor: gname,
-        type: idtype,
-        idNo: idNo,
-        imagePath: imgSrc
+      occupation,
+      disability,
+      guarantor: gname,
+      type: idtype,
+      idNo: idNo,
+      imagePath: imgSrc
     }
-    setObj("identification",data)
+    setObj("identification", data)
     handleModalNext()
   }
 
@@ -96,7 +108,7 @@ export default function Biodata(prop) {
 
       <Box container sx={style.modal}>
         <Grid alignItems="center" justifyContent="center" gap={1} container >
-          <Grid item >
+          {/* <Grid item >
             <TextField disabled size="small" defaultValue={prop.fullName} label="Full Name" />
           </Grid>
           <Grid item >
@@ -119,7 +131,7 @@ export default function Biodata(prop) {
           </Grid>
           <Grid item >
             <TextField disabled size="small" defaultValue={prop.maritalStatus} label="Marital Status" />
-          </Grid>
+          </Grid> */}
           <Grid item >
             <TextField onChange={(e) => setoccupation(e.target.value)} size="small" defaultValue={prop.occupation} label="Occupation" />
           </Grid>
@@ -183,6 +195,17 @@ export default function Biodata(prop) {
           </Grid>
           <Grid sx={{ display: idtype == "GUARANTOR" ? "block" : "none" }} item >
             <TextField sx={{ width: 230 }} onChange={(e) => setidNo(e.target.value)} required={idtype == "GUARANTOR" ? true : false} size="small" defaultValue={prop.idNo} label="ID Number" />
+          </Grid>
+          <Grid p={2} sm={12} item >
+            <Grid container gap={4} mb={2} >
+              <Button onClick={()=>{setScn(true)}} variant='contained' sx={{ minWidth: 12 }} size='small' >Scan</Button>
+              <Input sx={{ width: "200px" }} onChange={(e) => imgPreview(e)} multiple type="file" />
+
+              {/* <Button variant='outlined' sx={{ minWidth: 12 }} size='small' >Upload</Button> */}
+            </Grid>
+            {!scn?<img src={imgSrc} id="preview" width="100%" height="200" />:<Stack sx={{ color: 'grey.500',alignItems: "center"}} spacing={2}>
+            <p>Waiting for Scanner peripherals...</p>
+            <CircularProgress color="secondary" /></Stack>}
           </Grid>
           {/* <Grid pb={2} pl={3.7} alignItems="center" container sm={12} item >
             <input

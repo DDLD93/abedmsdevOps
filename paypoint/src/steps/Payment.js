@@ -8,11 +8,11 @@ import Fingerprint from '@mui/icons-material/Fingerprint';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import {Buffer} from 'buffer';
+import { Buffer } from 'buffer';
 import { styled } from '@mui/material/styles';
-
-
 import { Alert, AlertTitle, Button, Card, CircularProgress, Grid, LinearProgress, Stack, TextField } from '@mui/material';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import { StateContext } from '../context/context';
 
 
@@ -34,18 +34,20 @@ const style = {
 export default function Payment(prop) {
   const [type, setType] = React.useState("Table payment");
   const [remark, setRemark] = React.useState("")
+  const [scn, setScn] = React.useState(false)
   const [imgSrc, setimgSrc] = React.useState("")
- const { token,setObj } = React.useContext(StateContext)
- let handleNext = prop.next
- let id = prop.user
+  const { token, setObj } = React.useContext(StateContext)
+  let handleNext = prop.next
+  let id = prop.user
   const handleModalNext = React.useCallback(() => {
     handleNext()
   }, [handleNext])
 
 
   const imgPreview = (e) => {
+    setScn(false)
     getBase64(e.target.files[0])
-    
+
   }
 
   const Input = styled('input')({
@@ -68,19 +70,19 @@ export default function Payment(prop) {
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
- }
- 
+  }
+
 
   const updateBio = () => {
     console.log(id)
 
     let data = {
-        methodOfPayment: type,
-        remark,
-        amount: 20000,
-        imagePath:imgSrc
+      methodOfPayment: type,
+      remark,
+      amount: 20000,
+      imagePath: imgSrc
     }
-    setObj("payment",data,id)
+    setObj("payment", data, id)
     handleModalNext()
   }
 
@@ -90,10 +92,10 @@ export default function Payment(prop) {
 
   }, [])
 
-  return(
-  < Box container sx={style.modal} >
+  return (
+    < Box container sx={style.modal} >
       <Grid alignItems="center" justifyContent="center" gap={1} container >
-        <Grid sm={5} item >
+        <Grid sm={12} item >
           <TextField
             select
             label="Method of Payment"
@@ -111,16 +113,26 @@ export default function Payment(prop) {
             ))}
           </TextField>
         </Grid>
-        <Grid sx={{ mb: 3 }} sm={6} item >
+        {/* <Grid sx={{ mb: 3 }} sm={6} item >
           <label htmlFor="contained-button-file">
             <span style={{ fontSize: "12px" }} >proof of payment</span>
             <Input onChange={(e) => imgPreview(e)} id="contained-button-file" type="file" />
           </label>
-        </Grid>
+        </Grid> */}
         <Grid sm={12} item >
           {type==="Connect to payment API" ? <Stack sx={{ color: 'grey.500',alignItems: "center"}} spacing={2}>
             <p>Searching for third-party payment Interface</p>
-            <CircularProgress color="secondary" /></Stack> : <img src={imgSrc} id="preview" width="100%" height="250" />
+            <CircularProgress color="secondary" /></Stack> : <Grid p={2} sm={12} item >
+            <Grid container gap={4} mb={2} >
+              <Button onClick={()=>{setScn(true)}} variant='contained' sx={{ minWidth: 12 }} size='small' >Scan</Button>
+              <Input sx={{ width: "200px" }} onChange={(e) => imgPreview(e)} multiple type="file" />
+
+              {/* <Button variant='outlined' sx={{ minWidth: 12 }} size='small' >Upload</Button> */}
+            </Grid>
+            {!scn?<img src={imgSrc} id="preview" width="100%" height="200" />:<Stack sx={{ color: 'grey.500',alignItems: "center"}} spacing={2}>
+            <p>Waiting for Scanner peripherals...</p>
+            <CircularProgress color="secondary" /></Stack>}
+          </Grid>
             }
         </Grid>
         <Grid sm={12} item >
@@ -159,7 +171,7 @@ export default function Payment(prop) {
             <TextField size="small" defaultValue="123456532" label="ID Number" />
         </Grid> */}
       </Grid>
-      <Button  onClick={updateBio}  size="small" disableElevation sx={{width:200,marginTop:8, marginLeft:"28%"}} variant='contained' fullWidth={true}  color="primary" >Send</Button>
-  </Box >
+      <Button onClick={updateBio} size="small" disableElevation sx={{ width: 200, marginTop: 8, marginLeft: "28%" }} variant='contained' fullWidth={true} color="primary" >Send</Button>
+    </Box >
   )
 }

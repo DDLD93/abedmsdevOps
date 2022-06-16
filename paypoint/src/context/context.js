@@ -17,12 +17,10 @@ export default function StateContextProvider({ children }) {
     const [object, setObject] = useState({})
    
     const setObj = (key,value,id=null) => {
-        console.log("id >>>>",id)
         setObject(prevState => ({
             ...prevState,
             [key]: value
         }));
-        console.log(object)
         if(id){
             db.doc({id}).update({
                 ...object,

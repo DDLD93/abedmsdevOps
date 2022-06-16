@@ -7,7 +7,7 @@ import { StateContext } from './context/context';
 
 function WardList(prop) {
     const [list, setlist] = useState([])
-  const {token} = useContext(StateContext)
+    const {token} = useContext(StateContext)
     function fetchDashboard() {
         fetch(`${config.endPoint}/paypoint/dashboard`,{
             headers: {

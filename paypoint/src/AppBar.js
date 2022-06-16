@@ -60,7 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function NavAppBar({count,sync}) {
+export default function NavAppBar({count,sync,loading}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [OnlineStatus,setOnlineStatus]=React.useState(false)
@@ -238,7 +238,7 @@ export default function NavAppBar({count,sync}) {
               <span>Offline data: </span> <span>{count}</span> <br />
               <span>Processed data: </span> <span>null</span> <br />
             </div>
-            <LoadingButton onClick={handleSync} sx={{height:"30px"}} variant='contained' >Sync</LoadingButton>
+            <LoadingButton loading={loading} onClick={handleSync} sx={{height:"30px"}} variant='contained' >Sync</LoadingButton>
 
 
           </Box>
