@@ -155,13 +155,13 @@ export default function Profile(prop) {
                         </Card>
                         <Card sx={{ mt:2, mb:3, display: "flex", width: 550, height: 400, p: 2 }}>
                             <div>
-                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder" , marginRight:"5px"}} >Payment Type</span>: <em style={{ color: "#000" }} >{prop.status}</em> </p>
-                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Payment Reference</span>: <em style={{ color: "#000" }} >{prop.status}</em> </p>
-                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Amount</span>: <em style={{ color: "#000" }} >{prop.status}</em> </p>
+                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder" , marginRight:"5px"}} >Payment Type</span>: <em style={{ color: "#000" }} >{prop.methodOfPayment}</em> </p>
+                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Payment Details</span>: <em style={{ color: "#000" }} >{prop.remark}</em> </p>
+                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Amount</span>: <em style={{ color: "#000" }} >{prop.remark?20000:""}</em> </p>
                                 <p style={{ fontSize: "12px", textAlign: "start" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >PSP</span>: {prop.code}</p>
-                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder" , marginRight:"5px"}} >Paypoint</span>: <em style={{ color: "#000" }} >{prop.status}</em> </p>
-                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder" , marginRight:"5px"}} >Location</span>: <em style={{ color: "#000" }} >{prop.status}</em> </p>
-                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Time Stamps</span>: <em style={{ color: "#000" }} >{prop.status}</em> </p>
+                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder" , marginRight:"5px"}} >Paypoint</span>: <em style={{ color: "#000" }} >{}</em> </p>
+                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder" , marginRight:"5px"}} >Location</span>: <em style={{ color: "#000" }} >{}</em> </p>
+                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Time Stamps</span>: <em style={{ color: "#000" }} >{}</em> </p>
                             </div>
                             <img style={{ marginTop: "20px", border: "1px solid red", borderRadius: "5%", marginBottom: "10px" }} alt="payment proof" width="500" height="350" />
                         </Card>

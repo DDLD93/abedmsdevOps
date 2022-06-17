@@ -14,7 +14,7 @@ import Preview from './steps/Preview';
 export default function CustomStepper(prop) {
     
     const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = React.useState(2);
 
     let handleNextClose = prop.next 
     let user= prop.user  

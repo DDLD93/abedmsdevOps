@@ -7,26 +7,58 @@ import React from 'react'
 
 function State() {
     const columns = [
-        { Header: "states", accessor: "state", align: "left" },
-        { Header: "Number of Beneficiaries", accessor: "bene", align: "left" },
-        { Header: "Funds Disbursement", accessor: "disbursment", align: "left" },
+        { Header: "PSP", accessor: "psp", align: "left" },
+        { Header: "Number of Beneficiaries", accessor: "bene", align: "center" },
+        { Header: "Funds Disbursement", accessor: "disbursment", align: "center" },
         { Header: "Total funds paid", accessor: "paid", align: "center" },
         { Header: "completion", accessor: "completion", width: "20%", align: "center" },
     ]
     const rows = [
         {
-            state: (<MDTypography variant="caption" color="text" fontWeight="medium">company Name</MDTypography>),
+            psp: (<MDTypography variant="caption" color="text" fontWeight="medium">Unified Payment</MDTypography>),
             bene: (<MDTypography variant="caption" color="text" fontWeight="medium">11</MDTypography>),
-            disbursment: (<MDTypography variant="caption" color="text" fontWeight="medium">2,400</MDTypography>),
+            disbursment: (<MDTypography variant="caption" color="text" fontWeight="medium">00</MDTypography>),
             paid: (
                 <MDTypography variant="caption" color="text" fontWeight="medium">
-                    $14,000
+                    00
                 </MDTypography>
             ),
             completion: (
                 <MDBox width="8rem" textAlign="left">
-                    <a>50%</a>
-                    <MDProgress value={60} color="info" variant="gradient" label={false} />
+                    <a>00%</a>
+                    <MDProgress value={0} color="info" variant="gradient" label={false} />
+                </MDBox>
+            ),
+        },
+        {
+            psp: (<MDTypography variant="caption" color="text" fontWeight="medium">Visual ICT</MDTypography>),
+            bene: (<MDTypography variant="caption" color="text" fontWeight="medium">11</MDTypography>),
+            disbursment: (<MDTypography variant="caption" color="text" fontWeight="medium">00</MDTypography>),
+            paid: (
+                <MDTypography variant="caption" color="text" fontWeight="medium">
+                    00
+                </MDTypography>
+            ),
+            completion: (
+                <MDBox width="8rem" textAlign="left">
+                    <a>00%</a>
+                    <MDProgress value={0} color="info" variant="gradient" label={false} />
+                </MDBox>
+            ),
+        },
+        {
+            psp: (<MDTypography variant="caption" color="text" fontWeight="medium">Upper Link</MDTypography>),
+            bene: (<MDTypography variant="caption" color="text" fontWeight="medium">11</MDTypography>),
+            disbursment: (<MDTypography variant="caption" color="text" fontWeight="medium">00</MDTypography>),
+            paid: (
+                <MDTypography variant="caption" color="text" fontWeight="medium">
+                    00
+                </MDTypography>
+            ),
+            completion: (
+                <MDBox width="8rem" textAlign="left">
+                    <a>00%</a>
+                    <MDProgress value={0} color="info" variant="gradient" label={false} />
                 </MDBox>
             ),
         },

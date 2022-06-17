@@ -15,11 +15,11 @@ Coded by www.creative-tim.com
 
 export default {
   sales: {
-    labels: ["wk1", "wk2", "wk3", "wk4", "wk5", "wk6", "wk8", "wk9","wk10"],
-    datasets: { label: "Payments", data: [, 0, 0, 0, 0, 0, 0, 0, 0] },
+    labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    datasets: { label: "Mobile apps", data: [50, 40, 300, 320, 500, 350, 200, 230, 500] },
   },
   tasks: {
     labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: { label: "Desktop apps", data: [0, 0, 0, 0, 0, 0, 0, 0, 0] },
+    datasets: { label: "Desktop apps", data: [50, 40, 300, 220, 500, 250, 400, 230, 500] },
   },
 };

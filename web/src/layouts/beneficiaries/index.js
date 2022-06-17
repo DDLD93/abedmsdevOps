@@ -54,8 +54,8 @@ function Beneficiaries() {
     }
     const filterBySearch = () => {
         setbene(beneBck.filter(li => {
-            console.log(li.fullName==undefined?console.log(li):"none")
-            //return li.fullName.includes(search)
+            // console.log(li.fullName==undefined?console.log(li):"none")
+            return li.fullName.includes(search) || li.phone.includes(search)
         }))
 
     }
@@ -78,6 +78,7 @@ function Beneficiaries() {
             },
         }).then(res => (res.json())).
             then(response => {
+                console.log(response)
                 setgettingList(false)
                 setbene(response)
                 setisloading(false)
@@ -140,12 +141,12 @@ function Beneficiaries() {
                         maritalStatus={obj.maritalStatus}
                         id={obj._id}
                         occupation={obj.occupation}
-                        nextOfKin={obj.nextOfKin && obj.nextOfKin.fullName}
-                        nextOfKinPhone={obj.nextOfKin && obj.nextOfKin.phone}
                         state={obj.state}
                         ward={obj.ward}
                         idType={obj.identification && obj.identification.type}
                         idNo={obj.identification && obj.identification.idNo}
+                        methodOfPayment={obj?.payment?.methodOfPayment}
+                        remark={obj?.payment?.remark}
                     />
                 </MDBox>
             ),

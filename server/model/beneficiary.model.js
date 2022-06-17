@@ -13,11 +13,11 @@ const beneficiarySchema = new Schema({
   state: { type: String, index:true },
   lga: { type: String },
   ward: { type: String },
-  sheetCode: { type: String,index:true },
-  sheetId:{type: String,index:true  },
+  sheetCode: { type: String, index:true },
+  sheetId:{type: String, index:true  },
   occupation: { type: String },
   address: { type: String, },
-  status: { type: String,index:true , emun: ["uploaded","processing", "approved", "paid", "rejected"], default: "uploaded" },
+  status: { type: String, index:true , emun: ["uploaded","processing", "approved", "paid", "rejected"], default: "uploaded" },
   disability: { type: String },
   pspId:{type:String},
   identification: {
@@ -28,7 +28,7 @@ const beneficiarySchema = new Schema({
   },
   biometric: {
     dateCapture: { type: Date },
-    imagePath: { type: String },
+    imageHash: { type: Buffer },
     thumbHash: { type: Buffer },
   },
   payment: {

@@ -21,9 +21,9 @@ async getBeneficiariesCustom(batch,state,lga){
     }
   }
   async getBeneficiariesByState(state){
-    console.log(state)
     try {
       const bene = await Beneficiary.find({state:state,status: { $not: { $eq: "uploaded" } }, });
+      console.log(bene)
       return {ok:true, bene};
     } catch (err) {
       return {ok:false,error:err};
@@ -69,6 +69,7 @@ async getBeneficiariesCustom(batch,state,lga){
   async processed(data,id){
     try {
       let count = await Beneficiary.updateMany({_id:id},data)
+      
       return {ok:true, count};
     } catch (err) {
       return {ok:false,error:err};

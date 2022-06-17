@@ -31,6 +31,15 @@ import config from "config";
 function LiveData() {
     const { batchList,ageDistro } = useContext(StateContext)
     const [data2, setdata2] = useState([])
+    const zones = [
+        ["Political zones", "Disbursement by zones"],
+        ["North East",10],
+        ["North West",10],
+        ["North Central",10],
+        ["South East",10],
+        ["South West",10],
+        ["South South",10],
+    ]
     const data = [
         ["Name", "Disbursement by state"],
             ["abia",10],
@@ -117,90 +126,6 @@ function LiveData() {
             <DashboardNavbar />
             <MDBox pt={6} pb={3}>
                 <Grid item xs={12} md={6} lg={12}>
-                    <Card>
-                        <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-                            <Grid container sx={{ justifyContent: "center", gap: 3 }} >
-                                <TextField
-                                    select
-                                    label="Batch"
-                                    sx={{ width: 100 }}
-                                    value={1}
-                                    // onChange={(e) => setbatch(e.target.value)}
-                                    SelectProps={{
-                                        native: true,
-                                    }}
-                                    size='small'
-                                >
-                                    {batchList.map((option) => (
-                                        <option key={option.value} value={option.value}>
-                                            {option.code}
-                                        </option>
-                                    ))}
-                                </TextField>
-                                <TextField
-                                    select
-                                    label="Company"
-                                    sx={{ width: 100 }}
-                                    value={1}
-                                    // onChange={(e) => setbatch(e.target.value)}
-                                    SelectProps={{
-                                        native: true,
-                                    }}
-                                    size='small'
-                                >
-                                    {/* {batchList.map((option) => (
-                                                <option key={option.value} value={option.value}>
-                                                    {option.code}
-                                                </option>
-                                            ))} */}
-                                </TextField>
-                                <TextField
-                                    select
-                                    label="Completion"
-                                    sx={{ width: 100 }}
-                                    value={1}
-                                    // onChange={(e) => setbatch(e.target.value)}
-                                    SelectProps={{
-                                        native: true,
-                                    }}
-                                    size='small'
-                                >
-                                    {/* {batchList.map((option) => (
-                                                <option key={option.value} value={option.value}>
-                                                    {option.code}
-                                                </option>
-                                            ))} */}
-                                </TextField>
-                                <TextField
-                                    select
-                                    label="No of Beneficiaries"
-                                    sx={{ width: 100 }}
-                                    value={1}
-                                    // onChange={(e) => setstate(e.target.value)}
-                                    SelectProps={{
-                                        native: true,
-                                    }}
-                                    size='small'
-                                >
-                                    {/* {[].map((option) => (
-                                                <option key={option} value={option}>
-                                                    {option}
-                                                </option>
-                                            ))}  */}
-                                </TextField>
-                                <TextField sx={{ width: 200, ml: 4 }} placeholder="Name Phone BVN NIN" size="small" label="Search" />
-                            </Grid>
-                        </MDBox>
-                        <MDBox>
-                            <DataTable
-                                table={{ columns, rows }}
-                                showTotalEntries={false}
-                                isSorted={false}
-                                noEndBorder
-                                entriesPerPage={false}
-                            />
-                        </MDBox>
-                    </Card>
                     <State />
                 </Grid>
                 <Grid container >
@@ -226,8 +151,8 @@ function LiveData() {
                     <Grid container flexWrap="nowrap" >
                     <Chart
                         chartType="PieChart"
-                        data={data}
-                        options={{title: "State Distribution"}}
+                        data={zones}
+                        options={{title: "Zone Distribution"}}
                         width={"475px"}
                         height={"400px"}
                     />

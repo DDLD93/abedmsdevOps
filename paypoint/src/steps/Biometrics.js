@@ -1,8 +1,9 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Webcam from 'webcam-easy';
-import { Button, Grid } from '@mui/material';
-import {Buffer} from 'buffer';
+//import Webcam from 'webcam-easy';
+import Webcam from "react-webcam";
+import { Button, CircularProgress, Grid, Input, Stack } from '@mui/material';
+import { Buffer } from 'buffer';
 import { StateContext } from '../context/context';
 
 
@@ -18,15 +19,17 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 500,
-    height: "400px",
+    height: "370px",
     bgcolor: 'background.paper',
   },
   card: {
     display: "flex",
-    gap: 3,
+    gap: 1,
     width: "100%",
+    margin:"0",
+    marginTop:"150px",
     padding: "25px",
-    justifyContent: "space-between"
+    justifyContent: "space-around"
   }
 };
 
@@ -35,20 +38,37 @@ export default function Biometric(prop) {
   const [Right, setRight] = React.useState("")
   const [btn, setbtn] = React.useState(true)
   const [image, setimage] = React.useState("")
-  const {setObj} = React.useContext(StateContext)
+  const [imgSrc, setimgSrc] = React.useState("")
+  const [scn, setScn] = React.useState(false)
+  const { setObj } = React.useContext(StateContext)
   let handleNext = prop.next
   const handleModalNext = React.useCallback(() => {
-    stopFeed()
     handleNext()
     stopScan()
   }, [handleNext])
-  
+
+  const imgPreview = (e) => {
+    setScn(false)
+    getBase64(e.target.files[0])
+
+  }
+  function getBase64(file) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      setimgSrc(reader.result)
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  }
+
   const updateBio = () => {
     let data = {
-        thumbHash:Right ,
-        imageHash:image  
+      thumbHash: Right,
+      imageHash: image
     }
-    setObj("biometric",data)
+    setObj("biometric", data)
     handleModalNext()
   }
 
@@ -87,93 +107,74 @@ export default function Biometric(prop) {
     console.log(data)
     setRight(data)
   }
-
-  var webcam = null
-  function startFeed() {
-    const webcamElement = document.getElementById('webcam');
-    const canvasElement = document.getElementById('canvas');
-    webcam = new Webcam(webcamElement, 'user', canvasElement);
-    webcam.start().then(result => {
-      console.log("webcam started");
-    })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-  function dataURLtoFile(dataurl, filename) {
-
-    var arr = dataurl.split(','),
-      mime = arr[0].match(/:(.*?);/)[1],
-      bstr = atob(arr[1]),
-      n = bstr.length,
-      u8arr = new Uint8Array(n);
-
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-
-    return new File([u8arr], filename, { type: mime });
-  }
-  function snap() {
-  let  picture = webcam.snap();
-    //let file = dataURLtoFile(picture, "snap.png")
-    setimage(picture)
-
-  }
-  function stopFeed() {
-    console.log("webCam closed")
-    webcam.stop()
-  }
-
   function stopScan() {
     var scn = new ScannerSdk()
     scn.stopCapture()
   }
-  setTimeout(() => {
-    startFeed()
-  }, 1000)
-  
+
   React.useEffect(() => {
     var scn = new ScannerSdk()
     scn.startCapture()
   }, [swtch])
 
   React.useEffect(() => {
-   if(!Right || !image){
-     setbtn(true)
-   }else{
-     setbtn(false)
-   }
+    if (!Right || !image) {
+      setbtn(true)
+    } else {
+      setbtn(false)
+    }
+  }, [Right, image])
 
-  }, [Right,image])
 
- 
 
   return (
 
     <Box container sx={style.modal}>
       <div style={style.card} >
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "5px", flexDirection: "column", gap: 20 }} >
-
-          <div style={{ width: 120, height: 130, borderRadius: "10%", backgroundColor:swtch?"green":"" }} >
-            <img src={Right} id="thumb" style={{ textAlign: "center", fontSize: "small", fontWeight: "bold", borderRadius: "10%" }} alt="Place your Right Thumb on the scanner" width="120" height="130px" />
-          </div>
-          {/* <div className={Switch ? "" : "flickr"} style={{ width: 120, height: 130, borderRadius: "10%" }} >
-            <img id="thumbTwo" style={{ textAlign: "center", fontSize: "small", fontWeight: "bold", borderRadius: "10%" }} alt="Place your Right Thumb on the scanner" width="120" height="130px" src={Left} />
-          </div> */}
-
+        <div style={{ width: 120, height: 130, borderRadius: "10%", backgroundColor: swtch ? "green" : "", border: "1px solid red" }} >
+          <img src={Right} id="thumb" style={{ textAlign: "center", fontSize: "small", fontWeight: "bold", borderRadius: "10%" }} alt="Place your Right Thumb on the scanner" width="120" height="130px" />
         </div>
         <div style={{ display: "flex", flexDirection: "column" }} >
-          <video style={{ width: 300, height: 250, }} id="webcam" ></video>
-          <canvas style={{ width: 300, height: 250, position: "absolute" }} id="canvas" ></canvas>
-          <Grid container justifyContent="center" mt={2}>
-            <Button variant="outlined" color="secondary" size="small" onClick={snap} >Capture</Button>
-          </Grid>
+          <Webcam
+            audio={false}
+            height={150}
+            screenshotFormat="image/jpeg"
+            width={130}
+            videoConstraints={videoConstraints}
+          >
+            {({ getScreenshot }) => (
+              <Button
+                onClick={() => {
+                  const imageSrc = getScreenshot()
+                  console.log(imageSrc)
+                }}
+              >
+                Snap
+              </Button>
+            )}
+          </Webcam>
         </div>
 
       </div>
-      <Button disabled={btn}   onClick={updateBio}  size="small" disableElevation sx={{width:200, marginLeft:"33%"}} variant='contained' fullWidth={true}  color="primary" >Save and continue</Button>
+      <Grid p={2} sm={12} item >
+        <Grid container gap={4} mb={2} >
+          <Button onClick={() => { }} variant='contained' sx={{ minWidth: 12 }} size='small' >Scan</Button>
+          <Input sx={{ width: "200px" }} onChange={(e) => imgPreview(e)} multiple type="file" />
+        </Grid>
+        <Grid>
+          {true ? <img src={"imgSrc"} id="preview" width="100%" height="150" /> : <Stack sx={{ color: 'grey.500', alignItems: "center" }} spacing={2}>
+            <p>Waiting for Scanner peripherals...</p>
+            <CircularProgress color="secondary" /></Stack>}
+        </Grid>
+      </Grid>
+      <Button disabled={btn} onClick={updateBio} size="small" disableElevation sx={{ width: 200, marginLeft: "33%" }} variant='contained' fullWidth={true} color="primary" >Save and continue</Button>
     </Box>
 
   );
 }
+const videoConstraints = {
+  width: 100,
+  facingMode: { exact: "environment" },
+  height: 150,
+  facingMode: "user"
+};

@@ -45,7 +45,7 @@ export default function Biodata(prop) {
     getBase64(e.target.files[0])
 
   }
- function getBase64(file) {
+  function getBase64(file) {
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
@@ -107,117 +107,107 @@ export default function Biodata(prop) {
     <div>
 
       <Box container sx={style.modal}>
-        <Grid alignItems="center" justifyContent="center" gap={1} container >
-          {/* <Grid item >
-            <TextField disabled size="small" defaultValue={prop.fullName} label="Full Name" />
-          </Grid>
-          <Grid item >
-            <TextField disabled size="small" defaultValue={prop.gender} label="Gender" />
-          </Grid>
-          <Grid item >
-            <TextField disabled size="small" defaultValue={prop.age} label="Age" />
-          </Grid>
-          <Grid item >
-            <TextField disabled size="small" defaultValue={prop.state} label="State" />
-          </Grid>
-          <Grid item >
-            <TextField disabled size="small" defaultValue={prop.lga} label="LGA" />
-          </Grid>
-          <Grid item >
-            <TextField disabled size="small" defaultValue={prop.ward} label="Ward" />
-          </Grid>
-          <Grid item >
-            <TextField disabled size="small" defaultValue={prop.phone} label="Phone Number" />
-          </Grid>
-          <Grid item >
-            <TextField disabled size="small" defaultValue={prop.maritalStatus} label="Marital Status" />
-          </Grid> */}
-          <Grid item >
-            <TextField onChange={(e) => setoccupation(e.target.value)} size="small" defaultValue={prop.occupation} label="Occupation" />
-          </Grid>
-          <Grid item >
-            <TextField onChange={(e) => setdisability(e.target.value)} size="small" defaultValue={prop.disability} label="Disability" />
-          </Grid>
-          {/* <Grid item >
-                  <TextField onChange={(e) => setnextOfKin(e.target.value)} size="small" defaultValue={prop.nextOfKin} label="Next of Kin" />
-                </Grid>
-                <Grid item >
-                  <TextField onChange={(e) => setphone(e.target.value)} size="small" defaultValue={prop.nextOfKinPhone} label="Next of Kin Phone" />
-                </Grid> */}
-          <Grid sm={5} item >
-            <TextField
-              select
-              label="ID Type"
-              sx={{ width: 200 }}
-              value={idtype}
-              onChange={(e) => setIdtype(e.target.value)}
-              SelectProps={{
-                native: true,
-              }}
-              size='small'
-            >
-              {idTypeList.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item >
-            <TextField
-              onChange={idtype == "GUARANTOR" ? (e) => setgname(e.target.value) : (e) => setidNo(e.target.value)}
-              sx={{ width: 230 }}
-              required
-              fullWidth
-              size="small"
-              defaultValue={prop.idNo}
-              label={idtype == "GUARANTOR" ? "Guarantor's Name" : "ID Number"} />
-          </Grid>
-          <Grid sx={{ display: idtype == "GUARANTOR" ? "block" : "none" }} sm={5} item >
-            <TextField
-              select
-              disabled={idtype == "GUARANTOR" ? false : true}
-              label="ID Type"
-              sx={{ width: 250 }}
-              value={gidtype}
-              onChange={(e) => setgIdtype(e.target.value)}
-              SelectProps={{
-                native: true,
-              }}
-              size='small'
-            >
-              {GidTypeList.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid sx={{ display: idtype == "GUARANTOR" ? "block" : "none" }} item >
-            <TextField sx={{ width: 230 }} onChange={(e) => setidNo(e.target.value)} required={idtype == "GUARANTOR" ? true : false} size="small" defaultValue={prop.idNo} label="ID Number" />
-          </Grid>
-          <Grid p={2} sm={12} item >
-            <Grid container gap={4} mb={2} >
-              <Button onClick={()=>{setScn(true)}} variant='contained' sx={{ minWidth: 12 }} size='small' >Scan</Button>
-              <Input sx={{ width: "200px" }} onChange={(e) => imgPreview(e)} multiple type="file" />
-
-              {/* <Button variant='outlined' sx={{ minWidth: 12 }} size='small' >Upload</Button> */}
+        <Grid>
+          <Grid alignItems="center"  p={2} gap={15} container >
+            <Grid gap={4} >
+              <Field
+                field={"First Name"}
+                value={"Umar Adamu Jere"}
+              />
+              <Field
+                field={"Gender"}
+                value={prop.gender}
+              />
+              <Field
+                field={"Age"}
+                value={prop.age}
+              />
+              <Field
+                field={"State"}
+                value={prop.state}
+              />
             </Grid>
-            {!scn?<img src={imgSrc} id="preview" width="100%" height="200" />:<Stack sx={{ color: 'grey.500',alignItems: "center"}} spacing={2}>
-            <p>Waiting for Scanner peripherals...</p>
-            <CircularProgress color="secondary" /></Stack>}
+            <Grid>
+              <Field
+                field={"LGA"}
+                value={prop.lga}
+              />
+              <Field
+                field={"Ward"}
+                value={prop.ward}
+              />
+              <Field
+                field={"Phone"}
+                value={prop.phone}
+              />
+              <Field
+                field={"Marital Status"}
+                value={prop.maritalStatus}
+              />
+            </Grid>
           </Grid>
-          {/* <Grid pb={2} pl={3.7} alignItems="center" container sm={12} item >
-            <input
-              style={{ display: "block", width: 180 }}
-              onChange={(e) => imgPreview(e)}
-              id="contained-button-file"
-              type="file"
-            />
-          </Grid> */}
-          {/* <Grid sm={12} item >
-            <img src={imgSrc} id="preview" width="200" height="100" />
-          </Grid> */}
+          <Grid p={3} gap={2} container >
+            <Grid sx={{ minWidth: 160 }} item >
+              <TextField onChange={(e) => setoccupation(e.target.value)} size="small" defaultValue={prop.occupation} label="Occupation" />
+            </Grid>
+            <Grid sx={{ maxWidth: 160 }} item >
+              <TextField onChange={(e) => setdisability(e.target.value)} size="small" defaultValue={prop.disability} label="Disability" />
+            </Grid>
+            <Grid sx={{ minWidth: 160 }} item >
+              <TextField
+                select
+                label="ID Type"
+                fullWidth
+                sx={{ m: 0, p: 0 }}
+                value={idtype}
+                onChange={(e) => setIdtype(e.target.value)}
+                SelectProps={{
+                  native: true,
+                }}
+                size='small'
+              >
+                {idTypeList.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid sx={{ minWidth: 160 }} item >
+              <TextField
+                onChange={idtype == "GUARANTOR" ? (e) => setgname(e.target.value) : (e) => setidNo(e.target.value)}
+                sx={{ width: 230 }}
+                required
+                fullWidth
+                size="small"
+                defaultValue={prop.idNo}
+                label={idtype == "GUARANTOR" ? "Guarantor's Name" : "ID Number"} />
+            </Grid>
+            <Grid sx={{ display: idtype == "GUARANTOR" ? "block" : "none" }} sm={5} item >
+              <TextField
+                select
+                disabled={idtype == "GUARANTOR" ? false : true}
+                label="ID Type"
+                sx={{ width: 250 }}
+                value={gidtype}
+                onChange={(e) => setgIdtype(e.target.value)}
+                SelectProps={{
+                  native: true,
+                }}
+                size='small'
+              >
+                {GidTypeList.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid sx={{ display: idtype == "GUARANTOR" ? "block" : "none" }} item >
+              <TextField sx={{ width: 230 }} onChange={(e) => setidNo(e.target.value)} required={idtype == "GUARANTOR" ? true : false} size="small" defaultValue={prop.idNo} label="ID Number" />
+            </Grid>
+           
+          </Grid>
         </Grid>
         <Button disabled={btn} onClick={updateBio} size="small" disableElevation sx={{ width: 200, marginLeft: "33%" }} variant='contained' fullWidth={true} color="primary" >Save and continue</Button>
         {/* <MDButton  onClick={updateBio}  sx={{mt: 4, width:80,top:"85%",right:"15px",position:"absolute"}} size="small" fullWidth={true} variant="outlined" color="primary" >Back</MDButton> */}
@@ -225,4 +215,13 @@ export default function Biodata(prop) {
     </div>
 
   );
+}
+function Field({ field, value }) {
+  return (
+    <Grid item sx={{ minWidth: 10 }} >
+      <p style={{ margin: 0, color: "gray", fontSize: "11px", fontFamily: "cursive" }}>{field}</p>
+      <hr style={{ margin: 0, marginBottom: "1px", color: "black" }} />
+      <p style={{ margin: 0, fontSize: "17px", fontWeight: "bold" }} >{value}</p>
+    </Grid>
+  )
 }

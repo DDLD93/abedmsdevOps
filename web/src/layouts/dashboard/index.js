@@ -92,7 +92,7 @@ function Dashboard() {
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <UserStats
-            count={stats.userCount}
+            count={stats?.userCount}
             percentage2={"%"+stats.userCount}
             percentage1={"%"+stats.perTotal}
             />

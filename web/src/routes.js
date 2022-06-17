@@ -321,14 +321,14 @@ const admin = [
     route: "/psp",
     component: <PSPList />,
   },
-  // {
-  //   type: "collapse",
-  //   name: "Live-Data",
-  //   key: "Live-Data",
-  //   icon: <Icon fontSize="small">login</Icon>,
-  //   route: "Live-Data",
-  //   component: <LiveData />,
-  // },
+  {
+    type: "collapse",
+    name: "Live-Data",
+    key: "Live-Data",
+    icon: <Icon fontSize="small">live</Icon>,
+    route: "Live-Data",
+    component: <LiveData />,
+  },
   {
     type: "collapse",
     name: "Support",
