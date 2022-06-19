@@ -68,7 +68,7 @@ async getBeneficiariesCustom(batch,state,lga){
   }
   async processed(data,id){
     try {
-      let count = await Beneficiary.updateMany({_id:id},data)
+      let count = await Beneficiary.findByIdAndUpdate({id},data)
       
       return {ok:true, count};
     } catch (err) {

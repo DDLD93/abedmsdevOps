@@ -1,9 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-//import Webcam from 'webcam-easy';
 import Webcam from "react-webcam";
 import { Button, CircularProgress, Grid, Input, Stack } from '@mui/material';
-import { Buffer } from 'buffer';
 import { StateContext } from '../context/context';
 
 
@@ -15,36 +13,35 @@ const style = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    top: '50%',
+    top: '40%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 500,
-    height: "370px",
+    height: "315px",
     bgcolor: 'background.paper',
   },
   card: {
     display: "flex",
     gap: 1,
     width: "100%",
-    margin:"0",
-    marginTop:"150px",
+    margin: "0",
+    marginTop: "150px",
     padding: "25px",
     justifyContent: "space-around"
   }
 };
 
 export default function Biometric(prop) {
-  const [swtch, setSwtch] = React.useState(false)
   const [Right, setRight] = React.useState("")
   const [btn, setbtn] = React.useState(true)
   const [image, setimage] = React.useState("")
-  const [imgSrc, setimgSrc] = React.useState("")
   const [scn, setScn] = React.useState(false)
+  const [scnImg, setscnImg] = React.useState(null)
   const { setObj } = React.useContext(StateContext)
   let handleNext = prop.next
   const handleModalNext = React.useCallback(() => {
     handleNext()
-    stopScan()
+    //stopScan()
   }, [handleNext])
 
   const imgPreview = (e) => {
@@ -56,7 +53,7 @@ export default function Biometric(prop) {
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
-      setimgSrc(reader.result)
+      setscnImg(reader.result)
     };
     reader.onerror = function (error) {
       console.log('Error: ', error);
@@ -66,12 +63,12 @@ export default function Biometric(prop) {
   const updateBio = () => {
     let data = {
       thumbHash: Right,
-      imageHash: image
+      imageHash: image,
+      documentHash: scnImg
     }
     setObj("biometric", data)
     handleModalNext()
   }
-
   const Fingerscanner = window.Fingerprint
 
 
@@ -80,6 +77,7 @@ export default function Biometric(prop) {
       this.sdk = new Fingerscanner.WebApi()
 
       this.sdk.onSamplesAcquired = function (s) {
+        console.log("sample Accquired")
         samplesAcquired(s)
       }
     }
@@ -104,18 +102,21 @@ export default function Biometric(prop) {
   function samplesAcquired(s) {
     let samples = JSON.parse(s.samples);
     let data = "data:image/png;base64," + Fingerscanner.b64UrlTo64(samples[0])
-    console.log(data)
     setRight(data)
   }
-  function stopScan() {
-    var scn = new ScannerSdk()
-    scn.stopCapture()
-  }
+ 
 
+// React.useMemo(() => {
+//     var scn = new ScannerSdk()
+//     scn.startCapture()
+// }, [])
   React.useEffect(() => {
     var scn = new ScannerSdk()
     scn.startCapture()
-  }, [swtch])
+    return ()=>{
+      scn.stopCapture()
+    }
+  }, [])
 
   React.useEffect(() => {
     if (!Right || !image) {
@@ -124,15 +125,14 @@ export default function Biometric(prop) {
       setbtn(false)
     }
   }, [Right, image])
-
-
-
   return (
-
     <Box container sx={style.modal}>
       <div style={style.card} >
-        <div style={{ width: 120, height: 130, borderRadius: "10%", backgroundColor: swtch ? "green" : "", border: "1px solid red" }} >
+        <div style={{ width: 120, height: 130, borderRadius: "10%", border: "1px solid blue" }} >
           <img src={Right} id="thumb" style={{ textAlign: "center", fontSize: "small", fontWeight: "bold", borderRadius: "10%" }} alt="Place your Right Thumb on the scanner" width="120" height="130px" />
+        </div>
+        <div style={{ width: 120, height: 130, borderRadius: "10%", border: "1px solid blue" }} >
+          <img src={image} id="thumb" style={{ textAlign: "center", fontSize: "small", fontWeight: "bold", borderRadius: "10%" }} width="120" height="130px" />
         </div>
         <div style={{ display: "flex", flexDirection: "column" }} >
           <Webcam
@@ -146,7 +146,7 @@ export default function Biometric(prop) {
               <Button
                 onClick={() => {
                   const imageSrc = getScreenshot()
-                  console.log(imageSrc)
+                  setimage(imageSrc)
                 }}
               >
                 Snap
@@ -156,13 +156,19 @@ export default function Biometric(prop) {
         </div>
 
       </div>
-      <Grid p={2} sm={12} item >
-        <Grid container gap={4} mb={2} >
-          <Button onClick={() => { }} variant='contained' sx={{ minWidth: 12 }} size='small' >Scan</Button>
-          <Input sx={{ width: "200px" }} onChange={(e) => imgPreview(e)} multiple type="file" />
+      <Grid container p={2}>
+        <Grid item sm={3} container gap={3} flexDirection="column" >
+          <Button variant="outlined" onClick={() => { setScn(true) }} sx={{ width: 12 }} size='small' >Scan</Button>
+          <label htmlFor="contained-button-file">
+            <Input sx={{display:"none"}} onChange={(e) => imgPreview(e)} accept="image/*" id="contained-button-file" multiple type="file" />
+            <Button sx={{ width: 50 }} size='small' variant="contained" component="span">
+              Upload
+            </Button>
+          </label>
+          <Button disabled sx={{ width: 50 }} size='small' variant="contained" component="span">Snap</Button>
         </Grid>
-        <Grid>
-          {true ? <img src={"imgSrc"} id="preview" width="100%" height="150" /> : <Stack sx={{ color: 'grey.500', alignItems: "center" }} spacing={2}>
+        <Grid item sm={9} >
+          {!scn ? <img src={scnImg} id="preview" width="100%" height="150" /> : <Stack sx={{ color: 'grey.500', alignItems: "center" }} spacing={2}>
             <p>Waiting for Scanner peripherals...</p>
             <CircularProgress color="secondary" /></Stack>}
         </Grid>
@@ -173,8 +179,7 @@ export default function Biometric(prop) {
   );
 }
 const videoConstraints = {
-  width: 100,
-  facingMode: { exact: "environment" },
-  height: 150,
+  width: 300,
+  height: 300,
   facingMode: "user"
 };

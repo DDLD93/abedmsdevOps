@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useContext } from 'react'
 import Box from '@mui/material/Box';
-import { Button, Card, CircularProgress, Divider, Grid, IconButton, Input, Stack, TextField } from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 import { StateContext } from '../context/context';
 
 
@@ -25,36 +25,16 @@ const style = {
 export default function Biodata(prop) {
   const [occupation, setoccupation] = useState("")
   const [disability, setdisability] = useState("")
-  const [phone, setphone] = useState('')
-  const [scn, setScn] = useState(false)
   const [idtype, setIdtype] = useState("")
   const [gname, setgname] = useState("")
   const [gidtype, setgIdtype] = useState("")
   const [idNo, setidNo] = useState("")
-  const [file, setFile] = useState("")
-  const [imgSrc, setimgSrc] = React.useState("")
   const { setObj } = useContext(StateContext)
   const [btn, setbtn] = useState(false)
   let handleNext = prop.next
   const handleModalNext = React.useCallback(() => {
     handleNext()
   }, [prop.next])
-
-  const imgPreview = (e) => {
-    setScn(false)
-    getBase64(e.target.files[0])
-
-  }
-  function getBase64(file) {
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-      setimgSrc(reader.result)
-    };
-    reader.onerror = function (error) {
-      console.log('Error: ', error);
-    };
-  }
 
   const updateBio = () => {
     let data = {
@@ -63,7 +43,6 @@ export default function Biodata(prop) {
       guarantor: gname,
       type: idtype,
       idNo: idNo,
-      imagePath: imgSrc
     }
     setObj("identification", data)
     handleModalNext()
@@ -98,21 +77,18 @@ export default function Biodata(prop) {
 
   }, [occupation,
     disability,
-    phone,
     idtype,
-    idNo,
-    file])
+    idNo,])
 
   return (
     <div>
-
       <Box container sx={style.modal}>
         <Grid>
-          <Grid alignItems="center"  p={2} gap={15} container >
+          <Grid alignItems="center" p={2} gap={15} container >
             <Grid gap={4} >
               <Field
                 field={"First Name"}
-                value={"Umar Adamu Jere"}
+                value={prop.fullName}
               />
               <Field
                 field={"Gender"}
@@ -147,13 +123,13 @@ export default function Biodata(prop) {
             </Grid>
           </Grid>
           <Grid p={3} gap={2} container >
-            <Grid sx={{ minWidth: 160 }} item >
+            <Grid sx={{ width: 200 }} item >
               <TextField onChange={(e) => setoccupation(e.target.value)} size="small" defaultValue={prop.occupation} label="Occupation" />
             </Grid>
-            <Grid sx={{ maxWidth: 160 }} item >
+            <Grid sx={{ width: 200 }} item >
               <TextField onChange={(e) => setdisability(e.target.value)} size="small" defaultValue={prop.disability} label="Disability" />
             </Grid>
-            <Grid sx={{ minWidth: 160 }} item >
+            <Grid sx={{ width: 200 }} item >
               <TextField
                 select
                 label="ID Type"
@@ -166,29 +142,28 @@ export default function Biodata(prop) {
                 }}
                 size='small'
               >
-                {idTypeList.map((option) => (
-                  <option key={option} value={option}>
+                {idTypeList.map((option, index) => (
+                  <option key={index} value={option}>
                     {option}
                   </option>
                 ))}
               </TextField>
             </Grid>
-            <Grid sx={{ minWidth: 160 }} item >
+            <Grid sx={{ width: 200 }} item >
               <TextField
                 onChange={idtype == "GUARANTOR" ? (e) => setgname(e.target.value) : (e) => setidNo(e.target.value)}
-                sx={{ width: 230 }}
                 required
                 fullWidth
                 size="small"
                 defaultValue={prop.idNo}
                 label={idtype == "GUARANTOR" ? "Guarantor's Name" : "ID Number"} />
             </Grid>
-            <Grid sx={{ display: idtype == "GUARANTOR" ? "block" : "none" }} sm={5} item >
+            <Grid sx={{ display: idtype == "GUARANTOR" ? "block" : "none", width: 200 }} item >
               <TextField
                 select
+                fullWidth
                 disabled={idtype == "GUARANTOR" ? false : true}
                 label="ID Type"
-                sx={{ width: 250 }}
                 value={gidtype}
                 onChange={(e) => setgIdtype(e.target.value)}
                 SelectProps={{
@@ -203,14 +178,13 @@ export default function Biodata(prop) {
                 ))}
               </TextField>
             </Grid>
-            <Grid sx={{ display: idtype == "GUARANTOR" ? "block" : "none" }} item >
-              <TextField sx={{ width: 230 }} onChange={(e) => setidNo(e.target.value)} required={idtype == "GUARANTOR" ? true : false} size="small" defaultValue={prop.idNo} label="ID Number" />
+            <Grid sx={{ display: idtype == "GUARANTOR" ? "block" : "none", width: 200 }} item >
+              <TextField onChange={(e) => setidNo(e.target.value)} required={idtype == "GUARANTOR" ? true : false} size="small" defaultValue={prop.idNo} label="ID Number" />
             </Grid>
-           
+
           </Grid>
         </Grid>
-        <Button disabled={btn} onClick={updateBio} size="small" disableElevation sx={{ width: 200, marginLeft: "33%" }} variant='contained' fullWidth={true} color="primary" >Save and continue</Button>
-        {/* <MDButton  onClick={updateBio}  sx={{mt: 4, width:80,top:"85%",right:"15px",position:"absolute"}} size="small" fullWidth={true} variant="outlined" color="primary" >Back</MDButton> */}
+        <Button disabled={btn} onClick={updateBio} size="small" disableElevation sx={{ width: 200, bottom: "-20px", right: "37%", position: "absolute" }} variant='contained' fullWidth={true} color="primary" >Save and continue</Button>
       </Box>
     </div>
 
@@ -218,10 +192,10 @@ export default function Biodata(prop) {
 }
 function Field({ field, value }) {
   return (
-    <Grid item sx={{ minWidth: 10 }} >
-      <p style={{ margin: 0, color: "gray", fontSize: "11px", fontFamily: "cursive" }}>{field}</p>
-      <hr style={{ margin: 0, marginBottom: "1px", color: "black" }} />
-      <p style={{ margin: 0, fontSize: "17px", fontWeight: "bold" }} >{value}</p>
+    <Grid item sx={{ minWidth: 10, mt: 0.1 }} >
+      <p style={{ margin: 0, color: "black", fontWeight: "bold", fontSize: "11px", fontFamily: "cursive" }}>{field}</p>
+      <hr style={{ margin: 0, marginBottom: "1px", color: "grey" }} />
+      <p style={{ margin: 0, fontSize: "17px", color: "gray" }} >{value}</p>
     </Grid>
   )
 }

@@ -38,7 +38,7 @@ export default function App() {
     try {
       db.get().then(arr => {
         arr.forEach(obj => {
-          if (obj.status == "paid") {
+          if (obj?.done == true) {
             let url = `${config.endPoint}/beneficiaries/process/${obj.id}`
             fetch(url, {
               method: "PUT",
@@ -71,6 +71,10 @@ export default function App() {
     db.get().then(arr => {
       setcount(arr.length)
       let list = arr.map(obj => {
+        if(obj?.done) {
+          console.log(obj)
+          setprocessed(prev=>prev+1)
+        }
         return {
           id: obj.id,
           name: obj.fullName,
@@ -94,7 +98,6 @@ export default function App() {
   useEffect(() => {
     if (user) {
       setTimeout(() => {
-        console.log("DOMED")
         fetchBene()
       }, 2000);  
     }

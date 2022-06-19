@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { Buffer } from 'buffer';
 import { styled } from '@mui/material/styles';
+import Webcam from "react-webcam";
 import { Alert, AlertTitle, Button, Card, CircularProgress, Grid, LinearProgress, Stack, TextField } from '@mui/material';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -34,7 +35,9 @@ const style = {
 export default function Payment(prop) {
   const [type, setType] = React.useState("Table payment");
   const [remark, setRemark] = React.useState("")
-  const [scn, setScn] = React.useState(false)
+  const [accNo, setAccNo] = React.useState("")
+  const [bankName, setBankName] = React.useState("")
+  const [tranRef, setTranRef] = React.useState("")
   const [imgSrc, setimgSrc] = React.useState("")
   const { token, setObj } = React.useContext(StateContext)
   let handleNext = prop.next
@@ -43,16 +46,6 @@ export default function Payment(prop) {
     handleNext()
   }, [handleNext])
 
-
-  const imgPreview = (e) => {
-    setScn(false)
-    getBase64(e.target.files[0])
-
-  }
-
-  const Input = styled('input')({
-    display: 'block',
-  });
   const methodList = [
     "Table payment",
     "Bank Transfer",
@@ -61,28 +54,18 @@ export default function Payment(prop) {
     "Connect to payment API"
 
   ]
-  function getBase64(file) {
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-      setimgSrc(reader.result)
-    };
-    reader.onerror = function (error) {
-      console.log('Error: ', error);
-    };
-  }
-
-
+ 
   const updateBio = () => {
-    console.log(id)
-
     let data = {
-      methodOfPayment: type,
+      method: type,
+      bankName,
+      accNo,
+      transRef:tranRef,
       remark,
       amount: 20000,
-      imagePath: imgSrc
+      imageHash: imgSrc
     }
-    setObj("payment", data, id)
+    setObj("payment", data)
     handleModalNext()
   }
 
@@ -94,10 +77,11 @@ export default function Payment(prop) {
 
   return (
     < Box container sx={style.modal} >
-      <Grid alignItems="center" justifyContent="center" gap={1} container >
+      <Grid flexWrap={"nowrap"} flexDirection="column" alignItems="flex-start" justifyContent="center" gap={2} container >
         <Grid sm={12} item >
           <TextField
             select
+            fullWidth
             label="Method of Payment"
             value={type}
             onChange={(e) => setType(e.target.value)}
@@ -106,8 +90,8 @@ export default function Payment(prop) {
               native: true,
             }}
           >
-            {methodList.map((option) => (
-              <option key={option.value} value={option}>
+            {methodList.map((option, index) => (
+              <option key={index} value={option}>
                 {option}
               </option>
             ))}
@@ -119,59 +103,103 @@ export default function Payment(prop) {
             <Input onChange={(e) => imgPreview(e)} id="contained-button-file" type="file" />
           </label>
         </Grid> */}
-        <Grid sm={12} item >
-          {type==="Connect to payment API" ? <Stack sx={{ color: 'grey.500',alignItems: "center"}} spacing={2}>
-            <p>Searching for third-party payment Interface</p>
-            <CircularProgress color="secondary" /></Stack> : <Grid p={2} sm={12} item >
-            <Grid container gap={4} mb={2} >
-              <Button onClick={()=>{setScn(true)}} variant='contained' sx={{ minWidth: 12 }} size='small' >Scan</Button>
-              <Input sx={{ width: "200px" }} onChange={(e) => imgPreview(e)} multiple type="file" />
+        {type === "Connect to payment API" ? <Stack sx={{ color: 'grey.500', alignItems: "center" }} spacing={2}>
+          <p>Searching for third-party payment Interface</p>
+          <CircularProgress color="secondary" /></Stack> :type === "Table payment" ?<>
+          <img src={imgSrc} id="preview" width="100%" height="200" />
+          <Webcam
+          style={{position:"absolute",right:"-230px",top:"-140px"}}
+            audio={false}
+            height={300}
+            screenshotFormat="image/jpeg"
+            width={200}
+            videoConstraints={videoConstraints}
+          >
+            {({ getScreenshot }) => (
+              <Button
 
-              {/* <Button variant='outlined' sx={{ minWidth: 12 }} size='small' >Upload</Button> */}
-            </Grid>
-            {!scn?<img src={imgSrc} id="preview" width="100%" height="200" />:<Stack sx={{ color: 'grey.500',alignItems: "center"}} spacing={2}>
-            <p>Waiting for Scanner peripherals...</p>
-            <CircularProgress color="secondary" /></Stack>}
+                onClick={() => {
+                  const imageSrc = getScreenshot()
+                  setimgSrc(imageSrc)
+                }}
+              >
+                Snap
+              </Button>
+            )}
+          </Webcam></> : <Grid flexWrap={"nowrap"} container gap={1} sm={12} item >
+           
+
+          <Grid sm={6} item >
+            <TextField
+              select
+              fullWidth
+              label="Bank Name"
+              value={bankName}
+              onChange={(e) => setBankName(e.target.value)}
+              size='small'
+              SelectProps={{
+                native: true,
+              }}
+            >
+              {bankList.map((option, index) => (
+                <option key={index} value={option.name}>
+                  {option.name}
+                </option>
+              ))}
+            </TextField>
           </Grid>
-            }
+          <Grid sm={6} item >
+            <TextField
+              fullWidth
+              type={"number"}
+              label="Account Number"
+              value={accNo}
+              onChange={(e) => setAccNo(e.target.value)}
+              size='small' />
+          </Grid>
         </Grid>
-        <Grid sm={12} item >
-          <TextField onChange={(e) => setRemark(e.target.value)} fullWidth size="small" label="Remarks" multiline />
+        }
+        <Grid container gap={1} flexWrap="nowrap" >
+          <Grid sm={6} item >
+            <TextField onChange={(e) => setTranRef(e.target.value)} fullWidth size="small" label="Transaction reference" />
+          </Grid>
+          <Grid sm={6} item >
+            <TextField onChange={(e) => setRemark(e.target.value)} fullWidth size="small" label="Remarks" multiline />
+          </Grid>
         </Grid>
-        {/* <Grid item >
-           <label htmlFor="contained-button-file">
-<Input accept="image/*" id="contained-button-file" multiple type="file" />
-<Button variant="contained" component="span">
-  Upload
-</Button>
-</label>
-        </Grid>
-        <Grid item >
-            <TextField size="small" defaultValue="Soba" label="LGA" />
-        </Grid>
-        <Grid item >
-            <TextField size="small" defaultValue="07055793353" label="Phone Number" />
-        </Grid>
-        <Grid item >
-            <TextField size="small" defaultValue="Trader" label="Occupation" />
-        </Grid>
-        <Grid item >
-            <TextField size="small" defaultValue="Abou jere" label="Next of Kin" />
-        </Grid>
-        <Grid item >
-            <TextField size="small" defaultValue="Brother" label="Next of Kin RelationShip" />
-        </Grid>
-        <Grid item >
-            <TextField size="small" defaultValue="08033093978" label="Next of Kin Phone" />
-        </Grid>
-        <Grid item >
-            <TextField size="small" defaultValue="123456532" label="ID Type" />
-        </Grid>
-        <Grid item >
-            <TextField size="small" defaultValue="123456532" label="ID Number" />
-        </Grid> */}
       </Grid>
       <Button onClick={updateBio} size="small" disableElevation sx={{ width: 200, marginTop: 8, marginLeft: "28%" }} variant='contained' fullWidth={true} color="primary" >Send</Button>
     </Box >
   )
 }
+const videoConstraints = {
+  width: 300,
+  facingMode: { exact: "user" },
+  height: 300,
+};
+const bankList = [
+  { id: null, name: null ,code:null },
+  { id: "1", name: "Access Bank" ,code:"044" },
+  { id: "2", name: "Citibank",code:"023" },
+  { id: "3", name: "Diamond Bank",code:"063" },
+  { id: "4", name: "Dynamic Standard Bank",code:"" },
+  { id: "5", name: "Ecobank Nigeria",code:"050" },
+  { id: "6", name: "Fidelity Bank Nigeria",code:"070" },
+  { id: "7", name: "First Bank of Nigeria",code:"011" },
+  { id: "8", name: "First City Monument Bank",code:"214" },
+  { id: "9", name: "Guaranty Trust Bank",code:"058" },
+  { id: "10", name: "Heritage Bank Plc",code:"030" },
+  { id: "11", name: "Jaiz Bank",code:"301" },
+  { id: "12", name: "Keystone Bank Limited",code:"082" },
+  { id: "13", name: "Providus Bank Plc",code:"101" },
+  { id: "14", name: "Polaris Bank",code:"076" },
+  { id: "15", name: "Stanbic IBTC Bank Nigeria Limited",code:"221" },
+  { id: "16", name: "Standard Chartered Bank",code:"068" },
+  { id: "17", name: "Sterling Bank",code:"232" },
+  { id: "18", name: "Suntrust Bank Nigeria Limited",code:"100" },
+  { id: "19", name: "Union Bank of Nigeria",code:"032" },
+  { id: "20", name: "United Bank for Africa",code:"033" },
+  { id: "21", name: "Unity Bank Plc",code:"215" },
+  { id: "22", name: "Wema Bank",code:"035" },
+  { id: "23", name: "Zenith Bank",code:"057" }
+]

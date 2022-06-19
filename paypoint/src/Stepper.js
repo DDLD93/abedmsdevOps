@@ -14,7 +14,7 @@ import Preview from './steps/Preview';
 export default function CustomStepper(prop) {
     
     const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(2);
+    const [activeStep, setActiveStep] = React.useState(0);
 
     let handleNextClose = prop.next 
     let user= prop.user  
@@ -67,6 +67,14 @@ export default function CustomStepper(prop) {
             component: <Preview
             next={handleNext}
             user={user.id}
+            fullName={user.fullName}
+            gender={user.gender}
+            age={user.age}
+            state={user.state}
+            lga={user.lga}
+            ward={user.ward}
+            phone={user.phone}
+            maritalStatus={user.maritalStatus}
             />,
         },
     ];

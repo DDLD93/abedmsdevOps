@@ -71,7 +71,7 @@ export default function ViewsBox(prop) {
   const [lga, setLga] = React.useState(null)
   const [lgaList, setLgaList] = React.useState([""])
   const [wardList, setWardList] = React.useState([""])
-  const [stateList, setstateList] = useState([""])
+  const [stateList, setstateList] = React.useState([""])
   const [fetching, setfetching] = React.useState(false)
   const [ward, setWard] = React.useState(null)
   const [state, setState] = React.useState("");

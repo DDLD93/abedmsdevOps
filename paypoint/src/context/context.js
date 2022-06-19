@@ -132,6 +132,7 @@ export default function StateContextProvider({ children }) {
         clearIndexDB,
         setbtn,
         db,
+        object,
         btn,
         wardList,
         beneList,
