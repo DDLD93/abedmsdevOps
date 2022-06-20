@@ -25,9 +25,9 @@ import Icon from "@mui/material/Icon";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
-function ComplexStatisticsCard({ color, title, count, percentage, percentage2, icon }) {
+function ComplexStatisticsCard({ color, title, count, percentage, icon }) {
   return (
-    <Card sx={{cursor:"pointer"}} >
+    <Card>
       <MDBox display="flex" justifyContent="space-between" pt={1} px={2}>
         <MDBox
           variant="gradient"
@@ -38,11 +38,11 @@ function ComplexStatisticsCard({ color, title, count, percentage, percentage2, i
           display="flex"
           justifyContent="center"
           alignItems="center"
-          width="3rem"
-          height="3rem"
+          width="4rem"
+          height="4rem"
           mt={-3}
         >
-          <Icon fontSize="small" color="inherit">
+          <Icon fontSize="medium" color="inherit">
             {icon}
           </Icon>
         </MDBox>
@@ -53,7 +53,8 @@ function ComplexStatisticsCard({ color, title, count, percentage, percentage2, i
           <MDTypography variant="h4">{count}</MDTypography>
         </MDBox>
       </MDBox>
-      <MDBox pb={0.1} px={2}>
+      <Divider />
+      <MDBox pb={2} px={2}>
         <MDTypography component="p" variant="button" color="text" display="flex">
           <MDTypography
             component="span"
@@ -64,20 +65,6 @@ function ComplexStatisticsCard({ color, title, count, percentage, percentage2, i
             {percentage.amount}
           </MDTypography>
           &nbsp;{percentage.label}
-        </MDTypography>
-      </MDBox>
-      <Divider />
-      <MDBox pb={0.9} px={2}>
-        <MDTypography component="p" variant="button" color="text" display="flex">
-          <MDTypography
-            component="span"
-            variant="button"
-            fontWeight="bold"
-            color={percentage2.color}
-          >
-            {percentage2.amount}
-          </MDTypography>
-          &nbsp;{percentage2.label}
         </MDTypography>
       </MDBox>
     </Card>

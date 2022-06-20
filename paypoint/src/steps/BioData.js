@@ -84,8 +84,8 @@ export default function Biodata(prop) {
     <div>
       <Box container sx={style.modal}>
         <Grid>
-          <Grid alignItems="center" p={2} gap={15} container >
-            <Grid gap={4} >
+          <Grid alignItems="center" p={4} gap={15} container >
+            <Grid >
               <Field
                 field={"First Name"}
                 value={prop.fullName}
@@ -192,10 +192,10 @@ export default function Biodata(prop) {
 }
 function Field({ field, value }) {
   return (
-    <Grid item sx={{ minWidth: 10, mt: 0.1 }} >
-      <p style={{ margin: 0, color: "black", fontWeight: "bold", fontSize: "11px", fontFamily: "cursive" }}>{field}</p>
+    <Grid item sx={{ minWidth: 10, mt: 0.4 }} >
+      <p style={{ margin: 0, color: "black", fontWeight: "bold", fontSize: "12px", fontFamily: "cursive" }}>{field}</p>
       <hr style={{ margin: 0, marginBottom: "1px", color: "grey" }} />
-      <p style={{ margin: 0, fontSize: "17px", color: "gray" }} >{value}</p>
+      <p style={{ margin: 0, fontSize: "18px", color: "gray" }} >{value}</p>
     </Grid>
   )
 }

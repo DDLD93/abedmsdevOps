@@ -14,6 +14,7 @@ import { StateContext } from 'store/store';
 
 export default function SheetPreview(prop) {
     const [open, setOpen] = React.useState(false);
+    const [rows, setrows] = React.useState([])
     const [label, setlabel] = React.useState("Approve")
     const {notification,token,Alert} = React.useContext(StateContext)
     const handleClickOpen = () => {
@@ -26,7 +27,18 @@ export default function SheetPreview(prop) {
     const handleRefresh = React.useCallback(() => {
       handleNext()
     }, [prop.refresh])
-
+    function getSheet() {
+        let url = `${config.EndPionts}/beneficiaries/sheet/${prop.id}`
+        fetch(url).then(res=>(res.json())).
+        then(arr =>{
+            let object =  arr.map(obj=>{
+                return {id: obj._id, Name:obj.fullName, Gender:obj.gender,Phone:obj.phone,Occupation:obj.occupation,Batch:obj.batch,Disability:obj.disability,State:obj.state,LGA:obj.lga,Status:obj.status,onCellClick: ()=>console.log("first")}
+            
+              })
+                setrows([...object])
+        }).catch(err=>console.log(err))
+        
+    }
     function approveStatus() {
         setlabel("Approving...")
         let data = {
@@ -72,25 +84,9 @@ export default function SheetPreview(prop) {
         })
     }
     const descriptionElementRef = React.useRef(null);
-    // async function createFile(){
-    //     let response = await fetch('http://localhost:9000/api/uploads/bafb51012d574c8ab33687fb9bfd5414.xlsx');
-    //     let data = await response.blob();
-    //     let metadata = {
-    //         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    //     };
-    //     let file = new File([data], "temp.xlsx", metadata);
-    //     // ... do something with the file or return it
-    //     // const result = excelToJson({
-    //     //     sourceFile: file,
-    //     //     header: {
-    //     //       rows: 4,
-    //     //     }
-    //     //   });
-    //     //   console.log(result)
-    //  }
       React.useEffect(() => {
-       // createFile()
-      }) 
+        getSheet()
+      },[]) 
     React.useEffect(() => {
         if (open) {
             const { current: descriptionElement } = descriptionElementRef;
@@ -108,10 +104,7 @@ export default function SheetPreview(prop) {
         {field: 'Ward', headerName: 'Geo-Political Zone', sortable: false,},
         {field: 'Status', headerName: 'Status', sortable: false,},
       ];
-    //   const rows = bene.map(obj=>{
-    //     return {id: obj._id, Name:obj.fullName, Gender:obj.gender,Phone:obj.phone,Occupation:obj.occupation,Batch:obj.batch,Disability:obj.disability,State:obj.state,lga:obj.lga,Status:obj.status,onCellClick: ()=>console.log("first")}
-    
-    //   })
+  
     
 
     return (
@@ -121,6 +114,7 @@ export default function SheetPreview(prop) {
             </IconButton>
             <Dialog
                 open={open}
+                sx={{height:500,width:700}}
                 onClose={handleClose}
                 scroll={'body'}
                 aria-labelledby="Sheet Preview"
@@ -167,10 +161,7 @@ export default function SheetPreview(prop) {
                         id="scroll-dialog-description"
                         ref={descriptionElementRef}
                         tabIndex={-1}>
-                            {/* <button style={{padding:5,marginLeft:"40%"}} ><a href={`${config.EndPionts}/uploads/5de5da118fee4ae7923b2e77a7dec173.xlsx`}>download sheet</a></button> */}
-                            <DataGrid  columns={columns} rows={[]} />
-                    
-                           
+                            <DataGrid  columns={columns} rows={rows} />     
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

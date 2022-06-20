@@ -27,9 +27,9 @@ const beneficiarySchema = new Schema({
   },
   biometric: {
     dateCapture: { type: Date },
-    documentHash: { type: Buffer },
-    imageHash: { type: Buffer },
-    thumbHash: { type: Buffer },
+    documentHash: { type: String },
+    imageHash: { type: String },
+    thumbHash: { type: String },
   },
   payment: {
     accNo: { type: Number },

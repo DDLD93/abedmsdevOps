@@ -11,6 +11,14 @@ async getBeneficiariesCustom(batch,state,lga){
       return {ok:false,error:err};
     }
   }
+  async getBeneficiariesSheet(id){
+    try {
+      const bene = await Beneficiary.find({sheetId:id});
+      return {ok:true, bene};
+    } catch (err) {
+      return {ok:false,error:err};
+    }
+  }
   async getBeneficiariesPaypoint(id){
     try {
       const bene = await Beneficiary.find({pspId:id,status: { $not: { $eq: "uploaded" } }, });
@@ -68,8 +76,7 @@ async getBeneficiariesCustom(batch,state,lga){
   }
   async processed(data,id){
     try {
-      let count = await Beneficiary.findByIdAndUpdate({id},data)
-      
+      let count = await Beneficiary.findByIdAndUpdate(id,data,{multi:false, new:true}) 
       return {ok:true, count};
     } catch (err) {
       return {ok:false,error:err};

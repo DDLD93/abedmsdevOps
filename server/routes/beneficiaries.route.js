@@ -208,6 +208,16 @@ module.exports = (express, PHOTO_ID) => {
           return res.status(500).json(status.error);
         }
       })
+      api.get("/sheet/:id", async (req, res) => {
+        let {id} = req.params
+        console.log("id from sheets >>>>> ",id)
+        let status = await beneCtrl.getBeneficiariesSheet(id)
+       if(status.ok) {
+         return res.status(200).json(status.bene);
+        }else{
+          return res.status(500).json(status.error);
+        }
+      })
       api.patch("/assign/:id", async (req, res) => {
         let {id} = req.params
         let data = req.body
@@ -222,6 +232,7 @@ module.exports = (express, PHOTO_ID) => {
       api.put("/process/:id", async (req, res) => {
         let {id} = req.params
         let data = req.body
+        console.log(id)
         let status = await beneCtrl.processed(data,id)
        if(status.ok) {
          return res.status(200).json(status.count);

@@ -168,7 +168,7 @@ export default function Payment(prop) {
           </Grid>
         </Grid>
       </Grid>
-      <Button onClick={updateBio} size="small" disableElevation sx={{ width: 200, marginTop: 8, marginLeft: "28%" }} variant='contained' fullWidth={true} color="primary" >Send</Button>
+      <Button onClick={updateBio} size="small" disableElevation sx={{ width: 200, marginTop: 8, marginLeft: "28%" }} variant='contained' fullWidth={true} color="primary" >Preview</Button>
     </Box >
   )
 }

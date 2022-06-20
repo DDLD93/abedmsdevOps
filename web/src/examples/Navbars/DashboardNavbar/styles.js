@@ -27,7 +27,7 @@ function navbar(theme, ownerState) {
     backgroundColor:
       transparentNavbar || absolute
         ? `${transparent.main} !important`
-        : rgba(darkMode ? background.default : dark.main, 0.8),
+        : rgba(darkMode ? background.default : white.main, 0.8),
 
     color: () => {
       let color;

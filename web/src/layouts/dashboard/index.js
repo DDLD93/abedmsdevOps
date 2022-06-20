@@ -25,7 +25,6 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
-import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 import { useEffect, useState, useContext ,useLayoutEffect} from "react";
 
 
@@ -44,6 +43,7 @@ import TrafficStats from "./trafficStats";
 import UserStats from "./userStats";
 import millify from "millify"
 import config from "../../config";
+import MixedChart from "examples/Charts/MixedChart";
 function Dashboard() {
   const [stats, setstats] = useState("")
   const [total, settotal] = useState(0)
@@ -65,7 +65,7 @@ function Dashboard() {
       <DashboardNavbar />
       <MDBox py={3}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={4}>
+          <Grid item xs={12} md={6} lg={3}>
           <BeneStats
           title={"Beneficiaries"}
           count={millify(stats.total != null?stats.total:0)}
@@ -74,23 +74,29 @@ function Dashboard() {
           
           />
           </Grid>
-           <Grid item xs={12} md={6} lg={4}>
+           <Grid item xs={12} md={6} lg={3}>
             <FundStats
             count={millify(stats.total != null?`${stats.total*20000}`:0)}
             percentage2={"%"+stats.perTotal}
             percentage1={"%"+stats.perTotal}
             />
           </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-          <StateStats/>
+          <Grid item xs={12} md={6} lg={3}>
+          <StateStats
+           count={stats?.userCount}
+           />
           </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            <PspStats/>
+          <Grid item xs={12} md={6} lg={3}>
+            <PspStats
+            count={stats?.userCount}
+            />
           </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            <TrafficStats/>
+          <Grid item xs={12} md={6} lg={3}>
+            <TrafficStats
+            count={stats?.userCount}
+            />
           </Grid>
-          <Grid item xs={12} md={6} lg={4}>
+          <Grid item xs={12} md={6} lg={3}>
             <UserStats
             count={stats?.userCount}
             percentage2={"%"+stats.userCount}
@@ -143,11 +149,11 @@ function Dashboard() {
             <Grid item xs={12} md={6} lg={6}>
               <MDBox mb={3}>
                 {/* <ReportsBarChart
-                  color="info"
-                  title="Website live data"
-                  description="Last Campaign Performance"
-                  date="campaign sent 2 days ago"
-                  chart={reportsBarChartData}
+                  //color="info"
+                 // title="Website live data"
+                 // description="Last Campaign Performance"
+                 // date="campaign sent 2 days ago"
+                  //chart={reportsBarChartData}
                 /> */}
               </MDBox>
             </Grid>
@@ -172,10 +178,11 @@ function Dashboard() {
           <Grid container spacing={3}>
             {/* <Grid item xs={12} md={6} lg={12}>
               <Projects />
-            </Grid> */}
-            {/* <Grid item xs={12} md={6} lg={4}>
-              <OrdersOverview />
-            </Grid> */}
+            </Grid>  */}
+             <Grid item xs={12} md={6} lg={4}>
+               {/* <MixedChart chart={sales}/>  */}
+              {/* <OrdersOverview /> */}
+            </Grid>
           </Grid>
         </MDBox>
       </MDBox>

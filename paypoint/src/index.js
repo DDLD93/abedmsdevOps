@@ -6,17 +6,33 @@ import reportWebVitals from './reportWebVitals';
 import StateContextProvider from './context/context';
 import { BrowserRouter } from "react-router-dom";
 import { SnackbarProvider } from 'notistack';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { green, purple } from '@mui/material/colors';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: green[800],
+    },
+    secondary: {
+      main: green[500],
+    },
+  },
+});
+
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <SnackbarProvider maxSnack={1}>
-        <StateContextProvider >
-          <App />
-        </StateContextProvider>
-      </SnackbarProvider>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <SnackbarProvider maxSnack={1}>
+          <StateContextProvider >
+            <App />
+          </StateContextProvider>
+        </SnackbarProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

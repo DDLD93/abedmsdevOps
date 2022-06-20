@@ -40,7 +40,6 @@ function FundStats(prop) {
     <div>
       <MDBox onClick={() => console.log("first")} mb={1.5}>
         <ComplexStatisticsCard
-        import AssuredWorkloadIcon
           color="error"
           icon="assured_workload_icon"
           title="Funds"

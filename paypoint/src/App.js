@@ -35,10 +35,8 @@ export default function App() {
   let db = new Localbase('db').collection("beneList")
   async function sync() {
     setloading(true)
-    try {
-      db.get().then(arr => {
-        arr.forEach(obj => {
-          if (obj?.done == true) {
+        rows.forEach(obj => {
+          if (obj?.status == "paid") {
             let url = `${config.endPoint}/beneficiaries/process/${obj.id}`
             fetch(url, {
               method: "PUT",
@@ -50,28 +48,21 @@ export default function App() {
             }).then(res => (res.json()))
               .then(res => {
                 console.log("final response >>> ", res)
-                if (true) {
-                  //db.collection('beneList').doc({ id: obj.id }).delete()
-                }
+              }).catch((err)=>{
+                console.log(err)
               })
-              notification("Database updated","success")
           }
         })
-      }) 
       setloading(false)
-    }
-    catch (error) {
-      setloading(false)
-      notification("An error occured synching data || check your internet","error")
-    }
   }
 
 
   function fetchBene() {
+    setprocessed(0)
     db.get().then(arr => {
       setcount(arr.length)
       let list = arr.map(obj => {
-        if(obj?.done) {
+        if(obj?.status === "paid") {
           console.log(obj)
           setprocessed(prev=>prev+1)
         }
@@ -99,7 +90,7 @@ export default function App() {
     if (user) {
       setTimeout(() => {
         fetchBene()
-      }, 2000);  
+      }, 1000);  
     }
   }, [user])
 

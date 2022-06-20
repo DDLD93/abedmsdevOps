@@ -184,7 +184,7 @@ function DataTable({
         </MDBox>
       ) : null}
       <Table {...getTableProps()}>
-        <MDBox color="primary" component="thead">
+        <MDBox component="thead">
           {headerGroups.map((headerGroup) => (
             <TableRow {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
@@ -193,7 +193,6 @@ function DataTable({
                   width={column.width ? column.width : "auto"}
                   align={column.align ? column.align : "left"}
                   sorted={setSortedValue(column)}
-                  
                 >
                   {column.render("Header")}
                 </DataTableHeadCell>

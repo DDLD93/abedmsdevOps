@@ -28,12 +28,17 @@ module.exports = (express, UPLOADS) => {
     api = express.Router();
 
     api.post("/",Staff,upload.single('xlsx'), async (req, res) => {
-        const result = excelToJson({
+      var result = null
+      try {
+          result = excelToJson({
           sourceFile: req.filePath,
           header: {
             rows: 4,
           }
         });
+      } catch (error) {
+        res.status(500).json(error);
+      }
         let date = new Date
          let firstObject = result[Object.keys(result)[0]];
         let c = firstObject[0].G.substring(0, 3).toUpperCase()        

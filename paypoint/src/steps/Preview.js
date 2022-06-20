@@ -41,7 +41,7 @@ export default function Preview(prop) {
 
     const updateBio = () => {
         console.log(id)
-        setObj("done", true, id)
+        setObj("done",true, id)
         handleModalNext()
     }
 

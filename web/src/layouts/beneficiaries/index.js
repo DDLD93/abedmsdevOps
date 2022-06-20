@@ -132,7 +132,7 @@ function Beneficiaries() {
                         status={obj.status}
                         payment={obj.isPayment}
                         fullName={obj.fullName}
-                        avatar={obj.biometric && obj.biometric.imagePath}
+                        avatar={obj?.biometric?.imageHash}
                         gender={obj.gender}
                         disability={obj.disability}
                         age={obj.age}
@@ -140,12 +140,13 @@ function Beneficiaries() {
                         phone={obj.phone}
                         maritalStatus={obj.maritalStatus}
                         id={obj._id}
-                        occupation={obj.occupation}
+                        occupation={obj?.identification?.occupation}
                         state={obj.state}
                         ward={obj.ward}
-                        idType={obj.identification && obj.identification.type}
-                        idNo={obj.identification && obj.identification.idNo}
-                        methodOfPayment={obj?.payment?.methodOfPayment}
+                        idType={obj?.identification?.type}
+                        idNo={obj?.identification?.idNo}
+                        methodOfPayment={obj?.payment?.method}
+                        paymentProof={obj?.payment?.imageHash}
                         remark={obj?.payment?.remark}
                     />
                 </MDBox>

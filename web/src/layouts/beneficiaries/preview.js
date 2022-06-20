@@ -83,7 +83,8 @@ export default function Profile(prop) {
     //     console.log(result)
     // }
     React.useEffect(() => {
-        //createFile()
+        let image = prop.avatar 
+        console.log(image)
     })
     React.useEffect(() => {
         if (open) {
@@ -163,7 +164,7 @@ export default function Profile(prop) {
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder" , marginRight:"5px"}} >Location</span>: <em style={{ color: "#000" }} >{}</em> </p>
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Time Stamps</span>: <em style={{ color: "#000" }} >{}</em> </p>
                             </div>
-                            <img style={{ marginTop: "20px", border: "1px solid red", borderRadius: "5%", marginBottom: "10px" }} alt="payment proof" width="500" height="350" />
+                            <img src={prop.paymentProof} style={{ marginTop: "20px", border: "1px solid red", borderRadius: "5%", marginBottom: "10px" }} alt="payment proof" width="400" height="200" />
                         </Card>
                         <TextField fullWidth variant='outlined' label="Remark"  ></TextField>
 

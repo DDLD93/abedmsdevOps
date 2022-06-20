@@ -43,7 +43,7 @@ function TrafficStats(prop) {
            color="dark"
            icon="traffic_icon"
            title="Traffic"
-           count={"%"+1}
+           count={0}
            percentage2={{
              color: "success",
              amount: "0%",

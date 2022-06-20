@@ -6,7 +6,7 @@ services:
     command:
       - "--api.insecure=true"
       - "--api.dashboard=true"
-      - "--api.debug=true"
+      - "--api.debug=false"
       - "--providers.docker=true"
       - "--log.LEVEL=DEBUG"
       - "--entryPoints.web.address=:80"
@@ -19,7 +19,7 @@ services:
     ports:
       - "443:443"
       - "80:80"
-      - "7000:8080"
+      - "8001:8080"
     volumes:
       - "./letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
