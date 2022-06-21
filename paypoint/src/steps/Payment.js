@@ -1,19 +1,8 @@
 import * as React from 'react';
-import { useCallback } from 'react';
-import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
-import Fingerprint from '@mui/icons-material/Fingerprint';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import { Buffer } from 'buffer';
-import { styled } from '@mui/material/styles';
+
 import Webcam from "react-webcam";
-import { Alert, AlertTitle, Button, Card, CircularProgress, Grid, LinearProgress, Stack, TextField } from '@mui/material';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+import { Button, CircularProgress, Grid, Stack, TextField } from '@mui/material';
 import { StateContext } from '../context/context';
 
 
