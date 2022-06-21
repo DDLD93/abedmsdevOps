@@ -90,12 +90,14 @@ services:
     restart: always
     build: ./paypoint
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.cal.rule=Host(`terminal.ddld.info`)"
-      - "traefik.http.routers.cal.entrypoints=web"
-      - "traefik.http.services.cal.loadbalancer.server.port=5000"
+      - traefik.enable=true
+      - traefik.http.routers.subsite.entrypoints=https
+      - 'traefik.http.routers.subsite.rule=Host(terminal.ddld.info)'
+      - traefik.http.routers.subsite.tls=true
+      - traefik.http.routers.subsite.tls.certresolver=your_resolver
+      - traefik.http.routers.subsite.tls.domains[0].main=terminal.ddld.info
     depends_on:
-      - backend
+      - traefik
     container_name: 'paypoint'
     ports:
       - 5000:5000 
