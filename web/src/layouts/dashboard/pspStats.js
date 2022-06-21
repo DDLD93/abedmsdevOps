@@ -42,8 +42,8 @@ function PspStats(prop) {
         <ComplexStatisticsCard
            color="dark"
            icon="assured_workload"
-           title="Peformance By PSP"
-           count={0}
+           title="PSP"
+           count={3}
            percentage2={{
              color: "success",
              amount: "0%",

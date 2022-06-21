@@ -40,6 +40,11 @@ function LiveData() {
         ["South West",10],
         ["South South",10],
     ]
+    const gender = [
+        ["Gender", "Disbursement by gender"],
+        ["Male",10],
+        ["Female",10],
+    ]
     const data = [
         ["Name", "Disbursement by state"],
             ["abia",10],
@@ -158,7 +163,7 @@ function LiveData() {
                     />
                      <Chart
                         chartType="PieChart"
-                        data={data2}
+                        data={gender}
                         options={{title: "Gender Distribution"}}
                         width={"475px"}
                         height={"400px"}

@@ -1,19 +1,4 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @mui material components
 import Grid from "@mui/material/Grid";
 
 // Material Dashboard 2 React components
@@ -44,6 +29,9 @@ import UserStats from "./userStats";
 import millify from "millify"
 import config from "../../config";
 import MixedChart from "examples/Charts/MixedChart";
+import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
+import PieChart from "examples/Charts/PieChart";
+import Analytics from "./analytics";
 function Dashboard() {
   const [stats, setstats] = useState("")
   const [total, settotal] = useState(0)
@@ -88,12 +76,26 @@ function Dashboard() {
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <PspStats
-            count={stats?.userCount}
+            count={3}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <TrafficStats
             count={stats?.userCount}
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <UserStats
+            count={stats?.userCount}
+            percentage2={"%"+stats.userCount}
+            percentage1={"%"+stats.perTotal}
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Analytics
+            count={stats?.userCount}
+            percentage2={"%"+stats.userCount}
+            percentage1={"%"+stats.perTotal}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -148,18 +150,18 @@ function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={6}>
               <MDBox mb={3}>
-                {/* <ReportsBarChart
-                  //color="info"
-                 // title="Website live data"
-                 // description="Last Campaign Performance"
-                 // date="campaign sent 2 days ago"
-                  //chart={reportsBarChartData}
-                /> */}
+                <ReportsBarChart
+                  color="info"
+                 title="Website activities"
+                 description="Activities in the past week"
+                 date="campaign sent 2 days ago"
+                  chart={reportsBarChartData}
+                />
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={6}>
               <MDBox mb={3}>
-                {/* <ReportsLineChart
+                <ReportsLineChart
                   color="success"
                   title="Disbursment stats"
                   description={
@@ -169,7 +171,7 @@ function Dashboard() {
                   }
                   date="updated 4 min ago"
                   chart={sales}
-                /> */}
+                />
               </MDBox>
             </Grid>
           </Grid>
@@ -180,13 +182,13 @@ function Dashboard() {
               <Projects />
             </Grid>  */}
              <Grid item xs={12} md={6} lg={4}>
-               {/* <MixedChart chart={sales}/>  */}
+                {/* <PieChart title={"Line charts"} chart={reportsBarChartData}/>   */}
               {/* <OrdersOverview /> */}
             </Grid>
           </Grid>
         </MDBox>
       </MDBox>
-      <Footer />
+      {/* <Footer /> */}
     </DashboardLayout>
   );
 }

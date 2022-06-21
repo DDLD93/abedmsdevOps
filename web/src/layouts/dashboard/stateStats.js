@@ -41,9 +41,9 @@ function StateStats(prop) {
       <MDBox onClick={() => console.log("first")} mb={1.5}>
         <ComplexStatisticsCard
           color="dark"
-          icon="weekend"
-          title="Activities By States"
-          count={0}
+          icon="map_icon"
+          title="States"
+          count={37}
           percentage2={{
             color: "success",
             amount: "",
@@ -51,7 +51,7 @@ function StateStats(prop) {
           }}
           percentage={{
             color: "success",
-            amount: "",
+            amount: "Kaduna",
             label: "Leading state",
           }}
         />

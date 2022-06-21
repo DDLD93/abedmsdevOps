@@ -41,8 +41,8 @@ function UserStats(prop) {
       <MDBox onClick={() => console.log("first")} mb={1.5}>
         <ComplexStatisticsCard
              icon="leaderboard"
-             title="Total Users"
-             count={0}
+             title="Users"
+             count={prop.count}
             percentage2={{
             color: "success",
             amount: prop.percentage2,
@@ -50,7 +50,7 @@ function UserStats(prop) {
           }}
           percentage={{
             color: "success",
-            amount: prop.percentage1,
+            amount: prop.percentage1 && 0,
             label: "users in the past week",
           }}
         />
