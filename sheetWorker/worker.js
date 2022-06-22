@@ -1,26 +1,6 @@
 const amqp = require("amqplib");
 
 const axios = require('axios').default;
-// console.log("first test")
-// setTimeout(() => {
-//   console.log("second test")
-//   start();
-// }, 5000);
-
-// function start() {
-//   console.log("third test")
-//   try {
-//     console.log("fouth test")
-//     RabbitMQ.channel.consume('q', (msg) => {
-//       if (msg !== null) {
-//         console.log('CONSUMER >>> ', msg.content.toString());
-//         processJob(broker.channel, msg);
-//       }
-//     });
-//   } catch (err) {
-//     console.log("Consuming RabbitMQ Queue", err)
-//   }
-// }
 async function connect() {
   try {
     const connection = await amqp.connect(`amqp://ujere:123456@rabbitmq:5672`);
@@ -43,18 +23,18 @@ async function connect() {
 connect()
 
 async function processJob(channel, jobMsg) {
-const error = []
+const error = 0
   const data = JSON.parse(jobMsg.content.toString());
   const list = data.message.map(field => {
     return {
       serialNo: field.B,
-      fullName: field.C,
+      fullName: field?.C.toLowerCase(),
       age: field.D,
-      gender: field.E,
-      maritalStatus: field.F,
-      state: field.G,
-      lga: field.H,
-      ward: field.I,
+      gender: field?.E.toLowerCase(),
+      maritalStatus: field?.F.toLowerCase(),
+      state: field?.G.toLowerCase(),
+      lga: field?.H.toLowerCase(),
+      ward: field?.I.toLowerCase(),
       phone: field.J,
       sheetId: data.id,
       sheetCode: data.code
@@ -67,6 +47,7 @@ const error = []
     await axios.post(url, list[i]);
   } catch (err) {
     errors = errors + 1
+    console.log(`error @ ${list[i]}>>>>>`, err)
   }
  }
 
@@ -82,19 +63,14 @@ const error = []
     status: "awaiting Approval",
   }
   try {
+    console.log("uploader >>>> ", dataObj)
     const url = `http://backend:9000/api/sheet/que/update/${data.id}`
     await axios.put(url, dataObj);
     channel.ack(jobMsg)
   } catch (err) {
     console.log(err.message)
   }
-  // await sheetCtrl.updateSheet(data.id, dataObj)
-
-
 }
-
-  // broker.getMsg(async (msg) => {
-  //   let data = JSON.parse(msg.content.toString())
 
 
 

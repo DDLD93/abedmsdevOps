@@ -14,7 +14,7 @@ const SheetsSchema =  new Schema({
       fullName:{type:String},
     },
     code:{type:String},
-    status : { type: String,emun:["awaiting Approval","valid","rejected","processing","failed"],default:"pending"},
+    status : { type: String,emun:["awaiting Approval","valid","rejected","processing","failed","pending"],default:"pending"},
     createdAt: { type: Date, default: Date.now() }, 
   })
 

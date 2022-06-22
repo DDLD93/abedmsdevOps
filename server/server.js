@@ -47,6 +47,7 @@ app.use("/api/user", require("./routes/user.route")(express));
 app.use("/api/beneficiaries", require("./routes/beneficiaries.route")(express,PHOTO_ID));
 app.use("/api/payment", require("./routes/payment.route")(express,PAYMENT));
 app.use("/api/analytics", require("./routes/analytics.route")(express));
+app.use("/api/logs", require("./routes/logs.route")(express));
 app.use("/api/paypoint", require("./routes/paypoint.route")(express));
 app.use("/api/uploads",express.static(UPLOADS))
 app.use("/api/photoID",express.static(PHOTO_ID))

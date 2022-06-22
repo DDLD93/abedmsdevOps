@@ -1,8 +1,10 @@
 const multer = require('multer');
+const logsCtrl = require("../controller/logs.controller")
 const uuid = require('uuid').v4;
 const userCtrl = require("../controller/user.controller")
 const User = require("../model/user.model")
 const jwt = require("jsonwebtoken");
+const {Admin, Qa, Staff, PSP} = require("../middleware/auth.middleware")
 
 
 
@@ -68,17 +70,21 @@ module.exports = (express, UPLOADS) => {
   });
 
 
-  api.post("/register", async (req, res) => {
+  api.post("/register",Staff, async (req, res) => {
     let data = req.body
     try {
       const status = await userCtrl.registerUser(data)
-      console.log(status)
       if (status.ok) {
+          let newLog = {
+            user:req.user.name,
+            event:"Account Creation",
+            desc:`A new ${data.userType} account || email:${data.email}  was created by ${req.user.name}`
+          }
+           await logsCtrl.addLogs(newLog)
           return res.status(200).json(status.user);
       } else {
         res.status(500).json(status.error);
       }
-
     } catch (error) {
       res.status(500).json(error);
     }
@@ -112,7 +118,7 @@ module.exports = (express, UPLOADS) => {
         userType: user.userType,
         company: user.company,
         state: user.state
-      }, "+Y9FYqpJxJGeRy9aj1NOCbmAPZt/IKqPuDBJNf+gbuuK7nXuC82UA1kKSQju+TiqxhQwYCJgPcBn0lIdkA4KDj9F++U14AeVeCn3sbxBxqsykd7UOXEMrwUN808Io1cr02V5n3jm9Z6vVGxxbfkjepQ63zF2M6U7IkTNW15wGnM6cST6uPHVZOL1tl0bcosh536JCdIE6VNsaWgFfNSEbKCncDeQ9GQlUwDgrgQbeNQRyFYVIAeJx2F5Fv69e5/oZk25hRZPUMrXfrxGiWdmUX71df39OCycsD4aNog4xz3o9bjT6tJIqqAX7mQK5Gjce5VpilqY+z0SZVeylc5E6Q==", { expiresIn: '1h' })
+      }, "+Y9FYqpJxJGeRy9aj1NOCbmAPZt/IKqPuDBJNf+gbuuK7nXuC82UA1kKSQju+TiqxhQwYCJgPcBn0lIdkA4KDj9F++U14AeVeCn3sbxBxqsykd7UOXEMrwUN808Io1cr02V5n3jm9Z6vVGxxbfkjepQ63zF2M6U7IkTNW15wGnM6cST6uPHVZOL1tl0bcosh536JCdIE6VNsaWgFfNSEbKCncDeQ9GQlUwDgrgQbeNQRyFYVIAeJx2F5Fv69e5/oZk25hRZPUMrXfrxGiWdmUX71df39OCycsD4aNog4xz3o9bjT6tJIqqAX7mQK5Gjce5VpilqY+z0SZVeylc5E6Q==", { expiresIn: '24h' })
       res.json({ status: "success", user: user, token });
     } catch (error) {
       res.send(error);

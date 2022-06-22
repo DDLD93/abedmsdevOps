@@ -104,7 +104,7 @@ export default function ModalBox({ setRows }) {
   const [type, setType] = React.useState('');
   const [button, setButton] = React.useState(false)
   const [loading, setloading] = React.useState(false)
-  const { notification } = React.useContext(StateContext)
+  const { notification,token } = React.useContext(StateContext)
   const changeRows = React.useCallback(() => {
     setRows()
   }, [setRows])
@@ -128,7 +128,8 @@ export default function ModalBox({ setRows }) {
     fetch(`${config.EndPionts}/user/register`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer "+ token
       },
       body: JSON.stringify(data)
     }).then(res => res.json())
