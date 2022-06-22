@@ -21,6 +21,8 @@ import { Chart } from "react-google-charts";
 
 import State from "./state";
 import config from "config";
+import { Chartss } from "./pspbars";
+import { StateBars } from "./statebars";
 
 
 
@@ -168,6 +170,7 @@ function LiveData() {
                         width={"475px"}
                         height={"400px"}
                     />
+                    <StateBars/>
 
                     </Grid>
                 </Grid>

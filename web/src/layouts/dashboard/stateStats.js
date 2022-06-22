@@ -51,7 +51,7 @@ function StateStats(prop) {
           }}
           percentage={{
             color: "success",
-            amount: "Kaduna",
+            amount: "katsina",
             label: "Leading state",
           }}
         />

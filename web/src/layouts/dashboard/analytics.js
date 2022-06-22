@@ -42,16 +42,17 @@ function Analytics(prop) {
         <ComplexStatisticsCard
              icon="analytics_icon"
              title="Analytics"
+             color="success"
              count={0}
             percentage2={{
             color: "success",
             amount: prop.percentage2,
-            label: "Active users",
+            label: "Activites",
           }}
           percentage={{
             color: "success",
             amount: prop.percentage1 && 0,
-            label: "users in the past week",
+            label: "activites in the past week",
           }}
         />
       </MDBox>

@@ -45,7 +45,8 @@ const options = {
   },
 };
 
-const label = [ "abia",
+const label = [ 
+"abia",
 "adamawa",
 "akwa Ibom",
 "anambra",

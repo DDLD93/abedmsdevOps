@@ -44,7 +44,7 @@ module.exports = (express, UPLOADS) => {
         let c = firstObject[0].G.substring(0, 3).toUpperCase()        
         let code = `${c}/${date.getFullYear().toString()}/${date.getMonth().toString()}`  
 
-        let status = await sheetCtrl.addSheet({total:firstObject.length,code:code})
+        let status = await sheetCtrl.addSheet({total:firstObject.length,code:code,filePath:req.filePath})
           if (status.ok) {
               let batch = await batchCtrl.getBatches()
               broker.sendMsg({

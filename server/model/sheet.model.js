@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const SheetsSchema =  new Schema({
-    total : { type: Number},
+    total: { type: Number},
     valid:{ type: Number,default:0},
+    filePath: {type:String},
     invalid:{ type: Number,default:0},
     uploadedBy:{
       id:{type:String},

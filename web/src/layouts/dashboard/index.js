@@ -32,6 +32,7 @@ import MixedChart from "examples/Charts/MixedChart";
 import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
 import PieChart from "examples/Charts/PieChart";
 import Analytics from "./analytics";
+import SheetsStats from "./sheetStats";
 function Dashboard() {
   const [stats, setstats] = useState("")
   const [total, settotal] = useState(0)
@@ -99,7 +100,7 @@ function Dashboard() {
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
-            <UserStats
+            <SheetsStats
             count={stats?.userCount}
             percentage2={"%"+stats.userCount}
             percentage1={"%"+stats.perTotal}

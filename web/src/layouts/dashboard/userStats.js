@@ -40,7 +40,7 @@ function UserStats(prop) {
     <div>
       <MDBox onClick={() => console.log("first")} mb={1.5}>
         <ComplexStatisticsCard
-             icon="leaderboard"
+             icon="person_icon"
              title="Users"
              count={prop.count}
             percentage2={{
