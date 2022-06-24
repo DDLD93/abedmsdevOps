@@ -92,7 +92,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.subsite.entrypoints=https"
-      - "traefik.http.routers.subsite.rule=Host('paypoint.ddld.info')"
+      - "traefik.http.routers.subsite.rule=Host('terminal.ddld.info')"
       - "traefik.http.routers.subsite.tls=true"
       - "traefik.http.routers.subsite.tls.certresolver=your_resolver"
     depends_on:
