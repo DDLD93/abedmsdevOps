@@ -95,6 +95,10 @@ services:
       - "traefik.http.routers.subsite.rule=Host('terminal.ddld.info')"
       - "traefik.http.routers.subsite.tls=true"
       - "traefik.http.routers.subsite.tls.certresolver=your_resolver"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.redirs.entrypoints=web"
+      - "traefik.http.routers.redirs.middlewares=redirect-to-https"
     depends_on:
       - reverse-proxy
     container_name: 'paypoint'
