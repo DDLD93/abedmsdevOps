@@ -12,7 +12,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 // Data
 
-import { useEffect, useState, useContext ,useLayoutEffect} from "react";
+import { useEffect, useState, useContext, useLayoutEffect } from "react";
 import DataTable from "examples/Tables/DataTable";
 import MDProgress from "components/MDProgress";
 import { TextField } from "@mui/material";
@@ -23,6 +23,7 @@ import State from "./state";
 import config from "config";
 import { Chartss } from "./pspbars";
 import { StateBars } from "./statebars";
+import { Lines } from "./pspLines";
 
 
 
@@ -31,71 +32,85 @@ import { StateBars } from "./statebars";
 
 
 function LiveData() {
-    const { batchList,ageDistro } = useContext(StateContext)
+    const { batchList, ageDistro } = useContext(StateContext)
     const [data2, setdata2] = useState([])
     const zones = [
         ["Political zones", "Disbursement by zones"],
-        ["North East",10],
-        ["North West",10],
-        ["North Central",10],
-        ["South East",10],
-        ["South West",10],
-        ["South South",10],
+        ["North East", 10],
+        ["North West", 10],
+        ["North Central", 10],
+        ["South East", 10],
+        ["South West", 10],
+        ["South South", 10],
+    ]
+    const disability = [
+        ["Disability", "Disbursement by disablity"],
+        ["None", 10],
+        ["Blind", 10],
+        ["Deaf", 10],
+        ["Cripple", 10],
+        ["Metally-impaired", 10],
     ]
     const gender = [
         ["Gender", "Disbursement by gender"],
-        ["Male",10],
-        ["Female",10],
+        ["Male", 10],
+        ["Female", 10],
+    ]
+    const maritalStatus = [
+        ["Marital Status", "Disbursement by Marital Status"],
+        ["Single", 10],
+        ["Window", 10],
+        ["Divorce", 10],
     ]
     const data = [
         ["Name", "Disbursement by state"],
-            ["abia",10],
-            ["adamawa",10],
-            ["akwa Ibom",10],
-            ["anambra",10],
-            ["bauchi",10],
-            ["bayelsa",10],
-            ["benue",10],
-            ["borno",10],
-            ["cross River",10],
-            ["delta",10],
-            ["ebonyi",10],
-            ["edo",10],
-            ["ekiti",10],
-            ["enugu",10],
-            ["abuja",10],
-            ["gombe",10],
-            ["imo",10],
-            ["jigawa",10],
-            ["kaduna",10],
-            ["kano",10],
-            ["katsina",10],
-            ["kebbi",10],
-            ["kogi",10],
-            ["kwara",10],
-            ["lagos",10],
-            ["nasarawa",10],
-            ["niger",10],
-            ["ogun",10],
-            ["ondo",10],
-            ["osun",10],
-            ["oyo",10],
-            ["plateau",10],
-            ["rivers",50],
-            ["sokoto",10],
-            ["taraba",10],
-            ["yobe",10],
-            ["zamfara",10]
+        ["abia", 10],
+        ["adamawa", 10],
+        ["akwa Ibom", 10],
+        ["anambra", 10],
+        ["bauchi", 10],
+        ["bayelsa", 10],
+        ["benue", 10],
+        ["borno", 10],
+        ["cross River", 10],
+        ["delta", 10],
+        ["ebonyi", 10],
+        ["edo", 10],
+        ["ekiti", 10],
+        ["enugu", 10],
+        ["abuja", 10],
+        ["gombe", 10],
+        ["imo", 10],
+        ["jigawa", 10],
+        ["kaduna", 10],
+        ["kano", 10],
+        ["katsina", 10],
+        ["kebbi", 10],
+        ["kogi", 10],
+        ["kwara", 10],
+        ["lagos", 10],
+        ["nasarawa", 10],
+        ["niger", 10],
+        ["ogun", 10],
+        ["ondo", 10],
+        ["osun", 10],
+        ["oyo", 10],
+        ["plateau", 10],
+        ["rivers", 50],
+        ["sokoto", 10],
+        ["taraba", 10],
+        ["yobe", 10],
+        ["zamfara", 10]
     ];
-    const fetchStats =()=>{
+    const fetchStats = () => {
         fetch(`${config.EndPionts}/analytics`).
-        then(res=>(res.json())).
-        then(response=>{
-            setdata2([["Name", "Disbursement by gender"],["Male",response.male],["Female",response.female]])
-        })
+            then(res => (res.json())).
+            then(response => {
+                setdata2([["Name", "Disbursement by gender"], ["Male", response.male], ["Female", response.female]])
+            })
     }
 
-   
+
     const columns = [
         { Header: "companies", accessor: "companies", align: "left" },
         { Header: "Number State", accessor: "state", align: "left" },
@@ -108,7 +123,7 @@ function LiveData() {
     const rows = [
         {
             companies: <MDTypography variant="caption" color="text" fontWeight="medium">company Name</MDTypography>,
-            state: (<MDTypography variant="caption" color="text" fontWeight="medium">11</MDTypography>),
+            state: (<MDTypography variant="caption" color="text" fontWeight="medium">0</MDTypography>),
             beneficiaries: (<MDTypography variant="caption" color="text" fontWeight="medium">2,400</MDTypography>),
             disbursement: (
                 <MDTypography variant="caption" color="text" fontWeight="medium">
@@ -125,9 +140,9 @@ function LiveData() {
 
         },
     ]
-  useLayoutEffect(() => {
-    fetchStats()
-  }, [])
+    useLayoutEffect(() => {
+        fetchStats()
+    }, [])
     return (
         <DashboardLayout>
             <DashboardNavbar />
@@ -156,23 +171,39 @@ function LiveData() {
                         ]}
                     />
                     <Grid container flexWrap="nowrap" >
-                    <Chart
-                        chartType="PieChart"
-                        data={zones}
-                        options={{title: "Zone Distribution"}}
-                        width={"475px"}
-                        height={"400px"}
-                    />
-                     <Chart
-                        chartType="PieChart"
-                        data={gender}
-                        options={{title: "Gender Distribution"}}
-                        width={"475px"}
-                        height={"400px"}
-                    />
-                    <StateBars/>
-
+                        <Chart
+                            chartType="PieChart"
+                            data={zones}
+                            options={{ title: "Zone Distribution" }}
+                            width={"475px"}
+                            height={"300px"}
+                        />
+                        <Chart
+                            chartType="PieChart"
+                            data={gender}
+                            options={{ title: "Gender Distribution" }}
+                            width={"475px"}
+                            height={"300px"}
+                        />
                     </Grid>
+                    <Grid container flexWrap="nowrap" >
+                        <Chart
+                            chartType="PieChart"
+                            data={disability}
+                            options={{ title: "Disabilty Distribution" }}
+                            width={"475px"}
+                            height={"300px"}
+                        />
+                        <Chart
+                            chartType="PieChart"
+                            data={maritalStatus}
+                            options={{ title: "Marital Status" }}
+                            width={"475px"}
+                            height={"300px"}
+                        />
+                    </Grid>
+                    <StateBars />
+                    <Lines />
                 </Grid>
             </MDBox>
         </DashboardLayout>

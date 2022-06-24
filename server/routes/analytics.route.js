@@ -12,6 +12,10 @@ module.exports = (express) => {
     let beneVerified = await beneFiciaries.find({ status: "awaiting payment" }).count()
     let beneMale = await beneFiciaries.find({ gender: "Male" }).count()
     let beneFemale = await beneFiciaries.find({ gender: "Female" }).count()
+    let single = await beneFiciaries.find({ maritalStatus: "single" }).count()
+    let married = await beneFiciaries.find({ maritalStatus: "married" }).count()
+    let widowed = await beneFiciaries.find({ maritalStatus: "widowed" }).count()
+    let divorced = await beneFiciaries.find({ maritalStatus: "divorced" }).count()
     let state = await beneFiciaries.find().distinct('state')
 
     //geo politacal zones summary
@@ -71,6 +75,12 @@ module.exports = (express) => {
         southWest,
         southEast,
         southSouth
+      },
+      maritalStatus: {
+        single,
+        married,
+        widowed,
+        divorced
       },
       zonesPaid: {
         northEastPaid,

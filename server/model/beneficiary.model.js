@@ -8,7 +8,7 @@ const beneficiarySchema = new Schema({
   batch: { type: String },
   age: { type: String },
   gender: { type: String },
-  maritalStatus: { type: String, },
+  maritalStatus: { type: String,emun: ["single", "married", "divorced", "widowed",], default: "single"},
   phone: { type: String, unique: true, required: true, dropDups: true },
   state: { type: String, index: true },
   lga: { type: String },

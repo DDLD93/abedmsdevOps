@@ -28,9 +28,6 @@ import TrafficStats from "./trafficStats";
 import UserStats from "./userStats";
 import millify from "millify"
 import config from "../../config";
-import MixedChart from "examples/Charts/MixedChart";
-import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
-import PieChart from "examples/Charts/PieChart";
 import Analytics from "./analytics";
 import SheetsStats from "./sheetStats";
 function Dashboard() {
@@ -87,7 +84,7 @@ function Dashboard() {
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <UserStats
-            count={stats?.userCount}
+            count={stats?.userCount||0}
             percentage2={"%"+stats.userCount}
             percentage1={"%"+stats.perTotal}
             />

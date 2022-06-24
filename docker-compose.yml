@@ -86,23 +86,22 @@ services:
     container_name: 'backendapp'
     networks:
         - ujere_net
-  # paypoint:
-  #   restart: always
-  #   build: ./paypoint
-  #   labels:
-  #     - traefik.enable=true
-  #     - traefik.http.routers.subsite.entrypoints=https
-  #     - 'traefik.http.routers.subsite.rule=Host(terminal.ddld.info)'
-  #     - traefik.http.routers.subsite.tls=true
-  #     - traefik.http.routers.subsite.tls.certresolver=your_resolver
-  #     - traefik.http.routers.subsite.tls.domains[0].main=terminal.ddld.info
-  #   depends_on:
-  #     - reverse-proxy
-  #   container_name: 'paypoint'
-  #   ports:
-  #     - 5000:5000 
-  #   networks:
-  #       - ujere_net              
+  paypoint:
+    restart: always
+    build: ./paypoint
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.subsite.entrypoints=https"
+      - "traefik.http.routers.subsite.rule=Host('terminal.ddld.info')"
+      - "traefik.http.routers.subsite.tls=true"
+      - "traefik.http.routers.subsite.tls.certresolver=your_resolver"
+    depends_on:
+      - reverse-proxy
+    container_name: 'paypoint'
+    ports:
+      - 5000:5000 
+    networks:
+        - ujere_net              
   worker:
     restart: always
     build: ./sheetWorker

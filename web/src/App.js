@@ -48,7 +48,7 @@ import createCache from "@emotion/cache";
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
 // Images 
-import Logo from "./assets/logo/logo.jpg"
+import Logo from "./assets/logo/Logo.png"
 
 import BasicLogin from "layouts/authentication/sign-in";
 import { StateContext } from "./store/store"

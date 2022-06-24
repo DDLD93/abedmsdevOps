@@ -16,7 +16,7 @@ function State() {
     const rows = [
         {
             psp: (<MDTypography variant="caption" color="text" fontWeight="medium">Unified Payment</MDTypography>),
-            bene: (<MDTypography variant="caption" color="text" fontWeight="medium">121</MDTypography>),
+            bene: (<MDTypography variant="caption" color="text" fontWeight="medium">0</MDTypography>),
             disbursment: (<MDTypography variant="caption" color="text" fontWeight="medium">00</MDTypography>),
             paid: (
                 <MDTypography variant="caption" color="text" fontWeight="medium">
@@ -32,7 +32,7 @@ function State() {
         },
         {
             psp: (<MDTypography variant="caption" color="text" fontWeight="medium">Visual ICT</MDTypography>),
-            bene: (<MDTypography variant="caption" color="text" fontWeight="medium">121</MDTypography>),
+            bene: (<MDTypography variant="caption" color="text" fontWeight="medium">0</MDTypography>),
             disbursment: (<MDTypography variant="caption" color="text" fontWeight="medium">00</MDTypography>),
             paid: (
                 <MDTypography variant="caption" color="text" fontWeight="medium">
@@ -48,7 +48,7 @@ function State() {
         },
         {
             psp: (<MDTypography variant="caption" color="text" fontWeight="medium">Upper Link</MDTypography>),
-            bene: (<MDTypography variant="caption" color="text" fontWeight="medium">121</MDTypography>),
+            bene: (<MDTypography variant="caption" color="text" fontWeight="medium">0</MDTypography>),
             disbursment: (<MDTypography variant="caption" color="text" fontWeight="medium">00</MDTypography>),
             paid: (
                 <MDTypography variant="caption" color="text" fontWeight="medium">

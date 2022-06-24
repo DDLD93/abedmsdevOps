@@ -41,7 +41,7 @@ import {StateContext} from "../../../store/store"
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
-import image from "../../../assets/logo/logo.jpg"
+import image from "../../../assets/logo/Logo.png"
 
 function BasicLogin() {
   const [email, setemail] = useState("")
