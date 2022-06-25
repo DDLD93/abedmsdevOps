@@ -77,7 +77,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.paypoint.rule=Host(`paypoint.ddld.info`)"
-      - "traefik.http.routers.paypoint.entrypoints=websecure"
+      - "traefik.http.routers.paypoint.tls.certresolver=myresolver"
+      - "traefik.http.routers.paypoint.entrypoints=web"
     ports:
       - 5000:5000 
     networks:
