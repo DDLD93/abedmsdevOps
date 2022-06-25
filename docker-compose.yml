@@ -70,20 +70,20 @@ services:
     container_name: 'backendapp'
     networks:
         - ujere_net
-  paypoint:
-    restart: always
-    build: ./paypoint
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.node-server.rule=Host(`paypoint.ddld.info`)"
-      - "traefik.http.routers.node-server.entrypoints=web"
-    depends_on:
-      - reverse-proxy
-    container_name: 'paypoint'
-    ports:
-      - 5000:5000 
-    networks:
-        - ujere_net              
+  # paypoint:
+  #   restart: always
+  #   build: ./paypoint
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.node-server.rule=Host(`paypoint.ddld.info`)"
+  #     - "traefik.http.routers.node-server.entrypoints=web"
+  #   depends_on:
+  #     - reverse-proxy
+  #   container_name: 'paypoint'
+  #   ports:
+  #     - 5000:5000 
+  #   networks:
+  #       - ujere_net              
   worker:
     restart: always
     build: ./sheetWorker
