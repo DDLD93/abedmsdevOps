@@ -7,6 +7,6 @@ RUN npm install
 
 # Bundle app source
 COPY server.js .
-COPY /build .
+COPY /build ./build
 EXPOSE 5000
 CMD ["node", "server"]
