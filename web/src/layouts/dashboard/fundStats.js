@@ -38,7 +38,7 @@ function FundStats(prop) {
   const handleClose = () => setOpen(false);
   return (
     <div>
-      <MDBox onClick={() => console.log("first")} mb={1.5}>
+      <MDBox onClick={() => setOpen(true)} mb={1.5}>
         <ComplexStatisticsCard
           color="error"
           icon="assured_workload_icon"
@@ -102,7 +102,7 @@ function FundStats(prop) {
                   defaultValue={"Kaduna"}
                 />
               </Grid>
-              <Typography textAlign="center" variant="p" component="h6">
+              {/* <Typography textAlign="center" variant="p" component="h6">
               Summary by States
               </Typography>
               <Grid p={3} gap={2} container >
@@ -118,7 +118,7 @@ function FundStats(prop) {
                   size="small"
                   label="Total Beneficiaries paid"
                 />
-              </Grid>
+              </Grid> */}
 
             </Grid>
 

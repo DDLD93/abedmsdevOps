@@ -15,7 +15,8 @@ async function welcomeMsg(email,name,password,link) {
       to: `${email}`,
       subject: "Welcome to ABEDMS portal", // Subject line
       html: `<p>hello ${name} , Welcome to ABEDMS portal</p> </br> 
-      <p><span>USERNAME: ${email}</span></br><span>password: ${password}</span></p>
+      <p><span>USERNAME: ${email}</span></p>
+      <p><span>password: ${password}</span></p>
       <p>Login at: https://${link}</p>
       `, // plain text body
      })

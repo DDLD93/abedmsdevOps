@@ -34,8 +34,8 @@ import { Lines } from "./pspLines";
 function LiveData() {
     const { batchList, ageDistro } = useContext(StateContext)
     const [data2, setdata2] = useState([])
-    const zones = [
-        ["Political zones", "Disbursement by zones"],
+    const ages = [
+        ["Age Catergory", "Disbursement by Age"],
         ["North East", 10],
         ["North West", 10],
         ["North Central", 10],
@@ -173,8 +173,8 @@ function LiveData() {
                     <Grid container flexWrap="nowrap" >
                         <Chart
                             chartType="PieChart"
-                            data={zones}
-                            options={{ title: "Zone Distribution" }}
+                            data={ages}
+                            options={{ title: "Age Distribution" }}
                             width={"475px"}
                             height={"300px"}
                         />
