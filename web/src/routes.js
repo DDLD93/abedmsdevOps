@@ -60,6 +60,7 @@ import Reports from "layouts/report";
 import LiveData from "layouts/live-data";
 import PaypointList from "layouts/paypoint";
 import Support from "layouts/support";
+import Logs from "layouts/logs";
 const psp = [
   {
     type: "collapse",
@@ -263,6 +264,14 @@ const admin = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/",
     component: <Dashboard />,
+  },
+  {
+    type: "collapse",
+    name: "Activity logs",
+    key: "logs",
+    icon: <Icon fontSize="small">receipt_long</Icon>,
+    route: "/logs",
+    component: <Logs />,
   },
   {
     type: "collapse",

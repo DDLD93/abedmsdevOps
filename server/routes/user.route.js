@@ -69,7 +69,25 @@ module.exports = (express, UPLOADS) => {
     }
   });
 
-
+  api.post("/admin", async (req, res) => {
+    let data = req.body
+    try {
+      const status = await userCtrl.registerUser(data)
+      if (status.ok) {
+          let newLog = {
+            user:req.user.name,
+            event:"Account Creation",
+            desc:`A new ${data.userType} account || email:${data.email}  was created by ${req.user.name}`
+          }
+           await logsCtrl.addLogs(newLog)
+          return res.status(200).json(status.user);
+      } else {
+        res.status(500).json(status.error);
+      }
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  });
   api.post("/register",Staff, async (req, res) => {
     let data = req.body
     try {
