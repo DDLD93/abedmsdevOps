@@ -91,7 +91,7 @@ services:
     build: ./paypoint
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.node-server.rule=Host(`terminal.ddld.info`)"
+      - "traefik.http.routers.node-server.rule=Host(`paypoint.ddld.info`)"
       - "traefik.http.routers.node-server.entrypoints=websecure"
       - "traefik.http.routers.node-server.tls.certresolver=myresolver"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
