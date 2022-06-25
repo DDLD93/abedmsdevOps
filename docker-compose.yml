@@ -79,6 +79,8 @@ services:
       - "traefik.http.routers.paypoint.rule=Host(`paypoint.ddld.info`)"
       - "traefik.http.routers.paypoint.tls.certresolver=myresolver"
       - "traefik.http.routers.paypoint.entrypoints=web"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+
     ports:
       - 5000:5000 
     networks:
