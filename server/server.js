@@ -2,9 +2,6 @@ const UPLOADS = __dirname+'/uploads';
 const PHOTO_ID = __dirname+'/photoID';
 const PAYMENT = __dirname+'/payment';
 require('./connection/mongodb.connection')();
-const https = require('https')
-const http = require('http');
-const fs = require('fs')
 const path = require('path');
 
 const express = require("express");
@@ -51,6 +48,7 @@ app.use("/api/logs", require("./routes/logs.route")(express));
 app.use("/api/paypoint", require("./routes/paypoint.route")(express));
 app.use("/api/uploads",express.static(UPLOADS))
 app.use("/api/photoID",express.static(PHOTO_ID))
+
 app.use(function(req, res, next){
   res.status(404).sendFile(path.join(__dirname, 'build', 'index.html'));
 });

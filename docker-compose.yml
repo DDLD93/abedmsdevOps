@@ -53,15 +53,15 @@ services:
   backend:
     restart: always
     build: ./server
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.node-server.rule=Host(`ddld.info`)"
-      - "traefik.http.routers.node-server.entrypoints=websecure"
-      - "traefik.http.routers.node-server.tls.certresolver=myresolver"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
-      - "traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)"
-      - "traefik.http.routers.redirs.entrypoints=web"
-      - "traefik.http.routers.redirs.middlewares=redirect-to-https"
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.http.routers.node-server.rule=Host(`ddld.info`)"
+    #   - "traefik.http.routers.node-server.entrypoints=websecure"
+    #   - "traefik.http.routers.node-server.tls.certresolver=myresolver"
+    #   - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+    #   - "traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)"
+    #   - "traefik.http.routers.redirs.entrypoints=web"
+    #   - "traefik.http.routers.redirs.middlewares=redirect-to-https"
     depends_on:
       - database
       - rabbitmq
@@ -73,12 +73,6 @@ services:
   paypoint:
     restart: always
     build: ./paypoint
-    # labels:
-    #   - "traefik.enable=true"
-    #   - "traefik.http.routers.node-server.rule=Host(`paypoint.ddld.info`)"
-    #   - "traefik.http.routers.node-server.entrypoints=web"
-    depends_on:
-      - reverse-proxy
     container_name: 'paypoint'
     ports:
       - 5000:5000 
