@@ -46,7 +46,7 @@ function Reports() {
   }).then(res=>(res.json())).
   then(response=>{
     let object =  response.map(obj=>{
-      return {id: obj._id, Name:obj.fullName, Gender:obj.gender,Phone:obj.phone,Occupation:obj.occupation,Batch:obj.batch,Disability:obj.disability,State:obj.state,LGA:obj.lga,Status:obj.status,onCellClick: ()=>console.log("first")}
+      return {id: obj._id, Name:obj.fullName, Gender:obj.gender,Phone:obj.phone,Occupation:obj.occupation,Batch:obj.batch,Disability:obj.disability,State:obj.state,LGA:obj.lga,Ward:obj.ward,Status:obj.status,onCellClick: ()=>console.log("first")}
   
     })
       setrows([...object])
@@ -61,6 +61,7 @@ function Reports() {
     {field: 'Disability', headerName: 'Disability', sortable: false, onCellClick: ()=>console.log("first")},
     {field: 'State', headerName: 'State', sortable: false, onCellClick: ()=>console.log("first")},
     {field: 'LGA', headerName: 'lga', sortable: false, onCellClick: ()=>console.log("first")},
+    {field: 'Ward', headerName: 'ward', sortable: false, onCellClick: ()=>console.log("first")},
     // {field: 'Geo-Political Zone', headerName: 'Geo-Political Zone', sortable: false, generateData: ()=>console.log("first"), renderCell: ()=>console.log("data"),},
     {field: 'Status', headerName: 'Status', sortable: false, onCellClick: ()=>console.log("first")},
   ];
@@ -81,7 +82,7 @@ function Reports() {
         </div>
       </div>
     </div>
-      <Footer />
+      {/* <Footer /> */}
     </DashboardLayout>
   );
 }

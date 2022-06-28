@@ -80,11 +80,10 @@ export default function ModalBox(prop) {
   const [name, setName] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [email, setEmail] = React.useState("");
-  const [emailErro, setemailErro] = React.useState(false)
   const [button, setButton] = React.useState(false)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const {batchList} = React.useContext(StateContext)
+  const {batchList,token} = React.useContext(StateContext)
 
   const submit = () => {
     const data ={
@@ -96,6 +95,7 @@ export default function ModalBox(prop) {
       method:"POST",
       headers:{
         'Content-Type': 'application/json'
+        
       },
       body: JSON.stringify(data)
     }).then(res=> {

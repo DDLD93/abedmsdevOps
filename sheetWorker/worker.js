@@ -63,9 +63,9 @@ const error = 0
     status: "awaiting Approval",
   }
   try {
-    console.log("uploader >>>> ", dataObj)
     const url = `http://backend:9000/api/sheet/que/update/${data.id}`
-    await axios.put(url, dataObj);
+    console.log("first>>>>>>>, ",dataObj)
+    await axios.post(url, dataObj);
     channel.ack(jobMsg)
   } catch (err) {
     console.log(err.message)

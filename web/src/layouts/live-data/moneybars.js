@@ -49,7 +49,7 @@ export const data = {
     },
     {
       label: 'Total spend',
-      data: [15,26,44],
+      data: [0,0,0],
       backgroundColor: 'rgb(75, 192, 192)',
     },
   

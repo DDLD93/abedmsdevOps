@@ -52,7 +52,7 @@ function UserList() {
                         email: <Job title={obj.email} />,
                         type: (
                             <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-                            {`${obj.userType} ${obj.state?obj.state:""}`}
+                            {`${obj.userType=="staff"?"Program Manager":obj.userType=="qa"?"Quality Assurance":obj.userType} ${obj.state?obj.state:""}`}
                         </MDTypography>
                         ),
                         phone: (
@@ -73,7 +73,7 @@ function UserList() {
                                 <IconButton size="small" aria-label="delete">
                                     <BlockIcon />
                                 </IconButton>
-                              <ViewsBox  />
+                              {/* <ViewsBox  /> */}
                             </MDBox>
                         ),
 
@@ -95,7 +95,7 @@ function UserList() {
     const columns = [
         { Header: "Name", accessor: "name", align: "left" },
         { Header: "Email", accessor: "email", align: "left" },
-        { Header: "User Type", accessor: "type", align: "center" },
+        { Header: "User Role", accessor: "type", align: "center" },
         { Header: "Phone", accessor: "phone", align: "center" },
         { Header: "Action", accessor: "action", align: "center" },
     ]
@@ -126,7 +126,7 @@ function UserList() {
                                     />
                                 </MDBox>
                             </Card>
-                            <Footer />
+                            {/* <Footer /> */}
                         </Grid>}
                     <ModalBox 
                     setRows={erows}

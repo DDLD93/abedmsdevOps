@@ -30,7 +30,7 @@ class SheetController{
       }
       async updateSheet(id,data){
         try {
-          const sheets = await Sheet.findByIdAndUpdate(id, data, {multi:false, new:true})
+          const sheets = await Sheet.findByIdAndUpdate(id, data, {new:true})
           return {ok:true, sheets};
         } catch (err) {
           return {ok:false,error:err};

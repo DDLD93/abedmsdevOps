@@ -1,13 +1,15 @@
 const beneFiciaries = require("../model/beneficiary.model")
-const User = require("../model/user.model")
+const Sheets = require("../model/sheet.model")
+const User = require("../model/user.model");
 module.exports = (express) => {
   api = express.Router();
 
   api.get("/", async (req, res) => {
 
     //Summary
-    let beneTotal = await beneFiciaries.find().count()
     let userCount = await User.find().count()
+    let SheetsCount = await Sheets.find().count()
+    let beneTotal = await beneFiciaries.find().count()
     let benePaid = await beneFiciaries.find({ status: "paid" }).count()
     let beneVerified = await beneFiciaries.find({ status: "awaiting payment" }).count()
     let beneMale = await beneFiciaries.find({ gender: "Male" }).count()
@@ -41,22 +43,28 @@ module.exports = (express) => {
 
     let northEastPaid = await beneFiciaries.find({
       $or: [{ state: "adamawa" }, { state: "bauchi" }, { state: "borno" }, { state: "gombe" }, { state: "taraba" }, { state: "yobe" }]
-    }, { status: "paid" }).count()
+      , $and: [{ status: "paid" }]
+    }).count()
     let northWestPaid = await beneFiciaries.find({
       $or: [{ state: "jigawa" }, { state: "kaduna" }, { state: "kano" }, { state: "katsina" }, { state: "Kebbi" }, { state: "sokoto" }, { state: "zamfara" }]
-    }, { status: "paid" }).count()
+      , $and: [{ status: "paid" }]
+    }).count()
     let northCentralPaid = await beneFiciaries.find({
       $or: [{ state: "benue" }, { state: "kogi" }, { state: "kwara" }, { state: "nasarawa" }, { state: "niger" }, { state: "plateau" }, { state: "abuja" }]
-    }, { status: "paid" }).count()
+      , $and: [{ status: "paid" }]
+    }).count()
     let southWestPaid = await beneFiciaries.find({
       $or: [{ state: "ekiti" }, { state: "lagos" }, { state: "ogun" }, { state: "ondo" }, { state: "osun" }, { state: "oyo" },]
-    }, { status: "paid" }).count()
+      , $and: [{ status: "paid" }]
+    }).count()
     let southEastPaid = await beneFiciaries.find({
       $or: [{ state: "abia" }, { state: "anambra" }, { state: "ebonyi" }, { state: "enugu" }, { state: "imo" },]
-    }, { status: "paid" }).count()
+      , $and: [{ status: "paid" }]
+    }).count()
     let southSouthPaid = await beneFiciaries.find({
       $or: [{ state: "akwa-ibom" }, { state: "bayelsa" }, { state: "cross-river" }, { state: "delta" }, { state: "edo" }, { state: "rivers" }]
-    }, { status: "paid" }).count()
+      , $and: [{ status: "paid" }]
+    }).count()
 
     let stats = {
       total: beneTotal,
@@ -68,6 +76,7 @@ module.exports = (express) => {
       female: beneFemale,
       state: state,
       userCount,
+      SheetsCount,
       zones: {
         northEast,
         northWest,
@@ -82,6 +91,20 @@ module.exports = (express) => {
         widowed,
         divorced
       },
+      psp: {
+        unified: {
+          total: northEast + southEast,
+          paid: southEastPaid + northEastPaid
+        },
+        visualICT: {
+          total: northWest + southEast,
+          paid: southSouthPaid + northEastPaid
+        },
+        upperLink: {
+          total: northCentral + southEast,
+          paid: southWestPaid + northEastPaid
+        }
+      },
       zonesPaid: {
         northEastPaid,
         northWestPaid,
@@ -89,6 +112,9 @@ module.exports = (express) => {
         southWestPaid,
         southEastPaid,
         southSouthPaid
+      },
+      ageGroup: {
+        18: "hh"
       }
 
     }

@@ -12,6 +12,18 @@ import { DataGrid } from '@mui/x-data-grid';
 import CloseIcon from '@mui/icons-material/Close';
 import { StateContext } from 'store/store';
 
+
+
+const style = {
+    root:{
+        position:"absolute",
+        height:"100vh",
+        width:"100vw"
+    },
+    content:{
+        width:"100%"
+    }
+}
 export default function SheetPreview(prop) {
     const [open, setOpen] = React.useState(false);
     const [rows, setrows] = React.useState([])
@@ -42,10 +54,10 @@ export default function SheetPreview(prop) {
     function approveStatus() {
         setlabel("Approving...")
         let data = {
+            code:prop.code,
             sheetId:prop.id,
             status:"processing"
         }
-        console.log(data)
         fetch(`${config.EndPionts}/sheet/approve`,{
             method:"POST",
             headers: {
@@ -114,7 +126,7 @@ export default function SheetPreview(prop) {
             </IconButton>
             <Dialog
                 open={open}
-                sx={{height:500,width:700}}
+                sx={style.root}
                 onClose={handleClose}
                 scroll={'body'}
                 aria-labelledby="Sheet Preview"
@@ -141,6 +153,15 @@ export default function SheetPreview(prop) {
                         <div>
                             <span style={{ fontSize: "13px", color: "grey" }} >Invalid Entry :</span> <span style={{ fontSize: "13px", fontWeight: "bold" }} >{prop.invalid}</span>
                         </div>
+                        <div>
+                            <span style={{ fontSize: "13px", color: "grey" }} >State :</span> <span style={{ fontSize: "13px", fontWeight: "bold" }} >{prop.state}</span>
+                        </div>
+                        <div>
+                            <span style={{ fontSize: "13px", color: "grey" }} >% Male :</span> <span style={{ fontSize: "13px", fontWeight: "bold" }} >{prop.male}</span>
+                        </div>
+                        <div>
+                            <span style={{ fontSize: "13px", color: "grey" }} >% Female :</span> <span style={{ fontSize: "13px", fontWeight: "bold" }} >{prop.female}</span>
+                        </div>
 
                     </div>
                     <div>
@@ -153,16 +174,26 @@ export default function SheetPreview(prop) {
                         <div>
                             <span style={{ fontSize: "13px", color: "grey" }} >TimeStamps :</span> <span style={{ fontSize: "13px", fontWeight: "bold" }} >{prop.timestamps}</span>
                         </div>
+                        <hr />
+                        <div>
+                            <span style={{ fontSize: "13px", color: "grey" }} >Approved by :</span> <span style={{ fontSize: "13px", fontWeight: "bold" }} >{prop.appBy}</span>
+                        </div>
+                        <div>
+                            <span style={{ fontSize: "13px", color: "grey" }} >Status :</span> <span style={{ fontSize: "13px", fontWeight: "bold" }} >{prop.status}</span>
+                        </div>
+                        <div>
+                            <span style={{ fontSize: "13px", color: "grey" }} >TimeStamps :</span> <span style={{ fontSize: "13px", fontWeight: "bold" }} >{prop.appeovedTimestamps}</span>
+                        </div>
                     </div>
 
                 </Grid>
-                <DialogContent dividers={scroll === 'paper'}>
+                <DialogContent sx={style.content} dividers={scroll === 'card'}>
                     <DialogContentText
                         id="scroll-dialog-description"
                         ref={descriptionElementRef}
                         tabIndex={-1}>
-                            <DataGrid  columns={columns} rows={rows} />     
                     </DialogContentText>
+                            <DataGrid  columns={columns} rows={rows} />     
                 </DialogContent>
                 <DialogActions>
                     <Button  color="secondary" onClick={rejectStatus}>Reject</Button>

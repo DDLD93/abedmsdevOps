@@ -47,6 +47,7 @@ module.exports = (express, PHOTO_ID) => {
     });
     api.get("/qa",Staff, async (req, res) => {
       let state= req.user.state
+      
       let status = await beneCtrl.getBeneficiariesByState(state)
       if (status.ok) {
         if (status.bene) return res.status(200).json(status.bene);
@@ -113,7 +114,6 @@ module.exports = (express, PHOTO_ID) => {
       api.post("/que/add", async (req, res) => {
         let data = req.body
        let status = await beneCtrl.addBeneficiaries(data)
-       console.log(status)
        if(status.ok) {
          return res.status(200).json(status.bene);
         }else{

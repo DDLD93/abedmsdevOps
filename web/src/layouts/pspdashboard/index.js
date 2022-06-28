@@ -172,7 +172,7 @@ function PSPDashboard() {
           </Grid>
         </MDBox> */}
       </MDBox>
-      <Footer />
+      {/* <Footer /> */}
     </DashboardLayout>
   );
 }

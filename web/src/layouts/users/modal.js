@@ -43,11 +43,11 @@ const userType = [
   },
   {
     value: 'staff',
-    label: 'Staff',
+    label: 'Program Manager',
   },
   {
     value: 'qa',
-    label: 'QA',
+    label: 'Quality Assurance',
   },
   {
     value: 'coordinator',

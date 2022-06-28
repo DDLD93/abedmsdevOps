@@ -19,7 +19,7 @@ import DataTable from "examples/Tables/DataTable";
 import MDBadge from "components/MDBadge";
 import { useContext, useEffect, useState } from "react";
 import ModalBox from "./modal";
-import { CircularProgress, TextField, Typography } from "@mui/material";
+import {TextField, Typography } from "@mui/material";
 import { StateContext } from "../../store/store"
 
 import Profile from "./preview";
@@ -107,7 +107,7 @@ function Beneficiaries() {
             state: <Job title={obj.state} description={obj.LGA} />,
             status: (
                 <MDBox ml={-1}>
-                    <MDBadge badgeContent={obj.status} color={obj.status == "processing" ? "warning" : obj.status == "paid" ? "success" : "error"} variant="gradient" size="sm" />
+                    <MDBadge badgeContent={obj.status} color={obj.status === "processing" ? "warning" : obj.status == "paid" ? "success" : "error"} variant="gradient" size="sm" />
                 </MDBox>
             ),
             phone: (
@@ -316,7 +316,7 @@ function Beneficiaries() {
 
                 </Grid>
             </MDBox>
-            <Footer />
+            {/* <Footer /> */}
         </DashboardLayout>
     );
 }

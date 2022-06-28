@@ -43,7 +43,7 @@ export default function DeleteModal(prop) {
             }
         }).then(res => res.json()).
             then(res => {
-               // handleRefresh()
+                handleRefresh()
                 handleClose()
             })
     }

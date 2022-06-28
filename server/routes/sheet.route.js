@@ -5,6 +5,7 @@ const broker = require("../connection/rabbitmq.connection")
 const excelToJson = require('convert-excel-to-json');
 const sheetCtrl = require("../controller/sheet.controller")
 const batchCtrl = require("../controller/batch.controller")
+const logsCtrl = require("../controller/logs.controller")
 const {Admin, Qa, Staff, PSP} = require("../middleware/auth.middleware")
 
 
@@ -54,6 +55,12 @@ module.exports = (express, UPLOADS) => {
                 meta: req.user,
                 batch:batch[0]
             })
+            let newLog = {
+              user:req.user.name,
+              event:"Sheet Upload",
+              desc:`A new ${firstObject[0].G}/${code} List has been uploaded by ${req.user.name} `
+            }
+             await logsCtrl.addLogs(newLog)
             res.status(200).json(status.sheet);
           } else {
             res.status(500).json(status.error);
@@ -70,8 +77,9 @@ module.exports = (express, UPLOADS) => {
            res.status(500).json(status.error);
          }
        });
-       api.put("/que/update/:id", async (req, res) => {
-         let {obj} = req.body
+       api.post("/que/update/:id", async (req, res) => {
+         let obj = req.body
+        console.log("quee  >>>>>", obj)
          let {id} = req.params
         let status = await sheetCtrl.updateSheet(id,obj)
         if (status.ok) {
@@ -91,15 +99,25 @@ module.exports = (express, UPLOADS) => {
           res.status(500).json(status.error);
         }
       });
-      api.post("/approve",Qa, async (req, res) => {
-        let {sheetId,status}= req.body
+      api.post("/approve",Staff, async (req, res) => {
+
+        let {sheetId,status,code}= req.body
         let user = req.user
-        let resp = await sheetCtrl.updateSheet(sheetId,{status:status,approvedBy:{
-          fullName : user.name,
-          id:user.id
-        }})
-        console.log(resp)
+        let data ={
+          approvedBy:{
+            fullName : user.name,
+            id:user.id
+          },
+          status
+        }
+        let resp = await sheetCtrl.updateSheet(sheetId,data)
         if (resp.ok) {
+          let newLog = {
+            user:req.user.name,
+            event:"Sheet Approve",
+            desc:`List ${code} has been aprroved by ${req.user.name} `
+          }
+           await logsCtrl.addLogs(newLog)
           res.status(200).json(resp.sheets)
           await beneCtrl.updateStatus(sheetId,status)
         } else {

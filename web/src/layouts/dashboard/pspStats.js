@@ -69,41 +69,31 @@ function PspStats(prop) {
         <Fade in={open}>
           <Box container sx={style.modal}>
             <Typography textAlign="center" variant="h4" component="h6">
-              Beneficiary Summary
+              PSP Summary
             </Typography>
             <Grid p={2} gap={1} container >
               <Typography textAlign="center" variant="p" component="h6">
-                Beneficiary Summary
+                PSP Summary
               </Typography>
               <Grid p={3} gap={2} container >
                 <TextField
                   size="small"
-                  label="Total Beneficiaries"
+                  label="Unified Payment"
                   defaultValue={0}
                 />
                 <TextField
                   size="small"
-                  label="Total Beneficiaries verified"
+                  label="Visula ICT"
                   defaultValue={0}
                 />
                 <TextField
                   size="small"
-                  label="Total Beneficiaries paid"
-                  defaultValue={0}
-                />
-                <TextField
-                  size="small"
-                  label="Number of state covered"
-                  defaultValue={0}
-                />
-                 <TextField
-                  size="small"
-                  label="State with highiest quota"
+                  label="UpperLink"
                   defaultValue={0}
                 />
               </Grid>
               <Typography textAlign="center" variant="p" component="h6">
-              Summary by States
+              PSP statistics
               </Typography>
               <Grid p={3} gap={2} container >
                 <TextField

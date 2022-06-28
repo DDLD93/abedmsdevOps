@@ -41,19 +41,19 @@ export const data = {
   datasets: [
     {
       label: 'Unified Payment',
-      data: [20,33,100,22,33,99,111,22,],
+      data: [0,0,0,0,0,0,0,0,],
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
     {
       label: 'Visual ICT',
-      data: [120,313,10,22,33,99,11,22,],
+      data: [0,0,0,0,0,0,0,0,],
       borderColor: 'rgb(53, 162, 235)',
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
     },
     {
       label: 'Upper Link',
-      data: [10,33,10,50,133,99,60,22,],
+      data: [0,0,0,0,0,0,0,0,],
       borderColor: 'rgb(100, 162, 11)',
       backgroundColor: 'rgba(100, 162, 11, 0.5)',
     },

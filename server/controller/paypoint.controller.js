@@ -8,7 +8,6 @@ class UserController{
   constructor(){}
 
   async getPaypoints(company){
-    console.log("paypoint list",company)
     try {
       const paypoint = await Paypoint.find({company});
       return {ok:true, paypoint};
@@ -27,7 +26,6 @@ class UserController{
     }
   }
   async getDashboard(id){
-    console.log("user id >>>>>>", id)
     const wards = await BeneFiciaries.find({pspId:id,status: { $not: { $eq: "uploaded" } }, }).distinct('ward')
     try {
     //  async function counter(arr) {
@@ -43,7 +41,6 @@ class UserController{
         
      // let result = counter(wards)
       // console.log(result)
-      console.log("wards >>>>> ",wards)
       return {ok:true, wards};
     } catch (err) {
       return {ok:false,error:err};

@@ -38,7 +38,7 @@ function SheetsStats(prop) {
   const handleClose = () => setOpen(false);
   return (
     <div>
-      <MDBox onClick={() => console.log("first")} mb={1.5}>
+      <MDBox onClick={handleOpen} mb={1.5}>
         <ComplexStatisticsCard
              icon="backup_icon"
              color="warning"

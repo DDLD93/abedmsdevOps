@@ -110,7 +110,7 @@ export default function ModalBox(prop) {
   const [emailErro, setemailErro] = React.useState(false)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { batchList, fetchpsp, notification } = React.useContext(StateContext)
+  const { token, fetchpsp, notification } = React.useContext(StateContext)
   const theme = useTheme();
   const [stateName, setStateName] = React.useState([]);
 
@@ -143,7 +143,8 @@ export default function ModalBox(prop) {
     fetch(`${config.EndPionts}/user/register`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer "+ token
       },
       body: JSON.stringify(data)
     }).then(res => {

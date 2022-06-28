@@ -222,7 +222,7 @@ function Biometric() {
 
                 </Grid>
             </MDBox>
-            <Footer />
+            {/* <Footer /> */}
         </DashboardLayout>
     );
 }

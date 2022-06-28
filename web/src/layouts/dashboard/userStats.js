@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import MDButton from 'components/MDButton';
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 import { Card, Grid, TextField } from '@mui/material';
+import {Link }from "react-router-dom"
 import MDBox from 'components/MDBox';
 
 
@@ -38,6 +39,7 @@ function UserStats(prop) {
   const handleClose = () => setOpen(false);
   return (
     <div>
+      <Link to={"/users"} >
       <MDBox onClick={() => console.log("first")} mb={1.5}>
         <ComplexStatisticsCard
              icon="person_icon"
@@ -55,6 +57,8 @@ function UserStats(prop) {
           }}
         />
       </MDBox>
+
+      </Link>
       <Modal
 
         open={open}

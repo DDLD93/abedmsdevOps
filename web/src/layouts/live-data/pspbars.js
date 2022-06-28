@@ -44,12 +44,12 @@ export const data = {
   datasets: [
     {
       label: 'Total beneficiaries',
-      data: [20,30,50],
+      data: [0,0,0],
       backgroundColor: 'rgb(255, 99, 132)',
     },
     {
       label: 'Beneficiaries paid',
-      data: [15,26,44],
+      data: [0,0,0],
       backgroundColor: 'rgb(75, 192, 192)',
     },
   

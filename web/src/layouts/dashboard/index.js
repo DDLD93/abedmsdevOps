@@ -55,9 +55,9 @@ function Dashboard() {
           <BeneStats
           title={"Beneficiaries"}
           count={millify(stats.total != null?stats.total:0)}
-          percentage2={"%"+stats.perTotal}
-          percentage1={"%"+stats.perTotal}
-          
+          percentage2={stats.perTotal?"%"+stats.perTotal:"%"+0}
+          percentage1={stats.perTotal?"%"+stats.perTotal:"%"+0}
+    
           />
           </Grid>
            <Grid item xs={12} md={6} lg={3}>
@@ -68,9 +68,11 @@ function Dashboard() {
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
-          <StateStats
-           count={stats?.userCount}
-           />
+          <SheetsStats
+            count={stats?.userCount}
+            percentage2={"%"+stats.userCount}
+            percentage1={"%"+stats.perTotal}
+            />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <PspStats
@@ -97,11 +99,9 @@ function Dashboard() {
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
-            <SheetsStats
-            count={stats?.userCount}
-            percentage2={"%"+stats.userCount}
-            percentage1={"%"+stats.perTotal}
-            />
+          <StateStats
+           count={stats?.userCount}
+           />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             {/* <MDBox mb={1.5}>

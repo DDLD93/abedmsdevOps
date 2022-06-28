@@ -177,7 +177,7 @@ function PaypointList() {
                                     />
                                 </MDBox>
                             </Card>
-                            <Footer />
+                            {/* <Footer /> */}
                         </Grid>}
                     <ModalBox 
                     setRows={erows}
