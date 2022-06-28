@@ -67,8 +67,6 @@ services:
       - rabbitmq
     ports:
       - 9000:9000  
-    volumes:
-     - ./server:/app  
     container_name: 'backendapp'
     networks:
         - ujere_net
@@ -97,8 +95,6 @@ services:
       - database
       - rabbitmq
     container_name: 'sheetworker'
-    volumes:
-      - ${PWD}/sheetWorker:/app 
     networks:
         - ujere_net                         
 networks:
