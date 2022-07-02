@@ -18,7 +18,7 @@ module.exports = (express) => {
     let married = await beneFiciaries.find({ maritalStatus: "married" }).count()
     let widowed = await beneFiciaries.find({ maritalStatus: "widowed" }).count()
     let divorced = await beneFiciaries.find({ maritalStatus: "divorced" }).count()
-    let state = await beneFiciaries.find().distinct('state')
+    let states = await beneFiciaries.find().distinct('state')
 
     //geo politacal zones summary
     let northEast = await beneFiciaries.find({
@@ -66,6 +66,27 @@ module.exports = (express) => {
       , $and: [{ status: "paid" }]
     }).count()
 
+
+    async function getStates () {
+      const statesStats = []
+      console.log(states)
+      for (const state of states) {
+        let total = await beneFiciaries.find({state:state}).count()
+        const totalPaid = await beneFiciaries.find({status:"paid"},{state:state}).count()
+        statesStats.push({
+          [state]:{
+            totalPaid,
+            total
+          }
+        })
+      }
+      return statesStats
+    }
+    getStates().
+    then(res=>{
+      console.log(res)
+    })
+    
     let stats = {
       total: beneTotal,
       paid: benePaid,
@@ -74,7 +95,6 @@ module.exports = (express) => {
       perVerified: (100 / beneTotal) * beneVerified,
       male: beneMale,
       female: beneFemale,
-      state: state,
       userCount,
       SheetsCount,
       zones: {

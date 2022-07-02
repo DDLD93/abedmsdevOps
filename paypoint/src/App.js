@@ -36,10 +36,11 @@ export default function App() {
   async function sync() {
     setloading(true)
         rows.forEach(obj => {
-          if (obj?.status == "paid") {
+          if (obj?.status === "paid") {
             let url = `${config.endPoint}/beneficiaries/process/${obj.id}`
+            console.log("object >>>>>>,",obj)
             fetch(url, {
-              method: "PUT",
+              method: "POST",
               headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + token,
@@ -47,12 +48,13 @@ export default function App() {
               body: JSON.stringify(obj)
             }).then(res => (res.json()))
               .then(res => {
-                console.log("final response >>> ", res)
+                console.log(res)
               }).catch((err)=>{
                 console.log(err)
               })
           }
         })
+        notification("MESSAGE","success")
       setloading(false)
   }
 
@@ -77,8 +79,11 @@ export default function App() {
           ward: obj.ward,
           phone: obj.phone,
           status: obj.status,
+          biometric:obj?.biometric,
+          identification:obj?.identification,
+          payment:obj?.payment,
           actions: <ModalStepper
-            userObj={obj}
+          userObj={obj}
           />,
         }
       })

@@ -229,7 +229,7 @@ module.exports = (express, PHOTO_ID) => {
           return res.status(500).json(status.error);
         }
       })
-      api.put("/process/:id", async (req, res) => {
+      api.post("/process/:id", async (req, res) => {
         let {id} = req.params
         let data = req.body
         console.log(id)
