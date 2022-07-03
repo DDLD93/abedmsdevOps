@@ -69,13 +69,12 @@ function BasicLogin() {
           mb={1}
           textAlign="center"
         >
-          <img style={{ borderRadius: "50%" }} width="100" height="100" src={image} alt="" srcset="" />
+          <img style={{ borderRadius: "50%" }} width="200" height="100" src={image} alt="ABEDMIS LOGO"/>
           <Grid sx={{ mt: 1, mb: 2 }}>
             <MDTypography
               
               fontWeight="bold"
               fontSize="small"
-              color="black"
               sx={{ cursor: "pointer", userSelect: "none", ml: -1,textAlign:"center" }}
             >
               AUTOMATED BENEFICIARY
