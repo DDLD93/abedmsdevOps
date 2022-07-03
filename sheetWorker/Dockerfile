@@ -1,4 +1,4 @@
-FROM node:stretch-slim
+FROM node:slim
 LABEL author="Umar Adamu Jere"
 WORKDIR /app
 COPY package.json .
