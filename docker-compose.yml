@@ -77,8 +77,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.paypoint.rule=Host(`paypoint.abedmis.fmhds.gov.ng`)"
-      # - "traefik.http.routers.paypoint.entrypoints=web"
-      # - "traefik.http.routers.paypoint.tls.certresolver=myresolver"
+      - "traefik.http.routers.paypoint.entrypoints=web"
+      - "traefik.http.routers.paypoint.tls.certresolver=myresolver"
       # - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       # - "traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)"
       # - "traefik.http.routers.redirs.entrypoints=web"
