@@ -55,8 +55,8 @@ services:
     build: ./server
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.node-server.rule=Host(`web01-fmhds.gov.ng`)"
-      - "traefik.http.routers.node-server.entrypoints=websecure"
+      - "traefik.http.routers.node-server.rule=Host(`abedmis.fmhds.gov.ng`)"
+      - "traefik.http.routers.node-server.entrypoints=web"
       - "traefik.http.routers.node-server.tls.certresolver=myresolver"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       - "traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)"
@@ -76,8 +76,8 @@ services:
     container_name: 'paypoint'
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.paypoint.rule=Host(`abedms.web01-fmhds.gov.ng`)"
-      - "traefik.http.routers.paypoint.entrypoints=websecure"
+      - "traefik.http.routers.node-server.rule=Host(`paypoint.abedmis.fmhds.gov.ng`)"
+      - "traefik.http.routers.node-server.entrypoints=web"
       - "traefik.http.routers.paypoint.tls.certresolver=myresolver"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       - "traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)"
