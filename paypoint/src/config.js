@@ -1,3 +1,3 @@
 module.exports={
-    endPoint:"https://backend:9000/api"
+    endPoint:"https://abedmis.fmhds.gov.ng/api"
 }
