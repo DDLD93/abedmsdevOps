@@ -77,7 +77,7 @@ function Sheets() {
                         ),
                         action: (
                             <MDBox sx={{ display: "flex" }} ml={-1}>
-                                {user.userType === "qa" || user.userType === "admin" ? <SheetPreview
+                                {user.userType === "qa" || user?.userType === "admin" ? <SheetPreview
                                     refresh={fetchSheet}
                                     id={obj._id}
                                     code={obj.code}
@@ -88,7 +88,7 @@ function Sheets() {
                                     timestamps={obj.createdAt}
                                     status={obj.status}
                                 /> : <></>}
-                                {user.userType === "qa" || user.userType === "admin" ? <DeleteModal
+                                {user?.userType === "qa" || user?.userType === "admin" ? <DeleteModal
                                     id={obj._id}
                                     refresh={fetchSheet}
                                 /> : <></>}
@@ -153,7 +153,7 @@ function Sheets() {
                     ),
                     action: (
                         <MDBox sx={{ display: "flex" }} ml={-1}>
-                            {user.userType === "qa" || user.userType === "admin" ? <SheetPreview
+                            {user?.userType === "qa" || user?.userType === "admin" ? <SheetPreview
                                 refresh={fetchSheet}
                                 id={obj._id}
                                 code={obj.code}
@@ -163,13 +163,13 @@ function Sheets() {
                                 uploadBy={obj?.uploadedBy?.fullName}
                                 timestamps={obj.createdAt}
                                 status={obj.status}
-                                state={"Kduna"}
+                                state={""}
                                 male={obj?.male}
                                 female={obj?.female}
                                 appBy={obj?.approvedBy?.fullName}
                                 appeovedTimestamps={""}
                             /> : <></>}
-                            {user.userType === "qa" || user.userType === "admin" ? <DeleteModal
+                            {user?.userType === "qa" || user?.userType === "admin" ? <DeleteModal
                                 id={obj._id}
                                 refresh={fetchSheet}
                             /> : <></>}
@@ -209,7 +209,7 @@ function Sheets() {
                 <Grid container flexDirection={"column"} spacing={0}>
                     <Grid item xs={12}>
                         <Card>
-                            {user.userType === "staff" || user.userType === "admin" ? <Grid container sx={{ alignItems: "flex-end", justifyContent: "flex-end", gap: 2 }} >
+                            {user?.userType === "staff" || user?.userType === "admin" ? <Grid container sx={{ alignItems: "flex-end", justifyContent: "flex-end", gap: 2 }} >
                                 {/* <TextField
                                 select
                                 label="Batch"

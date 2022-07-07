@@ -14,6 +14,6 @@ Coded by www.creative-tim.com
 */
 
 export default {
-  labels: ["M", "T", "W", "T", "F", "S", "S"],
-  datasets: { label: "Visits", data: [50, 20, 10, 22, 50, 10, 40] },
+  labels: ["MON", "TUE", "WED", "THUR", "FRI", "STA", "SUN"],
+  datasets: { label: "Visits", data: [0, 0, 0, 3, 0, 0, 0] },
 };

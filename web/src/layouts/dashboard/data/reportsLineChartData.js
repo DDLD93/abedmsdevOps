@@ -16,10 +16,10 @@ Coded by www.creative-tim.com
 export default {
   sales: {
     labels: ["wk1", "wk2", "wk3", "wk4", "wk5", "wk6", "wk7", "wk8", "wk9","wk10"],
-    datasets: { label: "Payments made", data: [50, 40, 300, 320, 500, 350, 200, 230, 500,100] },
+    datasets: { label: "Payments made", data: [4, 0, 0, 0, 0, 0, 0, 0, 0,0] },
   },
   tasks: {
     labels: ["wk1", "wk2", "wk3", "wk4", "wk5", "wk6", "wk7", "wk8", "wk9","wk10"],
-    datasets: { label: "Payments made", data: [50, 40, 300, 220, 500, 250, 400, 230, 500,100], },
+    datasets: { label: "Payments made", data: [3, 0, 0, 0, 0, 0, 0, 0, 0,0], },
   },
 };

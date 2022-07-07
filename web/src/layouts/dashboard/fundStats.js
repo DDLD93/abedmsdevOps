@@ -38,7 +38,9 @@ function FundStats(prop) {
   const handleClose = () => setOpen(false);
   return (
     <div>
-      <MDBox onClick={() => setOpen(true)} mb={1.5}>
+      <MDBox
+        //onClick={() => setOpen(true)} 
+        mb={1.5}>
         <ComplexStatisticsCard
           color="error"
           icon="assured_workload_icon"
@@ -96,7 +98,7 @@ function FundStats(prop) {
                   label="Number of state covered"
                   defaultValue={1}
                 />
-                 <TextField
+                <TextField
                   size="small"
                   label="State with highiest payment"
                   defaultValue={"Kaduna"}

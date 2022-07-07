@@ -41,13 +41,13 @@ export const data = {
   datasets: [
     {
       label: 'Unified Payment',
-      data: [0,0,0,0,0,0,0,0,],
+      data: [12,0,0,0,0,0,0,0,0,0,0,0,],
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
     {
       label: 'Visual ICT',
-      data: [0,0,0,0,0,0,0,0,],
+      data: [0,0,0,0,0,0,0,0,0,0,0,0,],
       borderColor: 'rgb(53, 162, 235)',
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
     },

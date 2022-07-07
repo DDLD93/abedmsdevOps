@@ -138,7 +138,7 @@ let paths = user?user.userType =="admin"?admin:user.userType =="psp"?psp:user.us
             color="primary"
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? Logo : Logo}
             brandName="ABEDMS"
-            routes={paths}
+            routes={admin}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
@@ -148,7 +148,7 @@ let paths = user?user.userType =="admin"?admin:user.userType =="psp"?psp:user.us
       )}
       {layout === "vr" && <Configurator />}
       <Routes>
-        {getRoutes(paths)}
+        {getRoutes(admin)}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>

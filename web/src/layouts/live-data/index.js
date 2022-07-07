@@ -36,71 +36,72 @@ function LiveData() {
     const [data2, setdata2] = useState([])
     const ages = [
         ["Age Catergory", "Disbursement by Age"],
-        ["North East", 10],
-        ["North West", 10],
-        ["North Central", 10],
-        ["South East", 10],
-        ["South West", 10],
-        ["South South", 10],
+        ["North East", 1],
+        ["North West", 38],
+        ["North Central", 1],
+        ["South East", 1],
+        ["South West", 1],
+        ["South South", 1],
     ]
     const disability = [
         ["Disability", "Disbursement by disablity"],
-        ["None", 10],
-        ["Blind", 10],
-        ["Deaf", 10],
-        ["Cripple", 10],
-        ["Metally-impaired", 10],
+        ["None", 38],
+        ["Blind", 2],
+        ["Deaf", 1],
+        ["Cripple", 1],
+        ["Metally-impaired", 1],
     ]
     const gender = [
         ["Gender", "Disbursement by gender"],
         ["Male", 10],
-        ["Female", 10],
+        ["Female", 28],
     ]
     const maritalStatus = [
         ["Marital Status", "Disbursement by Marital Status"],
-        ["Single", 10],
-        ["Window", 10],
-        ["Divorce", 10],
+        ["Married", 19],
+        ["Single", 12],
+        ["Window", 2],
+        ["Divorce", 1],
     ]
     const data = [
         ["Name", "Disbursement by state"],
-        ["abia", 10],
-        ["adamawa", 10],
-        ["akwa Ibom", 10],
-        ["anambra", 10],
-        ["bauchi", 10],
-        ["bayelsa", 10],
-        ["benue", 10],
-        ["borno", 10],
-        ["cross River", 10],
-        ["delta", 10],
-        ["ebonyi", 10],
-        ["edo", 10],
-        ["ekiti", 10],
-        ["enugu", 10],
-        ["abuja", 10],
-        ["gombe", 10],
-        ["imo", 10],
-        ["jigawa", 10],
-        ["kaduna", 10],
-        ["kano", 10],
-        ["katsina", 10],
-        ["kebbi", 10],
-        ["kogi", 10],
-        ["kwara", 10],
-        ["lagos", 10],
-        ["nasarawa", 10],
-        ["niger", 10],
-        ["ogun", 10],
-        ["ondo", 10],
-        ["osun", 10],
-        ["oyo", 10],
+        ["abia", 0],
+        ["adamawa", 0],
+        ["akwa Ibom", 0],
+        ["anambra",0],
+        ["bauchi", 0],
+        ["bayelsa", 0],
+        ["benue", 0],
+        ["borno", 0],
+        ["cross River", 0],
+        ["delta", 0],
+        ["ebonyi", 0],
+        ["edo", 0],
+        ["ekiti", 0],
+        ["enugu", 0],
+        ["abuja", 0],
+        ["gombe", 0],
+        ["imo", 0],
+        ["jigawa", 0],
+        ["kaduna", 12],
+        ["kano", 0],
+        ["katsina", 15],
+        ["kebbi", 0],
+        ["kogi", 0],
+        ["kwara", 0],
+        ["lagos", 0],
+        ["nasarawa", 0],
+        ["niger", 0],
+        ["ogun", 0],
+        ["ondo", 0],
+        ["osun", 0],
+        ["oyo", 0],
         ["plateau", 10],
-        ["rivers", 50],
-        ["sokoto", 10],
-        ["taraba", 10],
-        ["yobe", 10],
-        ["zamfara", 10]
+        ["rivers", 0],
+        ["sokoto", 0],
+        ["taraba", 0],
+        ["yobe", 0],
+        ["zamfara", 0]
     ];
     const fetchStats = () => {
         fetch(`${config.EndPionts}/analytics`).
@@ -120,26 +121,7 @@ function LiveData() {
         { Header: "completion", accessor: "completion", width: "20%", align: "center" },
     ]
 
-    const rows = [
-        {
-            companies: <MDTypography variant="caption" color="text" fontWeight="medium">company Name</MDTypography>,
-            state: (<MDTypography variant="caption" color="text" fontWeight="medium">0</MDTypography>),
-            beneficiaries: (<MDTypography variant="caption" color="text" fontWeight="medium">2,400</MDTypography>),
-            disbursement: (
-                <MDTypography variant="caption" color="text" fontWeight="medium">
-                    $14,000
-                </MDTypography>
-            ),
-            payment: (<MDTypography variant="caption" color="text" fontWeight="medium">2,400</MDTypography>),
-            completion: (
-                <MDBox width="8rem" textAlign="left">
-                    <a>50%</a>
-                    <MDProgress value={60} color="info" variant="gradient" label={false} />
-                </MDBox>
-            )
-
-        },
-    ]
+    
     useLayoutEffect(() => {
         fetchStats()
     }, [])
