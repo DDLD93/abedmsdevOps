@@ -103,7 +103,7 @@ export default function App() {
 
 
   return (
-    <>{user ? <SignIn /> : <Grid height="100%" width="100%" sx={{ m: 0 }} container justifyContent="center" alignItems="center" >
+    <>{!user ? <SignIn /> : <Grid height="100%" width="100%" sx={{ m: 0 }} container justifyContent="center" alignItems="center" >
       <NavAppBar
         count={count}
         processed={processed}
