@@ -2,8 +2,8 @@ FROM node:slim
 WORKDIR /app
 
 # Install app dependencies
-COPY package.json .
-RUN npm install
+RUN npm init -y
+RUN npm i express cors
 
 # Bundle app source
 COPY server.js .
