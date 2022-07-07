@@ -53,7 +53,8 @@ class UserController{
       const password = uuid().split("-")[0]
       newPaypoint.password = password
       const paypoint = await newPaypoint.save();
-      await welcomeMsg(paypoint.email,paypoint.fullName,paypoint.password,'paypoint.ddld.info')
+     let response =  await welcomeMsg(paypoint.email,paypoint.fullName,paypoint.password,'paypoint.abedmis.fmhds.gov.ng')
+     console.log("new paypoint response >>> ",response)
       return {ok:true, paypoint};
     } catch (err) {
       return {ok:false,error:err};

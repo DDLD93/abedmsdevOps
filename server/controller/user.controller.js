@@ -56,7 +56,7 @@ class UserController{
       const password = uuid().split("-")[0]
       newUser.password = password
       const user = await newUser.save();
-      let response = await welcomeMsg(user.email,user.fullName,user.password,'ddld.info')
+      let response = await welcomeMsg(user.email,user.fullName,user.password,'abedmis.fmhds.gov.ng')
       console.log("mail response>>>>> ",response)
       return {ok:true, user};
 
