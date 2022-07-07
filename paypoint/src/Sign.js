@@ -11,7 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Grid } from '@mui/material';
-import logo from "./assets/logo.jpg"
+import logo from "./assets/Logo.png"
 import { StateContext } from './context/context';
 
 
@@ -42,8 +42,7 @@ export default function SignIn() {
               alignItems: 'center',
             }}
           >
-            <Avatar src={logo} sx={{ m: 1, width:150, height:150}}>
-            </Avatar>
+            <img src={logo} alt="ABEDMIS LOGO" width="250" height={"130"} />
             <Typography component="h1" variant="h5">
                 ABEDMS
             </Typography>

@@ -72,26 +72,26 @@ function BeneStats(prop) {
               Beneficiary Summary
             </Typography>
             <Grid p={2} gap={1} container >
-              <Typography textAlign="center" variant="p" component="h6">
-                Beneficiary Summary
-              </Typography>
               <Grid p={3} gap={2} container >
                 <TextField
                   size="small"
+                  disabled
                   label="Total Beneficiaries"
-                  defaultValue={55}
+                  defaultValue={prop.count}
                 />
                 <TextField
                   size="small"
+                  disabled
                   label="Total Beneficiaries verified"
-                  defaultValue={7}
+                  defaultValue={prop.verified}
                 />
                 <TextField
                   size="small"
+                  disabled
                   label="Total Beneficiaries paid"
-                  defaultValue={5}
+                  defaultValue={prop.paid}
                 />
-                <TextField
+                {/* <TextField
                   size="small"
                   label="Number of state covered"
                   defaultValue={1}
@@ -100,7 +100,7 @@ function BeneStats(prop) {
                   size="small"
                   label="State with highiest quota"
                   defaultValue={"Kaduna"}
-                />
+                /> */}
               </Grid>
               {/* <Typography textAlign="center" variant="p" component="h6">
                 Summary by States
@@ -123,7 +123,7 @@ function BeneStats(prop) {
 
 
 
-            <MDButton sx={{ mt: 4, ml: 9, mr: 9 }} size="small" variant="outlined" color="primary" >Generate Report</MDButton>
+            {/* <MDButton sx={{ mt: 4, ml: 9, mr: 9 }} size="small" variant="outlined" color="primary" >Generate Report</MDButton> */}
           </Box>
         </Fade>
       </Modal>

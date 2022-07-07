@@ -232,7 +232,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-          <Box sx={{ color:"#000", display:"flex",justifyContent:"space-around", alignItems:"center" , flexGrow: 2,borderRadius:"6px", backgroundColor: "#33ff00", height: '100%' }} >
+          <Box sx={{ color:"#000", display:"flex",justifyContent:"space-around", alignItems:"center" , flexGrow: 2,borderRadius:"6px", backgroundColor: "#fcfcfc", height: '100%' }} >
             <div>
               <span>Status: </span> <span>null</span> <br />
               <span>Offline data: </span> <span>{count}</span> <br />

@@ -69,62 +69,12 @@ function SheetsStats(prop) {
         <Fade in={open}>
           <Box container sx={style.modal}>
             <Typography textAlign="center" variant="h4" component="h6">
-              Beneficiary Summary
+              List Summary
             </Typography>
             <Grid p={2} gap={1} container >
-              <Typography textAlign="center" variant="p" component="h6">
-                Beneficiary Summary
-              </Typography>
-              <Grid p={3} gap={2} container >
-                <TextField
-                  size="small"
-                  label="Total Beneficiaries"
-                  defaultValue={0}
-                />
-                <TextField
-                  size="small"
-                  label="Total Beneficiaries verified"
-                  defaultValue={0}
-                />
-                <TextField
-                  size="small"
-                  label="Total Beneficiaries paid"
-                  defaultValue={0}
-                />
-                <TextField
-                  size="small"
-                  label="Number of state covered"
-                  defaultValue={0}
-                />
-                 <TextField
-                  size="small"
-                  label="State with highiest quota"
-                  defaultValue={0}
-                />
-              </Grid>
-              <Typography textAlign="center" variant="p" component="h6">
-              Summary by States
-              </Typography>
-              <Grid p={3} gap={2} container >
-                <TextField
-                  size="small"
-                  label="Total Beneficiaries"
-                />
-                <TextField
-                  size="small"
-                  label="Total Beneficiaries verified"
-                />
-                <TextField
-                  size="small"
-                  label="Total Beneficiaries paid"
-                />
-              </Grid>
-
+                             
             </Grid>
-
-
-
-            <MDButton sx={{ mt: 4, ml: 9, mr: 9 }} size="small" variant="outlined" color="primary" >Generate Report</MDButton>
+            {/* <MDButton sx={{ mt: 4, ml: 9, mr: 9 }} size="small" variant="outlined" color="primary" >Generate Report</MDButton> */}
           </Box>
         </Fade>
       </Modal>

@@ -8,6 +8,7 @@ import MDButton from 'components/MDButton';
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 import { Card, Grid, TextField } from '@mui/material';
 import MDBox from 'components/MDBox';
+import { Lines } from 'layouts/live-data/pspLines';
 
 
 const style = {
@@ -72,49 +73,13 @@ function PspStats(prop) {
               PSP Summary
             </Typography>
             <Grid p={2} gap={1} container >
-              <Typography textAlign="center" variant="p" component="h6">
-                PSP Summary
-              </Typography>
-              <Grid p={3} gap={2} container >
-                <TextField
-                  size="small"
-                  label="Unified Payment"
-                  defaultValue={0}
-                />
-                <TextField
-                  size="small"
-                  label="Visula ICT"
-                  defaultValue={0}
-                />
-                <TextField
-                  size="small"
-                  label="UpperLink"
-                  defaultValue={0}
-                />
-              </Grid>
-              <Typography textAlign="center" variant="p" component="h6">
-              PSP statistics
-              </Typography>
-              <Grid p={3} gap={2} container >
-                <TextField
-                  size="small"
-                  label="Total Beneficiaries"
-                />
-                <TextField
-                  size="small"
-                  label="Total Beneficiaries verified"
-                />
-                <TextField
-                  size="small"
-                  label="Total Beneficiaries paid"
-                />
-              </Grid>
+             <Lines/>
 
             </Grid>
 
 
 
-            <MDButton sx={{ mt: 4, ml: 9, mr: 9 }} size="small" variant="outlined" color="primary" >Generate Report</MDButton>
+            {/* <MDButton sx={{ mt: 4, ml: 9, mr: 9 }} size="small" variant="outlined" color="primary" >Generate Report</MDButton> */}
           </Box>
         </Fade>
       </Modal>

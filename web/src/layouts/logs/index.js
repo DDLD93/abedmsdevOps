@@ -15,6 +15,7 @@ import config from "../../config";
 
 export default function Logs() {
     const [logs, setLogs] = useState([])
+
     const LogContent = ({evt,desc,time}) => {
     let color = evt=="Account Creation"?"#0080006e":evt=="Sheet Upload"?"#035cee94":"#00c9ff91" 
     return(
@@ -42,8 +43,9 @@ export default function Logs() {
                                 <MDTypography variant="h5">Event Logs</MDTypography>
                             </MDBox>
                             <MDBox pt={2} px={2}>
-                                {logs.map(log=>(
-                                    <LogContent 
+                                {logs.map((log,index)=>(
+                                    <LogContent
+                                    key={index} 
                                     evt={log.event}
                                     desc={log.desc}
                                     time={log.timeStamp}

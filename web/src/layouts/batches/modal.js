@@ -214,7 +214,7 @@ export default function ModalBox(prop) {
                cursor:"pointer"  }}
           />
             <Typography sx={{ m: 3 }} textAlign="center" id="transition-modal-title" variant="h4" component="h2">
-              New Batch
+              New List
             </Typography>
             <Grid container gap={3}>
               <Grid container flexWrap="nowrap" gap={1}>
