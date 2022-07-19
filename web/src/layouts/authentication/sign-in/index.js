@@ -75,7 +75,7 @@ function BasicLogin() {
               
               fontWeight="bold"
               fontSize="small"
-              sx={{ cursor: "pointer", userSelect: "none", ml: -1,textAlign:"center" }}
+              sx={{ cursor: "pointer", userSelect: "none", ml: -1,textAlign:"center",maxWidth:"270px" }}
             >
               AUTOMATED BENEFICIARY
               ENROLMENT AND DATABASE MANAGEMENT
