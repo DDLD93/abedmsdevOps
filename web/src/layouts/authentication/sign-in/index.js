@@ -57,7 +57,7 @@ function BasicLogin() {
 
   return (
     <BasicLayout image={bgImage}>
-      <Card>
+      <Card sx={{maxWidth:"350px"}} >
         <MDBox
           variant="gradient"
           bgColor="white"
