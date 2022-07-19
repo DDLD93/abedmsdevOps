@@ -1,6 +1,7 @@
 version: "3.3"
 services:
   reverse-proxy:
+    restart: always
     image: traefik:v2.4
     container_name: "traefik"
     command:
@@ -47,7 +48,7 @@ services:
     ports:
         - 27017:27017
     volumes:
-        - ./volume/mongo:/data/db
+        - /data/db
     networks:
         - ujere_net  
   backend:
