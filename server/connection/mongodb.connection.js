@@ -10,7 +10,7 @@ module.exports = () => {
         // poolSize: 10,
         keepAlive: true,
         connectTimeoutMS: 30000,
-        useUnifiedTopology: true
+        // useUnifiedTopology: true
     };
     
     const db = mongoose.connection;
