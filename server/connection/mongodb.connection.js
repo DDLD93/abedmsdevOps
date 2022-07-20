@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-var host = process.env.MONGODB_HOST || "127.0.0.1"
+var host = process.env.MONGODB_HOST || "database"
 var port = process.env.MONGODB_PORT || 27017
 const url = `mongodb://${host}:${port}/system`
 module.exports = () => {
