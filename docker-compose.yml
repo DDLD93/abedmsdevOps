@@ -95,9 +95,7 @@ services:
     build: ./sheetWorker
     depends_on:
       - rabbitmq
-    container_name: 'sheetworker'
-    networks:
-        - ujere_net                         
+    container_name: 'sheetworker'                        
 networks:
   ujere_net:
     driver: bridge          

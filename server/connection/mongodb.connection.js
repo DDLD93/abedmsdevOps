@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-var host = process.env.MONGODB_HOST || "localhost"
+var host = process.env.MONGODB_HOST || "127.0.0.1"
 var port = process.env.MONGODB_PORT || 27017
 const url = `mongodb://${host}:${port}/system`
 module.exports = () => {
@@ -10,7 +10,7 @@ module.exports = () => {
         // poolSize: 10,
         keepAlive: true,
         connectTimeoutMS: 30000,
-        // useUnifiedTopology: true
+        useUnifiedTopology: true
     };
     
     const db = mongoose.connection;
@@ -23,7 +23,7 @@ module.exports = () => {
     
     db.on('disconnect', () => {
         console.log('Oops we are disconnected from mongodb');
-        mongoose.connect(url);
+        mongoose.connect(url,options);
     });
-    mongoose.connect(url);
+    mongoose.connect(url,options);
 }
