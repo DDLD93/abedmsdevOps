@@ -7,7 +7,7 @@ module.exports = () => {
     let options = { 
         useNewUrlParser: true,
         useFindAndModify: false,
-        useUnifiedTopology: true 
+        useUnifiedTopology: false 
     }
 
     const db = mongoose.connection;
