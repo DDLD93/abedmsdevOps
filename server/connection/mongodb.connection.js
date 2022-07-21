@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 var host = process.env.MONGODB_HOST || "database"
 var port = process.env.MONGODB_PORT || 27017
-var connString = "mongodb+srv://abedmis:16001105@cluster0.fljiocn.mongodb.net/system?retryWrites=true&w=majority"
+var connString = "mongodb+srv://abedmis:16001105@cluster0.fljiocn.mongodb.net/?retryWrites=true&w=majority"
 const url = `mongodb://${host}:${port}/system`
 module.exports = () => {
     let options = { 
-        useNewUrlParser: true, 
-        useUnifiedTopology: true, 
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true 
     }
 
     const db = mongoose.connection;
