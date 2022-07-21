@@ -6,8 +6,6 @@ const url = `mongodb://${host}:${port}/system`
 module.exports = () => {
     let options = { 
         useNewUrlParser: true,
-        useFindAndModify: false,
-        useUnifiedTopology: false 
     }
 
     const db = mongoose.connection;
