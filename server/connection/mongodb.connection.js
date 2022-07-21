@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 var host = process.env.MONGODB_HOST || "database"
 var port = process.env.MONGODB_PORT || 27017
+var connString = "mongodb+srv://abedmis:16001105@cluster0.fljiocn.mongodb.net/?retryWrites=true&w=majority"
 const url = `mongodb://${host}:${port}/system`
 module.exports = () => {
     let options = {
@@ -23,7 +24,7 @@ module.exports = () => {
     
     db.on('disconnect', () => {
         console.log('Oops we are disconnected from mongodb');
-        mongoose.connect(url,options);
+        mongoose.connect(connString,options);
     });
-    mongoose.connect(url,options);
+    mongoose.connect(connString,options);
 }

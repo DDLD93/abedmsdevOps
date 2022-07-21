@@ -19,7 +19,7 @@ import DataTable from "examples/Tables/DataTable";
 import MDBadge from "components/MDBadge";
 import { useContext, useEffect, useState } from "react";
 import ModalBox from "./modal";
-import {TextField, Typography } from "@mui/material";
+import { CircularProgress, TextField, Typography } from "@mui/material";
 import { StateContext } from "../../store/store"
 
 import Profile from "./preview";
@@ -33,7 +33,7 @@ import config from "config";
 
 function Beneficiaries() {
 
-    const [loading, setloading] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [isloading, setisloading] = useState(true)
 
     const [gettingList, setgettingList] = useState(false)
@@ -87,6 +87,24 @@ function Beneficiaries() {
                 notification("error", "An error ocuured fetching list")
                 setisloading(false)
                 setgettingList(false)
+            })
+    }
+    const getAllBene = () => {
+        setLoading(true)
+        let url = `${config.EndPionts}/beneficiaries`
+        fetch(url, {
+            headers: {
+                "Authorization": "Bearer " + token,
+            },
+        }).then(res => (res.json())).
+            then(response => {
+                console.log("ALL  >>>>>",response)
+                setbene(response)
+                setLoading(false)
+                setbeneBck(response)
+            }).catch(err => {
+                notification("error", "An error ocuured fetching list")
+                setisloading(false)
             })
     }
 
@@ -203,7 +221,9 @@ function Beneficiaries() {
         { Header: "Phone", accessor: "phone", align: "center" },
         { Header: "Action", accessor: "action", align: "center" },
     ]
-
+    useEffect(() => {
+        getAllBene()
+    },[])
     useEffect(() => {
         if (state) {
             getLGAs()
@@ -212,6 +232,7 @@ function Beneficiaries() {
     }, [state])
     useEffect(() => {
         if (lga) {
+            if(lga == "All") 
             filterByLga()
         }
     }, [lga])
@@ -227,12 +248,14 @@ function Beneficiaries() {
             <DashboardNavbar />
             <MDBox pt={6} pb={3}>
                 <Grid container flexDirection={"column"} spacing={0}>
-
-                    {loading == true ?
-                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: 400, flexDirection: "column" }} >
-                        </div> :
+                    {loading ? <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "400px", flexDirection: "column" }}>
+                        <CircularProgress style={{ display: "block" }} size={55} color="success" />
+                        <Typography mt={1} variant="p" textAlign={"center"} >
+                            Fetching data
+                        </Typography>
+                    </div> :
                         <Grid item xs={12}>
-                            <Card>
+                            <Card sx={{ minHeight: 400 }} >
                                 <MDBox pt={3}>
                                     <Grid container sx={{ justifyContent: "center", gap: 3, pb: 2 }} >
                                         <TextField
@@ -287,23 +310,23 @@ function Beneficiaries() {
                                             ))}
                                         </TextField>
                                         <TextField
-                                            onChange={(e)=>setSearch(e.target.value)}
+                                            onChange={(e) => setSearch(e.target.value)}
                                             sx={{ width: 200, ml: 4 }} placeholder="Name Phone" size="small" label="Search" />
 
 
                                     </Grid>
-                                    {rows.length < 1 ?<div style={{display:"flex",alignItems:"center", flexDirection:"column"}}>
-                                        <Typography variant="h6" textAlign={"center"} >
-                                        Choose a state to display beneficiary list
-                                    </Typography>
-                                        {/* <CircularProgress style={{display:isloading?"none":"block"}} size={25} color="success" /> */}
-                                    </div>  : <DataTable
-                                        table={{ columns, rows }}
-                                        isSorted={false}
-                                        entriesPerPage={false}
-                                        showTotalEntries={true}
-                                        noEndBorder
-                                    />}
+                                    {rows.length == 0 ?
+                                        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "200px", flexDirection: "column" }}>
+                                            <Typography mt={1} variant="p" textAlign={"center"} >
+                                                List will appear here
+                                            </Typography>
+                                        </div> : <DataTable
+                                            table={{ columns, rows }}
+                                            isSorted={false}
+                                            entriesPerPage={false}
+                                            showTotalEntries={true}
+                                            noEndBorder
+                                        />}
                                     {/* {gettingList && <Typography variant="h6" textAlign={"center"} >
                                         Fetching list ....
                                     </Typography>} */}
