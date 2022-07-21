@@ -16,6 +16,7 @@ import { StateContext } from 'store/store';
 export default function Profile(prop) {
     const [open, setOpen] = React.useState(false);
     const { notification, token } = React.useContext(StateContext)
+    console.log("props>>>>  ",prop)
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -66,22 +67,6 @@ export default function Profile(prop) {
             })
     }
     const descriptionElementRef = React.useRef(null);
-    // async function createFile() {
-    //     let response = await fetch('http://localhost:9000/api/uploads/bafb51012d574c8ab33687fb9bfd5414.xlsx');
-    //     let data = await response.blob();
-    //     let metadata = {
-    //         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    //     };
-    //     let file = new File([data], "temp.xlsx", metadata);
-    //     // ... do something with the file or return it
-    //     const result = excelToJson({
-    //         sourceFile: file,
-    //         header: {
-    //             rows: 4,
-    //         }
-    //     });
-    //     console.log(result)
-    // }
     React.useEffect(() => {
         let image = prop.avatar 
         console.log(image)
@@ -150,19 +135,19 @@ export default function Profile(prop) {
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Ward</span>: <em style={{ color: "#000" }} >{prop.ward}</em> </p>
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Marital Status</span>: <em style={{ color: "#000" }} >{prop.maritalStatus}</em> </p>
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Occupation</span>: <em style={{ color: "#000" }} >{prop.occupation}</em> </p>
-                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Biometric</span>: <em style={{ color: "#000" }} >{null}</em> </p>
+                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Disability</span>: <em style={{ color: "#000" }} >{prop.disability}</em> </p>
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Status</span>: <em style={{ color: "#000" }} >{prop.status}</em> </p>
                             </div>
                         </Card>
                         <Card sx={{ mt:2, mb:3, display: "flex", width: 550, height: 400, p: 2 }}>
                             <div>
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder" , marginRight:"5px"}} >Payment Type</span>: <em style={{ color: "#000" }} >{prop.methodOfPayment}</em> </p>
-                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Payment Details</span>: <em style={{ color: "#000" }} >{prop.remark}</em> </p>
+                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Payment Details</span>: <em style={{ color: "#000" }} >{prop.details}</em> </p>
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Amount</span>: <em style={{ color: "#000" }} >{prop.remark?20000:""}</em> </p>
                                 <p style={{ fontSize: "12px", textAlign: "start" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >PSP</span>: {prop.code}</p>
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder" , marginRight:"5px"}} >Paypoint</span>: <em style={{ color: "#000" }} >{}</em> </p>
                                 <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder" , marginRight:"5px"}} >Location</span>: <em style={{ color: "#000" }} >{}</em> </p>
-                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Time Stamps</span>: <em style={{ color: "#000" }} >{}</em> </p>
+                                <p style={{ fontSize: "12px" }} ><span style={{ fontWeight: "bolder", marginRight:"5px" }} >Time Stamps</span>: <em style={{ color: "#000" }} >{prop.timestamp}</em> </p>
                             </div>
                             <img src={prop.paymentProof} style={{ marginTop: "20px", border: "1px solid red", borderRadius: "5%", marginBottom: "10px" }} alt="payment proof" width="400" height="200" />
                         </Card>

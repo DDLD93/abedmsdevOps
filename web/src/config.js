@@ -1,3 +1,3 @@
 module.exports = {
-    EndPionts:"https://abedmis.fmhds.gov.ng/api"
+    EndPionts:"/api"
 }

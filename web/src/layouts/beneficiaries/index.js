@@ -54,17 +54,17 @@ function Beneficiaries() {
     }
     const filterBySearch = () => {
         setbene(beneBck.filter(li => {
-            // console.log(li.fullName==undefined?console.log(li):"none")
-            return li.fullName.includes(search) || li.phone.includes(search)
+            return li.fullName.includes(search) || li.phone.includes(search) 
         }))
 
     }
 
     function getLGAs() {
+        setlgaList([])
         fetch(`${config.EndPionts}/beneficiaries/lga/${state}`).
             then(res => (res.json())).
             then(list => {
-                setlgaList([lgaList, ...list])
+                setlgaList(list)
             })
     }
 
@@ -118,6 +118,7 @@ function Beneficiaries() {
     );
 
     const rows = bene.map(obj => {
+        console.log("objeccts  >>>>>>",  obj)
         return {
             name: (<MDTypography component="a" href="#" variant="a" color="text" fontWeight="medium">
                 {obj.fullName}
@@ -152,7 +153,7 @@ function Beneficiaries() {
                         fullName={obj.fullName}
                         avatar={obj?.biometric?.imageHash}
                         gender={obj.gender}
-                        disability={obj.disability}
+                        disability={obj?.identification?.disability}
                         age={obj.age}
                         lga={obj.lga}
                         phone={obj.phone}
@@ -165,6 +166,8 @@ function Beneficiaries() {
                         idNo={obj?.identification?.idNo}
                         methodOfPayment={obj?.payment?.method}
                         paymentProof={obj?.payment?.imageHash}
+                        details={`${obj?.payment?.bankName}: ${obj?.payment?.accNo}`}
+                        timestamp={obj?.updatedAt}
                         remark={obj?.payment?.remark}
                     />
                 </MDBox>
@@ -174,7 +177,7 @@ function Beneficiaries() {
 
 
     const stateList = [
-        "",
+        "All",
         "abia",
         "adamawa",
         "akwa Ibom",
@@ -226,13 +229,16 @@ function Beneficiaries() {
     },[])
     useEffect(() => {
         if (state) {
-            getLGAs()
-            getBene()
+            if(state == 'All') {
+                getAllBene()
+            }else{
+                getLGAs()
+                getBene()
+            }
         }
     }, [state])
     useEffect(() => {
         if (lga) {
-            if(lga == "All") 
             filterByLga()
         }
     }, [lga])
