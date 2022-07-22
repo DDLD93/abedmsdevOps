@@ -19,6 +19,11 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { Avatar, Button } from '@mui/material';
 import {Link} from "react-router-dom";
 import TransitionsModal from './ModalWarning';
+import {useNetworkState} from 'react-use';
+import SyncModal from './SyncModal';
+
+
+  
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -64,6 +69,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [OnlineStatus,setOnlineStatus]=React.useState(false)
+  const state = useNetworkState();
  
   const handleSync = React.useCallback(() => {
     sync()
@@ -90,27 +96,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  React.useEffect(() => {
-    window.addEventListener("offline", () => {
-      console.log("offline")
-      setOnlineStatus(false);
-    });
-    window.addEventListener("online", () => {
-      console.log("online")
-      setOnlineStatus(true);
-    });
-
-    return () => {
-      window.removeEventListener("offline", () => {
-        console.log("offline")
-        setOnlineStatus(false);
-      });
-      window.removeEventListener("online", () => {
-        console.log("online")
-        setOnlineStatus(true);
-      });
-    };
-  }, []);
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -135,78 +120,57 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
-  window.addEventListener('load', function(e) {
-    if (navigator.onLine) {
-      console.log('We\'re online!');
-    } else {
-      console.log('We\'re offline...');
-    }
-  }, false);
-  
-  window.addEventListener('online', function(e) {
-    console.log('And we\'re back :).');
-  }, false);
-  
-  window.addEventListener('offline', function(e) {
-    console.log('Connection is down.');
-  }, false);
+  // const renderMobileMenu = (
+  //   <Menu
+  //     anchorEl={mobileMoreAnchorEl}
+  //     anchorOrigin={{
+  //       vertical: 'top',
+  //       horizontal: 'right',
+  //     }}
+  //     id={mobileMenuId}
+  //     keepMounted
+  //     transformOrigin={{
+  //       vertical: 'top',
+  //       horizontal: 'right',
+  //     }}
+  //     open={isMobileMenuOpen}
+  //     onClose={handleMobileMenuClose}
+  //   >
+  //     <MenuItem>
+  //       <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+  //         <Badge badgeContent={4} color="error">
+  //           <MailIcon />
+  //         </Badge>
+  //       </IconButton>
+  //       <p>Messages</p>
+  //     </MenuItem>
+  //     <MenuItem>
+  //       <IconButton
+  //         size="large"
+  //         aria-label="show 17 new notifications"
+  //         color="inherit"
+  //       >
+  //         <Badge badgeContent={17} color="error">
+  //           <NotificationsIcon />
+  //         </Badge>
+  //       </IconButton>
+  //       <p>Notifications</p>
+  //     </MenuItem>
+  //     <MenuItem onClick={handleProfileMenuOpen}>
+  //       <IconButton
+  //         size="large"
+  //         aria-label="account of current user"
+  //         aria-controls="primary-search-account-menu"
+  //         aria-haspopup="true"
+  //         color="inherit"
+  //       >
+  //         <AccountCircle />
+  //       </IconButton>
+  //       <p>Profile</p>
+  //     </MenuItem>
+  //   </Menu>
+  // );
 
-
-  React.useEffect(() => {
-  
-   
-  }, [])
-  
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -232,13 +196,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-          <Box sx={{ color:"#000", display:"flex",justifyContent:"space-around", alignItems:"center" , flexGrow: 2,borderRadius:"6px", backgroundColor: "#fcfcfc", height: '100%' }} >
+          <Box sx={{ color:"#000", display:"flex",justifyContent:"space-around", alignItems:"center" , flexGrow: 2,borderRadius:"6px", backgroundColor:state.online?"#fcfcfc":"red", height: '100%' }} >
             <div>
-              <span>Status: </span> <span>null</span> <br />
+              <span>Status: </span> <span>{state.online?"Online":"Offline"}</span> <br />
               <span>Offline data: </span> <span>{count}</span> <br />
               <span>Processed data: </span> <span>{processed}</span> <br />
             </div>
-            <LoadingButton loading={loading} onClick={handleSync} sx={{height:"30px"}} variant='contained' >Sync</LoadingButton>
+            {/* <LoadingButton loading={loading} onClick={handleSync} sx={{height:"30px"}} variant='contained' >Sync</LoadingButton> */}
+            <SyncModal/>
 
 
           </Box>

@@ -33,29 +33,31 @@ export default function App() {
   const [loading, setloading] = useState(false)
   const [processed, setprocessed] = useState(0)
   let db = new Localbase('db').collection("beneList")
+
   async function sync() {
     setloading(true)
-        rows.forEach(obj => {
-          if (obj?.status === "paid") {
-            let url = `${config.endPoint}/beneficiaries/process/${obj.id}`
-            console.log("object >>>>>>,",obj)
-            fetch(url, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token,
-              },
-              body: JSON.stringify(obj)
-            }).then(res => (res.json()))
-              .then(res => {
-                console.log(res)
-              }).catch((err)=>{
-                console.log(err)
-              })
-          }
-        })
-        notification("MESSAGE","success")
+    setTimeout(()=>{
+      rows.forEach(obj => {
+        if (obj?.status === "paid") {
+          let url = `${config.endPoint}/beneficiaries/process/${obj.id}`
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer " + token,
+            },
+            body: JSON.stringify(obj)
+          }).then(res => (res.json()))
+            .then(res => {
+            }).catch((err)=>{
+            })
+        }
+      })
       setloading(false)
+    },2000)
+       
+        //notification("MESSAGE","success")
+      
   }
 
 
@@ -65,7 +67,6 @@ export default function App() {
       setcount(arr.length)
       let list = arr.map(obj => {
         if(obj?.status === "paid") {
-          console.log(obj)
           setprocessed(prev=>prev+1)
         }
         return {

@@ -5,7 +5,7 @@ let mailer = nodeMailer.createTransport({
     port: 465,
     auth: {
       user: "abedms@zohomail.com",
-      pass: "4CE5DrxCG0kX",
+      pass: "Qj1NVJYHpfdF",
     },
   });
 async function welcomeMsg(email,name,password,link) {

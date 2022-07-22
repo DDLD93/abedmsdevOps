@@ -104,8 +104,7 @@ export default function StateContextProvider({ children }) {
                     }).catch(err => console.log("error indexing", err))
 
                 })
-            }).
-            catch(err => console.log("error fetching", err))
+            }).catch(err => console.log("error fetching", err))
         // db.get().then(docs => {
         //   })     
     }
