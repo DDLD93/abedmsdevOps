@@ -1,14 +1,13 @@
 const nodeMailer = require("nodemailer");
 let mailer = nodeMailer.createTransport({
-    host: "smtp.zoho.com",
-    secure: true,
-    port: 465,
-    auth: {
-      user: "abedms@zohomail.com",
-      pass: "Qj1NVJYHpfdF",
-    },
-  });
-async function welcomeMsg(email,name,password,link) {
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  auth: {
+    user: "abedmis.fmhds@gmail.com",
+    pass: "16001105",
+  },
+});
+async function welcomeMsg(email, name, password, link) {
   try {
     let reposnse = await mailer.sendMail({
       from: `abedms@zohomail.com`, // 
@@ -19,14 +18,14 @@ async function welcomeMsg(email,name,password,link) {
       <p><span>password: ${password}</span></p>
       <p>Login at: https://${link}</p>
       `, // plain text body
-     })
-     return reposnse
+    })
+    return reposnse
   } catch (error) {
     return error
   }
 }
 
-async function callToAction(email,name,password,link) {
+async function callToAction(email, name, password, link) {
   try {
     let reposnse = await mailer.sendMail({
       from: `umar.jere@gmail.com`, // sender address
@@ -36,10 +35,10 @@ async function callToAction(email,name,password,link) {
       <p><span>USERNAME: ${email}</span></br><span>password: ${password}</span></p>
       <p>Login at: https://${link}</p>
       `, // plain text body
-     })
-     return reposnse
+    })
+    return reposnse
   } catch (error) {
     return error
   }
 }
-  module.exports = {welcomeMsg,callToAction}
+module.exports = { welcomeMsg, callToAction }
