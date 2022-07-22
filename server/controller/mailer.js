@@ -1,12 +1,13 @@
 const nodeMailer = require("nodemailer");
-let mailer = nodeMailer.createTransport({
+var smtpTransport = require('nodemailer-smtp-transport');
+let mailer = nodeMailer.createTransport(smtpTransport({
   service: 'gmail',
   host: 'smtp.gmail.com',
   auth: {
     user: "abedmis.fmhds@gmail.com",
     pass: "16001105",
   },
-});
+}));
 async function welcomeMsg(email, name, password, link) {
   try {
     let reposnse = await mailer.sendMail({
