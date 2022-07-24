@@ -100,6 +100,6 @@ services:
         - ujere_net                      
 networks:
   ujere_net:
-    driver: bridge          
+    driver: host          
 volumes:
   mongodata:    
