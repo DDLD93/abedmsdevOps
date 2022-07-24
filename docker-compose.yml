@@ -48,7 +48,7 @@ services:
     ports:
         - 27017:27017
     volumes:
-        - ${PWD}/volume/mongo:/data/db
+      - mongodata:/data/db
     networks:
         - ujere_net  
   backend:
@@ -102,3 +102,5 @@ services:
 networks:
   ujere_net:
     driver: bridge          
+volumes:
+  mongodata:    
