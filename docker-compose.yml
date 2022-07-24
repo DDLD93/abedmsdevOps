@@ -72,7 +72,6 @@ services:
     container_name: 'backendapp'
     networks:
         - ujere_net 
-        - mongodb 
   paypoint:
     restart: always
     build: ./paypoint
@@ -100,8 +99,6 @@ services:
     networks:
         - ujere_net                      
 networks:
-  mongodb:
-    driver: host
   ujere_net:
     driver: bridge          
 volumes:
