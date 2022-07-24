@@ -41,16 +41,16 @@ services:
         - ${PWD}/volume/rb:/var/lib/rabbitmq/mnesia/ 
     networks:
         - ujere_net      
-  # database:
-  #   image: mongo:latest
-  #   container_name: 'mongodb'
-  #   restart: always
-  #   ports:
-  #       - 27017:27017
-  #   volumes:
-  #     - mongodata:/data/db
-  #   networks:
-  #       - ujere_net  
+  database:
+    image: mongo:latest
+    container_name: 'mongodb'
+    restart: always
+    ports:
+        - 27017:27017
+    volumes:
+      - mongodata:/data/db
+    networks:
+        - ujere_net  
   backend:
     restart: always
     build: ./server
@@ -67,10 +67,12 @@ services:
 
     depends_on:
       - rabbitmq
+      - database
     ports:
       - 9000:9000  
     container_name: 'backendapp'
-    network_mode: host
+    networks:
+        - ujere_net  
   paypoint:
     restart: always
     build: ./paypoint
