@@ -70,8 +70,7 @@ services:
     ports:
       - 9000:9000  
     container_name: 'backendapp'
-    networks:
-        - ujere_net 
+    network_mode: host
   paypoint:
     restart: always
     build: ./paypoint
@@ -100,6 +99,6 @@ services:
         - ujere_net                      
 networks:
   ujere_net:
-    driver: host          
+    driver: bridge          
 volumes:
   mongodata:    
