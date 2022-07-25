@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 var host = process.env.MONGODB_HOST || "database"
 var port = process.env.MONGODB_PORT || 27017
-const url = `mongodb://ddld:ddld@${host}:${port}/system`
+const url = `mongodb://ddld:16001105@${host}:${port}/system`
 
 module.exports = () => {
     let options = {
