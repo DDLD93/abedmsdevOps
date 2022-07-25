@@ -25,7 +25,7 @@ const style = {
     p: 4,
 };
 
-export default function SyncModal() {
+export default function SyncModal(prop) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -34,6 +34,7 @@ export default function SyncModal() {
     const [message, setMessage] = React.useState("false")
     const { clearIndexDB } = React.useContext(StateContext)
     const state = useNetworkState();
+    let syncFunc = prop.syncFunc
 
     const sync = () => {
         setLoading(true)
@@ -48,6 +49,15 @@ export default function SyncModal() {
                     setTimeout(() => {
                         if(state.online){
                             setProgress(70)
+                            setLoading(false)
+                            syncFunc()
+                            setTimeout(() => {
+                                setProgress(90)
+                                setMessage("Finallizing")
+                                setOpen(false)
+                            },1000);
+
+
                         }else{
                             setProgress(30)
                             setMessage("No internet connection found")

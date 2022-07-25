@@ -34,7 +34,8 @@ export default function App() {
   const [processed, setprocessed] = useState(0)
   let db = new Localbase('db').collection("beneList")
 
-  async function sync() {
+  async function syncFunc() {
+    console.log("sync started")
     setloading(true)
     setTimeout(()=>{
       rows.forEach(obj => {
@@ -49,7 +50,9 @@ export default function App() {
             body: JSON.stringify(obj)
           }).then(res => (res.json()))
             .then(res => {
+              console.log(res)
             }).catch((err)=>{
+              console.log(err)
             })
         }
       })
@@ -109,7 +112,7 @@ export default function App() {
         count={count}
         processed={processed}
         loading={loading}
-        sync={sync}
+        syncFunc={syncFunc}
       />
       <Card sx={{ height: "85vh", width: "100%" }}>
         <Routes>

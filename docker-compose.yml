@@ -70,6 +70,8 @@ services:
       - database
     ports:
       - 9000:9000  
+    volumes:
+     - /uploads:/app/uploads  
     container_name: 'backendapp'
     networks:
         - ujere_net  

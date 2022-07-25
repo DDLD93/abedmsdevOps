@@ -65,15 +65,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
      
- export default function NavAppBar({count,processed,sync,loading}) {
+ export default function NavAppBar({count,processed,sync,loading,syncFunc}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [OnlineStatus,setOnlineStatus]=React.useState(false)
   const state = useNetworkState();
  
-  const handleSync = React.useCallback(() => {
-    sync()
-  }, [sync])
   
 
   const isMenuOpen = Boolean(anchorEl);
@@ -203,7 +200,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
               <span>Processed data: </span> <span>{processed}</span> <br />
             </div>
             {/* <LoadingButton loading={loading} onClick={handleSync} sx={{height:"30px"}} variant='contained' >Sync</LoadingButton> */}
-            <SyncModal/>
+            <SyncModal
+            syncFunc={syncFunc}
+            btnLoading={loading}
+            />
 
 
           </Box>
